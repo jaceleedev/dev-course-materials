@@ -13,8 +13,8 @@ const appMeta: MetaRecord = {
       pagination: false, // 페이지네이션 숨기기 (선택사항)
     },
   },
-  courses: {
-    title: "강의 목록",
+  python: {
+    title: "Python 프로그래밍",
   },
 };
 

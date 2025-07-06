@@ -1,5 +1,6 @@
 import { BackgroundLines } from "@/components/ui/background-lines";
 import { ColourfulText } from "@/components/ui/colourful-text";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -11,9 +12,11 @@ export default function Home() {
         배우는 순간, 당신의 아이디어가 현실이 됩니다
       </p>
       <div className="mt-8 md:mt-12">
-        <button className="cursor-pointer px-8 py-3 md:px-10 md:py-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg text-sm md:text-base transition-all duration-200 transform hover:scale-105 relative z-20">
-          지금 시작하기
-        </button>
+        <Link href="/python/unit-1/topic-1" passHref>
+          <button className="cursor-pointer px-8 py-3 md:px-10 md:py-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg text-sm md:text-base transition-all duration-200 transform hover:scale-105 relative z-20">
+            지금 시작하기
+          </button>
+        </Link>
       </div>
     </BackgroundLines>
   );
