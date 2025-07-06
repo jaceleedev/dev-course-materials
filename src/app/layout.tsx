@@ -25,7 +25,11 @@ const navbar = (
     // ... Your additional navbar options
   />
 );
-const footer = <Footer>MIT {new Date().getFullYear()} © Nextra.</Footer>;
+const footer = (
+  <Footer>
+    MIT {new Date().getFullYear()} © 코리아IT아카데미 신촌 - Jaceleedev
+  </Footer>
+);
 
 export default async function RootLayout({
   children,
