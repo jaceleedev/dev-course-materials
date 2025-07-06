@@ -1,0 +1,593 @@
+---
+title: "조건문 - 프로그램이 스스로 판단하기"
+description: "if, elif, else를 활용하여 프로그램에 판단력과 의사결정 능력을 부여해보세요"
+---
+
+import InteractiveChecklist from "@/components/ui/interactive-checklist";
+
+# Topic 1: 조건문 - 프로그램이 스스로 판단하기 🧠
+
+## 🎯 학습 목표
+
+조건문(if, elif, else)의 개념과 구조를 이해하고, 다양한 상황에서 프로그램이 스스로 판단하고 결정을 내리는 지능형 시스템을 구축할 수 있습니다.
+
+## 🌟 인식에서 지능으로: 프로그램의 혁명적 진화
+
+### 지금까지의 위대한 여정
+
+- **Unit-2**: 창조 → 소통 → 기억 → 인식의 4단계 완성
+- **현재 위치**: 모든 기초 능력을 갖춘 프로그램
+- **다음 목표**: 스스로 **판단하고 결정**하는 진정한 지능 구현
+
+### 🤖 지금까지의 프로그램 vs 앞으로의 프로그램
+
+#### 지금까지의 프로그램 (수동적 도구)
+
+```python
+age = int(input("나이: "))
+print(f"입력된 나이: {age}")
+# 단순히 받은 대로 출력만...
+```
+
+#### 앞으로의 프로그램 (지능형 시스템)
+
+```python
+age = int(input("나이: "))
+if age >= 18:
+    print("성인입니다. 모든 서비스를 이용하실 수 있어요!")
+else:
+    print("미성년자입니다. 보호자 동의가 필요해요.")
+# 상황을 판단하고 적절한 조치를 취함!
+```
+
+### 🧠 조건문: 지능의 첫 번째 징표
+
+**조건문(Conditional Statement)**은 프로그램이 **"만약 ~라면 ~하라"**는 논리적 사고를 할 수 있게 해주는 마법입니다.
+
+> **지능의 정의**:
+> "상황을 파악하고, 적절한 판단을 내리며, 그에 맞는 행동을 선택하는 능력"
+>
+> 조건문을 배운다는 것은 프로그램에게 **진정한 지능의 첫 번째 요소**를
+> 선사하는 것입니다! 🌟✨
+
+## 🚦 PART 1: if문 - 첫 번째 판단력
+
+### if문의 기본 구조
+
+```python
+if 조건:
+    실행할 코드
+```
+
+### 🎯 첫 번째 지능형 프로그램
+
+```python
+# 🌡️ 온도에 따른 옷차림 추천
+temperature = int(input("오늘 기온(°C): "))
+
+if temperature >= 25:
+    print("🌞 더워요! 반팔과 반바지를 추천해요.")
+
+if temperature < 25:
+    print("🧥 쌀쌀해요! 긴팔을 입으세요.")
+
+if temperature < 10:
+    print("🧣 추워요! 두꺼운 옷을 입으세요.")
+
+if temperature < 0:
+    print("❄️ 매우 추워요! 패딩을 꼭 입으세요!")
+```
+
+### 🔍 if문 해부하기
+
+```python
+if temperature >= 25:
+#  ↑           ↑    ↑
+# 키워드     조건   콜론
+    print("더워요!")
+#   ↑
+# 들여쓰기 4칸 (매우 중요!)
+```
+
+**중요한 구성 요소들**:
+
+1. **`if`**: 조건문 시작 키워드
+2. **조건**: 참(True) 또는 거짓(False)로 평가되는 식
+3. **`:`**: 조건문 시작을 알리는 콜론
+4. **들여쓰기**: 조건이 참일 때 실행할 코드 (스페이스 4개)
+
+## 🔀 PART 2: if-else문 - 이분법적 사고
+
+### 양자택일의 지혜
+
+```python
+# ⚖️ 성인/미성년자 판별기
+age = int(input("나이를 입력하세요: "))
+
+if age >= 18:
+    print("🎓 성인입니다!")
+    print("✅ 모든 서비스 이용 가능")
+    print("🎫 성인 요금 적용")
+else:
+    print("👶 미성년자입니다!")
+    print("👨‍👩‍👧‍👦 보호자 동의 필요")
+    print("🎫 청소년 할인 적용")
+
+print("서비스를 이용해주셔서 감사합니다!")
+```
+
+### 🎮 실전 프로젝트: 게임 입장 시스템
+
+```python
+# 🎮 게임 카페 입장 시스템
+print("🎮 파이썬 게임카페에 오신 것을 환영합니다!")
+print("="*50)
+
+name = input("이름: ")
+age = int(input("나이: "))
+
+print(f"\n🔍 {name}님의 입장 심사 중...")
+print("="*30)
+
+if age >= 18:
+    print("✅ 입장 승인!")
+    print("🎮 모든 게임 이용 가능")
+    print("🍕 주류/담배 구매 가능")
+    print("⏰ 이용시간: 제한없음")
+
+    # 추가 서비스 안내
+    membership = input("\n멤버십 가입하시겠어요? (y/n): ")
+    if membership.lower() == 'y':
+        print("🎁 멤버십 가입 완료! 10% 할인 혜택!")
+    else:
+        print("💳 일일 이용권으로 진행합니다.")
+
+else:
+    print("❌ 입장 제한")
+    print("👶 미성년자는 보호자 동반 필요")
+    print("⏰ 이용가능 시간: 오후 6시까지")
+    print("🚫 일부 게임 이용 제한")
+
+    guardian = input("\n보호자가 동반하셨나요? (y/n): ")
+    if guardian.lower() == 'y':
+        print("👨‍👩‍👧‍👦 보호자 동반 확인! 입장 승인!")
+    else:
+        print("😔 죄송합니다. 다음 기회에 뵙겠습니다.")
+
+print("\n🎮 즐거운 게임 되세요!")
+```
+
+## 🎭 PART 3: if-elif-else문 - 다중 선택의 예술
+
+### 복잡한 상황의 세밀한 판단
+
+```python
+# 📊 성적 등급 계산기
+print("📚 성적 등급 계산기")
+print("="*25)
+
+name = input("학생 이름: ")
+score = int(input("점수 (0-100): "))
+
+print(f"\n📊 {name} 학생의 성적 결과")
+print("="*30)
+
+if score >= 90:
+    grade = "A"
+    comment = "🏆 훌륭합니다! 최고 수준이에요!"
+    recommendation = "💪 이 실력을 계속 유지하세요!"
+elif score >= 80:
+    grade = "B"
+    comment = "👍 잘했어요! 우수한 성적입니다!"
+    recommendation = "📈 조금만 더 노력하면 A등급!"
+elif score >= 70:
+    grade = "C"
+    comment = "😊 괜찮아요! 평균 이상이에요!"
+    recommendation = "📖 복습을 좀 더 해보세요!"
+elif score >= 60:
+    grade = "D"
+    comment = "😐 아쉬워요. 더 노력이 필요해요."
+    recommendation = "💡 기초부터 차근차근 다시 공부해보세요!"
+else:
+    grade = "F"
+    comment = "😔 많이 부족해요. 포기하지 마세요!"
+    recommendation = "🤝 선생님이나 친구에게 도움을 요청하세요!"
+
+# 결과 출력
+print(f"점수: {score}점")
+print(f"등급: {grade}")
+print(f"평가: {comment}")
+print(f"조언: {recommendation}")
+
+# 추가 분석
+if score == 100:
+    print("🎊 만점! 완벽합니다!")
+elif score >= 95:
+    print("⭐ 거의 만점에 가까워요!")
+
+print("="*30)
+print("📚 계속 열심히 공부하세요!")
+```
+
+### 🌤️ 프로젝트: 지능형 날씨 코디네이터
+
+```python
+# 🌤️ AI 날씨 코디네이터
+print("🌤️ AI 날씨 코디네이터")
+print("="*30)
+print("오늘의 날씨에 맞는 완벽한 옷차림을 추천해드려요!")
+
+# 날씨 정보 수집
+temperature = int(input("🌡️ 현재 기온(°C): "))
+is_raining = input("🌧️ 비가 오나요? (y/n): ").lower() == 'y'
+is_windy = input("💨 바람이 강한가요? (y/n): ").lower() == 'y'
+occasion = input("👔 외출 목적 (일상/업무/데이트/운동): ")
+
+print(f"\n🧠 AI 분석 중...")
+print("="*25)
+
+# 기본 온도별 추천
+if temperature >= 30:
+    base_outfit = "민소매나 반팔"
+    color_tip = "밝은 색상으로 시원하게"
+elif temperature >= 25:
+    base_outfit = "반팔 티셔츠"
+    color_tip = "가벼운 소재 추천"
+elif temperature >= 20:
+    base_outfit = "긴팔 셔츠나 얇은 니트"
+    color_tip = "레이어드 스타일 추천"
+elif temperature >= 15:
+    base_outfit = "후드나 가디건"
+    color_tip = "따뜻한 색상 추천"
+elif temperature >= 10:
+    base_outfit = "자켓이나 점퍼"
+    color_tip = "어두운 색상으로 따뜻하게"
+elif temperature >= 5:
+    base_outfit = "코트나 패딩"
+    color_tip = "두꺼운 소재 필수"
+else:
+    base_outfit = "두꺼운 패딩이나 롱코트"
+    color_tip = "보온성 최우선"
+
+# 날씨 조건별 추가 아이템
+additional_items = []
+if is_raining:
+    additional_items.append("우산이나 우비")
+    additional_items.append("방수 신발")
+if is_windy:
+    additional_items.append("바람막이")
+    additional_items.append("머리끈이나 모자")
+
+# 목적별 스타일 조정
+if occasion == "업무":
+    style_tip = "깔끔하고 단정한 느낌으로"
+    extra_tip = "셔츠나 블라우스 추천"
+elif occasion == "데이트":
+    style_tip = "세련되고 매력적인 스타일로"
+    extra_tip = "포인트 액세서리 추가"
+elif occasion == "운동":
+    style_tip = "활동하기 편한 스포티한 룩"
+    extra_tip = "흡수력 좋은 소재 선택"
+else:
+    style_tip = "편안하고 자연스러운 캐주얼"
+    extra_tip = "편한 신발 추천"
+
+# 최종 추천 결과
+print("🎯 AI 추천 결과")
+print("="*25)
+print(f"👕 기본 의상: {base_outfit}")
+print(f"🎨 색상 팁: {color_tip}")
+
+if additional_items:
+    print(f"☔ 필수 아이템: {', '.join(additional_items)}")
+
+print(f"✨ 스타일 방향: {style_tip}")
+print(f"💡 특별 팁: {extra_tip}")
+
+# 최종 멘트
+print(f"\n🌟 오늘도 멋진 하루 되세요!")
+if temperature < 5:
+    print("❄️ 감기 조심하시고요!")
+elif temperature > 30:
+    print("🌞 수분 보충 잊지 마세요!")
+```
+
+## 🏗️ PART 4: 중첩 조건문 - 복합적 사고
+
+### 조건 안의 조건
+
+```python
+# 🎫 놀이공원 티켓 시스템
+print("🎢 파이썬 놀이공원 🎢")
+print("="*30)
+
+age = int(input("나이: "))
+height = int(input("키(cm): "))
+has_ticket = input("티켓이 있나요? (y/n): ").lower() == 'y'
+
+print(f"\n🔍 입장 심사 중...")
+
+if has_ticket:
+    print("🎫 티켓 확인 완료!")
+
+    if age >= 18:
+        print("🎢 성인: 모든 놀이기구 이용 가능!")
+
+        if height >= 140:
+            print("🎸 익스트림 라이드까지 모두 OK!")
+        else:
+            print("⚠️ 키 제한으로 일부 놀이기구 이용 불가")
+
+    else:
+        print("👶 미성년자: 안전 제한 적용")
+
+        if age >= 12:
+            if height >= 130:
+                print("🎡 대부분의 놀이기구 이용 가능!")
+            else:
+                print("📏 키가 조금 작아 제한된 놀이기구만 이용 가능")
+        else:
+            print("🧸 어린이 놀이기구만 이용 가능해요!")
+
+else:
+    print("❌ 티켓이 없습니다!")
+    print("🎫 매표소에서 티켓을 구매해주세요.")
+
+print("\n🎉 즐거운 하루 되세요!")
+```
+
+## 🚨 자주 발생하는 조건문 오류와 해결법
+
+### 오류 1: 들여쓰기 오류
+
+```python
+# ❌ 틀린 예
+if age >= 18:
+print("성인입니다")  # IndentationError!
+
+# ✅ 올바른 예
+if age >= 18:
+    print("성인입니다")  # 스페이스 4개
+```
+
+### 오류 2: 콜론(:) 누락
+
+```python
+# ❌ 틀린 예
+if age >= 18
+    print("성인입니다")  # SyntaxError!
+
+# ✅ 올바른 예
+if age >= 18:
+    print("성인입니다")
+```
+
+### 오류 3: 조건식 오류
+
+```python
+# ❌ 틀린 예
+if age = 18:        # SyntaxError! (할당연산자)
+if age == "18":     # 타입 불일치 가능성
+
+# ✅ 올바른 예
+if age == 18:       # 비교연산자
+if age == int("18"): # 타입 일치
+```
+
+### 오류 4: 논리적 오류
+
+```python
+# ❌ 논리적으로 잘못된 예
+if score >= 90:
+    print("A등급")
+if score >= 80:    # 90점도 여기서 걸림!
+    print("B등급")
+
+# ✅ 올바른 예
+if score >= 90:
+    print("A등급")
+elif score >= 80:  # elif 사용!
+    print("B등급")
+```
+
+## 💡 실습 과제: 조건문 마스터하기
+
+### 🏆 도전과제 1: 요금 계산 시스템
+
+지하철 요금을 계산하는 프로그램을 만드세요.
+
+**조건**:
+
+- 어린이(6세 미만): 무료
+- 청소년(6-18세): 720원
+- 성인(19-64세): 1440원
+- 경로우대(65세 이상): 무료
+
+### 🏆 도전과제 2: 학점 계산기
+
+대학교 학점을 계산하는 프로그램을 만드세요.
+
+**기준**:
+
+- A+: 95점 이상, A: 90점 이상
+- B+: 85점 이상, B: 80점 이상
+- C+: 75점 이상, C: 70점 이상
+- D: 60점 이상, F: 60점 미만
+
+### 🏆 도전과제 3: 종합 쇼핑몰 시스템
+
+다음 조건을 만족하는 쇼핑몰 할인 시스템을 만드세요:
+
+- VIP 회원: 20% 할인
+- 일반 회원: 10% 할인
+- 비회원: 할인 없음
+- 10만원 이상 구매시 추가 5% 할인
+- 첫 구매 고객: 추가 3% 할인
+
+## 🎮 퀴즈: 조건문 마스터 확인
+
+### Q1. 다음 코드의 출력 결과는?
+
+```python
+score = 85
+if score >= 90:
+    print("A")
+elif score >= 80:
+    print("B")
+elif score >= 70:
+    print("C")
+else:
+    print("F")
+```
+
+1. A
+2. B
+3. C
+4. F
+
+<details>
+<summary>💡 정답 확인</summary>
+
+**정답: 2번 (B)**
+
+score가 85이므로 첫 번째 조건(score >= 90)은 거짓, 두 번째 조건(score >= 80)은 참이므로 "B"가 출력됩니다.
+
+</details>
+
+### Q2. if문에서 가장 중요한 문법 요소는?
+
+1. 괄호 ()
+2. 콜론 :
+3. 세미콜론 ;
+4. 중괄호 {}
+
+<details>
+<summary>💡 정답 확인</summary>
+
+**정답: 2번 (콜론 :)**
+
+파이썬의 if문은 조건 뒤에 반드시 콜론(:)이 와야 하고, 실행할 코드는 들여쓰기로 구분합니다.
+
+</details>
+
+### Q3. 다음 중 올바른 들여쓰기는?
+
+1. 탭 1개
+2. 스페이스 2개
+3. 스페이스 4개
+4. 들여쓰기 안 함
+
+<details>
+<summary>💡 정답 확인</summary>
+
+**정답: 3번 (스페이스 4개)**
+
+파이썬 공식 스타일 가이드(PEP 8)에서는 스페이스 4개로 들여쓰기를 권장합니다.
+
+</details>
+
+### Q4. elif의 의미는?
+
+1. else if
+2. end if
+3. error if
+4. exit if
+
+<details>
+<summary>💡 정답 확인</summary>
+
+**정답: 1번 (else if)**
+
+`elif`는 "else if"의 줄임말로, 이전 조건이 거짓일 때 다음 조건을 검사하는 구문입니다.
+
+</details>
+
+## ✅ 조건문 마스터 체크리스트
+
+<InteractiveChecklist
+  storageKey="conditionals-checklist"
+  title="✅ 조건문 마스터 체크리스트"
+  items={[
+    { id: "if_basic", text: "기본 <code>if</code>문의 구조와 문법을 이해했다" },
+    {
+      id: "if_else",
+      text: "<code>if-else</code>문으로 양자택일 로직을 구현할 수 있다",
+    },
+    {
+      id: "elif",
+      text: "<code>elif</code>를 사용해서 다중 조건을 처리할 수 있다",
+    },
+    { id: "nested", text: "중첩 조건문으로 복잡한 논리를 구현할 수 있다" },
+    { id: "syntax", text: "콜론(:)과 들여쓰기 문법을 정확히 사용할 수 있다" },
+    {
+      id: "logical_thinking",
+      text: "조건의 순서와 논리적 관계를 올바르게 설계할 수 있다",
+    },
+    {
+      id: "comparison",
+      text: "비교 연산자(==, !=, >, <, >=, <=)를 적절히 활용할 수 있다",
+    },
+    {
+      id: "practical_program",
+      text: "실생활 문제를 조건문으로 해결하는 프로그램을 만들었다",
+    },
+  ]}
+  completionMessage="🎉 축하합니다! 이제 프로그램이 스스로 판단할 수 있어요!"
+/>
+
+## 🌟 당신이 이룬 지능의 혁명
+
+### 🧠 수동적 도구에서 능동적 지능체로
+
+**어제의 프로그램**: 명령받은 대로만 실행하는 수동적 도구
+**오늘의 프로그램**: 상황을 파악하고 스스로 판단하는 능동적 지능체
+
+### 🎭 판단력 획득의 의미
+
+이제 여러분의 프로그램은:
+
+- **상황을 인식**하고 (조건 평가)
+- **적절한 판단**을 내리며 (if-elif-else)
+- **그에 맞는 행동**을 선택합니다 (조건별 실행)
+
+### 🚀 지능형 시스템의 가능성
+
+조건문을 마스터한 여러분은 이제 만들 수 있습니다:
+
+- **개인화 서비스**: 사용자 정보에 따른 맞춤 추천
+- **보안 시스템**: 권한에 따른 접근 제어
+- **게임 AI**: 상황에 따른 적응적 반응
+- **자동화 도구**: 조건에 따른 스마트 처리
+
+### 🏆 프로그래밍 지능의 첫 번째 계단
+
+**5단계 진화 완성**:
+
+1. ✅ **창조** (Hello World): 무에서 유를 만드는 힘
+2. ✅ **소통** (입출력): 사용자와 대화하는 능력
+3. ✅ **기억** (변수): 정보를 저장하고 활용하는 지능
+4. ✅ **인식** (데이터 타입): 세상을 구분해서 바라보는 안목
+5. ✅ **판단** (조건문): 상황에 따라 결정을 내리는 지혜
+
+> **역사적 순간**:
+> 여러분의 프로그램이 **단순한 계산기**에서 **스스로 생각하는 존재**로
+> 진화한 결정적 순간입니다! 🌟
+>
+> 이제 진정한 **인공지능의 기초**를 갖추게 되었어요!
+
+## 🎪 다음 모험: 논리적 사고의 완성
+
+조건문의 기초를 익혔으니, 이제 **더 복잡하고 정교한 판단력**을 기를 차례입니다!
+
+다음 토픽에서 배울 것들:
+
+- **논리 연산자**: and, or, not의 마법
+- **복합 조건**: 여러 조건을 조합하는 기술
+- **조건 최적화**: 효율적인 판단 구조 설계
+- **실전 응용**: 고급 의사결정 시스템
+
+**판단 → 논리 → 반복 → 구조**
+여러분의 프로그래밍 지능이 계속 진화하고 있습니다! 🧠✨
+
+첫 번째 지능의 문을 열어젖힌 여러분,
+이제 **디지털 세상의 현명한 창조자**가 되는 길에 성큼 다가섰습니다! 💫🚀
