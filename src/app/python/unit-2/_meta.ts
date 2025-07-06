@@ -11,7 +11,10 @@ const pythonUnit2Meta: MetaRecord = {
     title: "Topic 3: 변수",
   },
   "topic-4": {
-    title: "Topic 4: 기본 데이터 타입",
+    title: "Topic 4: 연산자",
+  },
+  "topic-5": {
+    title: "Topic 5: 기본 데이터 타입",
   },
 };
 
