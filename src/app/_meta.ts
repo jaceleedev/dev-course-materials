@@ -1,9 +1,9 @@
 // _meta.ts
 import type { MetaRecord } from "nextra";
 
-const meta: MetaRecord = {
+const appMeta: MetaRecord = {
   index: {
-    title: "Home",
+    title: "홈",
     theme: {
       sidebar: false, // 왼쪽 사이드바 숨기기
       toc: false, // 오른쪽 목차 숨기기
@@ -13,7 +13,9 @@ const meta: MetaRecord = {
       pagination: false, // 페이지네이션 숨기기 (선택사항)
     },
   },
-  // 다른 페이지들...
+  courses: {
+    title: "강의 목록",
+  },
 };
 
-export default meta;
+export default appMeta;
