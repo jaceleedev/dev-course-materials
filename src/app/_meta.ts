@@ -16,6 +16,9 @@ const appMeta: MetaRecord = {
   python: {
     title: "Python 프로그래밍",
   },
+  projects: {
+    title: "실전 프로젝트",
+  },
 };
 
 export default appMeta;
