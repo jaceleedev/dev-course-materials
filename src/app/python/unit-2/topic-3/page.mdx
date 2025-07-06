@@ -97,10 +97,7 @@ print(f"{city}에서 오신 {age}세 회원님,")
 print(f"{hobby}를 좋아하시는군요!")
 
 # 🎯 개인맞춤 서비스
-if age >= 20:
-    print("성인 회원 혜택을 받으실 수 있어요! 🎁")
-else:
-    print("청소년 할인 혜택을 받으실 수 있어요! 🎈")
+print("회원 혜택을 받으실 수 있어요! 🎁")
 ```
 
 ## 🏷️ PART 2: 변수명의 예술 - 의미있는 이름 짓기
@@ -292,124 +289,48 @@ print(f"최종 금액: {money}")
 
 ## 🎯 PART 4: 실전 프로젝트 - 변수로 만드는 지능형 프로그램
 
-### 프로젝트 1: 개인 성장 추적기
+이제 배운 변수 지식을 활용해서 실제 프로젝트를 만들어보세요!
 
-```python
-# 📊 개인 성장 추적기
-print("🌱 개인 성장 추적기")
-print("="*40)
+### 📋 프로젝트 목록
 
-# 기본 정보 수집
-name = input("이름: ")
-current_age = int(input("현재 나이: "))
+#### 💼 [나만의 명함 만들기](/projects/level-1/business-card)
 
-# 현재 상태
-current_weight = float(input("현재 몸무게(kg): "))
-current_height = float(input("현재 키(cm): "))
-study_hours_today = int(input("오늘 공부한 시간: "))
+변수와 입출력을 활용하여 개성있는 디지털 명함을 만들어보세요.
 
-# 목표 설정
-target_weight = float(input("목표 몸무게(kg): "))
-daily_study_goal = int(input("일일 공부 목표(시간): "))
+- **주요 학습 내용**: 변수 저장, 문자열 포맷팅, ASCII 아트
+- **난이도**: ⭐⭐
+- **예상 소요 시간**: 30분
 
-# BMI 계산
-height_m = current_height / 100
-current_bmi = current_weight / (height_m * height_m)
+#### 🧮 [간단한 계산기](/projects/level-1/calculator)
 
-# 목표까지의 차이 계산
-weight_difference = current_weight - target_weight
-study_achievement = (study_hours_today / daily_study_goal) * 100
+사칙연산과 단위 변환 기능을 가진 다기능 계산기입니다.
 
-# 보고서 출력
-print("\n" + "📊 성장 보고서")
-print("="*40)
-print(f"👤 {name}님 ({current_age}세)")
-print(f"📏 키: {current_height}cm")
-print(f"⚖️ 현재 몸무게: {current_weight}kg")
-print(f"🎯 목표 몸무게: {target_weight}kg")
-print(f"📈 BMI: {current_bmi:.1f}")
+- **주요 학습 내용**: 변수 연산, 타입 변환, 실용적 계산
+- **난이도**: ⭐⭐⭐
+- **예상 소요 시간**: 40분
 
-if weight_difference > 0:
-    print(f"💪 목표까지 {weight_difference:.1f}kg 감량 필요")
-elif weight_difference < 0:
-    print(f"🍎 목표까지 {-weight_difference:.1f}kg 증량 필요")
-else:
-    print("🎉 목표 달성!")
+#### 🎭 [Mad Libs 게임](/projects/level-1/mad-libs)
 
-print(f"📚 오늘 공부: {study_hours_today}시간")
-print(f"🎯 달성률: {study_achievement:.1f}%")
+단어를 조합하여 재미있는 이야기를 완성하는 언어 게임입니다.
 
-if study_achievement >= 100:
-    print("🏆 오늘 목표 달성! 축하합니다!")
-else:
-    remaining_hours = daily_study_goal - study_hours_today
-    print(f"⏰ {remaining_hours}시간 더 공부하면 목표 달성!")
-```
+- **주요 학습 내용**: 문자열 조작, 템플릿 활용, 창의적 프로그래밍
+- **난이도**: ⭐⭐⭐
+- **예상 소요 시간**: 35분
 
-### 프로젝트 2: 간단한 은행 계좌 시뮬레이터
+### 🎯 프로젝트 진행 가이드
 
-```python
-# 🏦 간단한 은행 계좌 시뮬레이터
-print("🏦 파이썬 은행에 오신 것을 환영합니다!")
-print("="*50)
+1. **프로젝트 선택**: 위의 링크를 클릭하여 프로젝트 페이지로 이동
+2. **요구사항 확인**: 각 프로젝트의 요구사항을 꼼꼼히 읽어보세요
+3. **단계별 구현**: 작은 기능부터 차근차근 구현해보세요
+4. **테스트**: 각 기능이 올바르게 작동하는지 확인하세요
+5. **도전 과제**: 기본 기능 완성 후 추가 기능에 도전해보세요
 
-# 계좌 개설
-account_name = input("계좌 이름: ")
-initial_balance = int(input("초기 입금액: "))
+### 💡 프로젝트 진행 팁
 
-# 계좌 정보
-balance = initial_balance
-transaction_count = 0
-
-print(f"\n🎉 {account_name}님의 계좌가 개설되었습니다!")
-print(f"💰 잔액: {balance:,}원")
-
-while True:
-    print("\n" + "="*30)
-    print("🏦 파이썬 은행 메뉴")
-    print("="*30)
-    print("1. 잔액 조회")
-    print("2. 입금")
-    print("3. 출금")
-    print("4. 거래 내역")
-    print("5. 종료")
-
-    choice = input("선택 (1-5): ")
-
-    if choice == "1":
-        print(f"\n💰 현재 잔액: {balance:,}원")
-
-    elif choice == "2":
-        deposit = int(input("입금할 금액: "))
-        balance += deposit
-        transaction_count += 1
-        print(f"✅ {deposit:,}원이 입금되었습니다.")
-        print(f"💰 현재 잔액: {balance:,}원")
-
-    elif choice == "3":
-        withdraw = int(input("출금할 금액: "))
-        if withdraw <= balance:
-            balance -= withdraw
-            transaction_count += 1
-            print(f"✅ {withdraw:,}원이 출금되었습니다.")
-            print(f"💰 현재 잔액: {balance:,}원")
-        else:
-            print("❌ 잔액이 부족합니다!")
-
-    elif choice == "4":
-        print(f"\n📊 거래 내역")
-        print(f"계좌명: {account_name}")
-        print(f"초기 금액: {initial_balance:,}원")
-        print(f"현재 잔액: {balance:,}원")
-        print(f"총 거래 횟수: {transaction_count}회")
-
-    elif choice == "5":
-        print(f"\n👋 {account_name}님, 이용해주셔서 감사합니다!")
-        break
-
-    else:
-        print("❌ 잘못된 선택입니다.")
-```
+- 변수명은 의미있고 명확하게 작성하세요
+- 하나의 기능을 완성한 후 다음 기능으로 넘어가세요
+- 오류가 발생하면 천천히 코드를 다시 확인해보세요
+- 완성된 프로젝트는 친구들과 공유해보세요!
 
 ## 🚨 자주 발생하는 변수 오류와 해결법
 
