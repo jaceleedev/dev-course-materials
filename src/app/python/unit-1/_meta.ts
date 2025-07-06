@@ -5,7 +5,7 @@ const pythonUnit1Meta: MetaRecord = {
     title: "Topic 1: 프로그래밍이라는 새로운 언어",
   },
   "topic-2": {
-    title: "Topic 2: 왜 파이썬일까? 첫 번째 외국어 선택하기",
+    title: "Topic 2: 왜 파이썬일까?",
   },
   "topic-3": {
     title: "Topic 3: 파이썬 설치하기",

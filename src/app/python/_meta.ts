@@ -8,7 +8,7 @@ const pythonMeta: MetaRecord = {
     title: "Unit 2: 첫 번째 프로그램",
   },
   "unit-3": {
-    title: "Unit 3: 프로그램의 지능 - 판단과 반복",
+    title: "Unit 3: 프로그램의 지능",
   },
 };
 
