@@ -1,6 +1,6 @@
 ---
 title: "간단한 계산기"
-description: "변수와 사칙연산을 활용한 다기능 계산기를 만들어보세요"
+description: "생활에 유용한 계산 기능을 가진 실용적인 계산기를 만들어보세요"
 ---
 
 import InteractiveChecklist from "@/components/ui/interactive-checklist";
@@ -9,7 +9,7 @@ import InteractiveChecklist from "@/components/ui/interactive-checklist";
 
 ## 📋 프로젝트 개요
 
-변수와 사칙연산을 활용하여 다양한 계산 기능을 가진 계산기를 만들어보세요. 단위 변환 기능까지 포함된 실용적인 도구입니다!
+일상생활에서 자주 사용하는 계산들을 자동화해주는 실용적인 계산기를 만들어보세요. 할인 계산, 팁 계산, 시간 계산 등 유용한 기능들을 구현해봅시다!
 
 ## 🎯 학습 목표
 
@@ -22,169 +22,115 @@ import InteractiveChecklist from "@/components/ui/interactive-checklist";
 
 ### 핵심 요구사항
 
-1. **사칙연산 계산기**
-   - 두 숫자를 입력받기
-   - 더하기, 빼기, 곱하기, 나누기 결과 출력
-   - 계산 과정 표시
+#### 1. 할인 계산기 💰
 
-### 💻 기본 구현 예시
+- **입력**: 원래 가격, 할인율(%)
+- **출력**: 할인 금액, 최종 가격
+- **공식**:
+  - 할인 금액 = 원래 가격 × (할인율 ÷ 100)
+  - 최종 가격 = 원래 가격 - 할인 금액
 
-```python
-# 🧮 간단한 계산기
-print("🧮 간단한 계산기")
-print("="*30)
+#### 2. 팁 계산기 🍽️
 
-# 두 숫자 입력
-num1 = float(input("첫 번째 숫자: "))
-num2 = float(input("두 번째 숫자: "))
+- **입력**: 식사 비용, 팁 비율(%)
+- **출력**: 팁 금액, 총 비용
+- **공식**:
+  - 팁 금액 = 식사 비용 × (팁 비율 ÷ 100)
+  - 총 비용 = 식사 비용 + 팁 금액
 
-# 사칙연산 계산
-addition = num1 + num2
-subtraction = num1 - num2
-multiplication = num1 * num2
-division = num1 / num2
+#### 3. 시간 계산기 ⏰
 
-# 결과 출력
-print("\n" + "="*30)
-print("📊 계산 결과")
-print("="*30)
-print(f"{num1} + {num2} = {addition}")
-print(f"{num1} - {num2} = {subtraction}")
-print(f"{num1} × {num2} = {multiplication}")
-print(f"{num1} ÷ {num2} = {division:.2f}")
-```
-
-## 🌍 추가 기능 1: 단위 변환기
-
-### 요구사항
-
-- 킬로미터 ↔ 마일 변환
-- 섭씨 ↔ 화씨 온도 변환
-- 변환 공식 표시
-
-### 구현 예시
-
-```python
-# 🌍 단위 변환기
-print("\n🌍 단위 변환기")
-print("="*30)
-
-# 거리 변환 (km ↔ mile)
-km = float(input("킬로미터 입력: "))
-mile_from_km = km * 0.621371
-print(f"{km} km = {mile_from_km:.2f} mile")
-
-mile = float(input("마일 입력: "))
-km_from_mile = mile / 0.621371
-print(f"{mile} mile = {km_from_mile:.2f} km")
-
-# 온도 변환 (°C ↔ °F)
-celsius = float(input("섭씨 온도 입력: "))
-fahrenheit_from_celsius = (celsius * 9/5) + 32
-print(f"{celsius}°C = {fahrenheit_from_celsius:.1f}°F")
-
-fahrenheit = float(input("화씨 온도 입력: "))
-celsius_from_fahrenheit = (fahrenheit - 32) * 5/9
-print(f"{fahrenheit}°F = {celsius_from_fahrenheit:.1f}°C")
-```
-
-## 💰 추가 기능 2: 생활 계산기
-
-### 요구사항
-
-- 할인 계산기 (원가, 할인율 → 할인 금액)
-- 팁 계산기 (식비, 팁 비율 → 총 금액)
-- 시간 계산기 (시간 단위 변환)
-
-### 구현 예시
-
-```python
-# 💰 생활 계산기
-print("\n💰 생활 계산기")
-print("="*30)
-
-# 할인 계산기
-original_price = float(input("원래 가격: "))
-discount_rate = float(input("할인율 (%): "))
-discount_amount = original_price * (discount_rate / 100)
-final_price = original_price - discount_amount
-
-print(f"원래 가격: {original_price:,.0f}원")
-print(f"할인 금액: {discount_amount:,.0f}원")
-print(f"최종 가격: {final_price:,.0f}원")
-
-# 팁 계산기
-meal_cost = float(input("식사 비용: "))
-tip_rate = float(input("팁 비율 (%): "))
-tip_amount = meal_cost * (tip_rate / 100)
-total_cost = meal_cost + tip_amount
-
-print(f"식사 비용: {meal_cost:,.0f}원")
-print(f"팁 금액: {tip_amount:,.0f}원")
-print(f"총 비용: {total_cost:,.0f}원")
-```
-
-## 📐 추가 기능 3: 수학 계산기
-
-### 요구사항
-
-- 원의 둘레와 넓이 계산
-- 직사각형 둘레와 넓이 계산
-- 삼각형 넓이 계산
-
-### 구현 예시
-
-```python
-# 📐 수학 계산기
-print("\n📐 수학 계산기")
-print("="*30)
-
-# 원의 계산
-radius = float(input("원의 반지름: "))
-pi = 3.14159
-circle_area = pi * radius * radius
-circle_perimeter = 2 * pi * radius
-
-print(f"원의 넓이: {circle_area:.2f}")
-print(f"원의 둘레: {circle_perimeter:.2f}")
-
-# 직사각형 계산
-length = float(input("직사각형 가로: "))
-width = float(input("직사각형 세로: "))
-rectangle_area = length * width
-rectangle_perimeter = 2 * (length + width)
-
-print(f"직사각형 넓이: {rectangle_area:.2f}")
-print(f"직사각형 둘레: {rectangle_perimeter:.2f}")
-
-# 삼각형 계산
-base = float(input("삼각형 밑변: "))
-height = float(input("삼각형 높이: "))
-triangle_area = (base * height) / 2
-
-print(f"삼각형 넓이: {triangle_area:.2f}")
-```
+- **입력**: 시간(분 단위)
+- **출력**: 시간과 분으로 변환
+- **공식**:
+  - 시간 = 분 ÷ 60
+  - 나머지 분 = 분 % 60
 
 ## 💡 구현 힌트
 
-### 소수점 처리 팁
+### 필요한 파이썬 기능들
 
-- `:.2f` - 소수점 둘째 자리까지 표시
-- `:.0f` - 소수점 없이 표시
-- `:,.0f` - 천 단위 콤마 추가
+#### 1. 숫자 입력받기
 
-### 계산 정확도 팁
+```python
+price = float(input("원래 가격: "))  # 소수점 가능
+discount = int(input("할인율(%): "))  # 정수만
+```
 
-- `float()` 사용하여 소수점 계산 가능
-- 나누기 연산 시 0으로 나누는 경우 주의
-- 상수 (π, 변환 비율) 정확히 사용
+#### 2. 기본 사칙연산
+
+```python
+discount_amount = price * (discount / 100)  # 곱셈과 나눗셈
+final_price = price - discount_amount        # 뺄셈
+total = meal_cost + tip_amount              # 덧셈
+```
+
+#### 3. 나머지 연산 (시간 계산용)
+
+```python
+hours = total_minutes // 60  # 몫 (시간)
+minutes = total_minutes % 60  # 나머지 (분)
+```
+
+#### 4. 숫자 표시 형식 정하기
+
+```python
+print(f"할인 금액: {discount_amount:.0f}원")      # 소수점 없이
+print(f"최종 가격: {final_price:,.0f}원")          # 천단위 콤마
+print(f"팁 금액: {tip_amount:.2f}원")             # 소수점 둘째자리까지
+```
+
+#### 5. 예쁜 출력 만들기
+
+```python
+print("="*30)
+print("💰 할인 계산 결과")
+print("="*30)
+print(f"원래 가격: {price:,.0f}원")
+print(f"할인 금액: {discount_amount:,.0f}원")
+print(f"최종 가격: {final_price:,.0f}원")
+```
+
+### 계산 공식 정리
+
+#### 할인 계산
+
+```python
+# 예: 50,000원 상품을 20% 할인
+discount_amount = 50000 * (20 / 100)  # 10,000원
+final_price = 50000 - 10000           # 40,000원
+```
+
+#### 팁 계산
+
+```python
+# 예: 30,000원 식사에 15% 팁
+tip_amount = 30000 * (15 / 100)  # 4,500원
+total_cost = 30000 + 4500        # 34,500원
+```
+
+#### 시간 변환
+
+```python
+# 예: 150분을 시간과 분으로 변환
+hours = 150 // 60    # 2시간
+minutes = 150 % 60   # 30분
+# 결과: 2시간 30분
+```
+
+### 사용자 친화적 출력 팁
+
+- 천단위 콤마 사용: `{price:,.0f}`
+- 적절한 소수점 자릿수 설정
+- 이모지로 시각적 효과 추가
+- 구분선으로 깔끔하게 정리
 
 ## 🎯 도전 과제
 
-1. **고급 계산기**: 거듭제곱, 제곱근 계산
-2. **화폐 변환기**: 환율을 적용한 화폐 변환
-3. **BMI 계산기**: 키와 몸무게로 BMI 계산
-4. **학점 계산기**: 과목별 점수로 평균 계산
+1. **BMI 계산기**: 키와 몸무게로 BMI 계산
+2. **환율 계산기**: 달러-원 환율 변환
+3. **연비 계산기**: 연료비와 거리로 연비 계산
+4. **이자 계산기**: 단리 이자 계산
 
 ## 📝 완성 체크리스트
 
@@ -193,33 +139,33 @@ print(f"삼각형 넓이: {triangle_area:.2f}")
   title="🧮 간단한 계산기 체크리스트"
   items={[
     {
-      id: "basic-math",
-      text: "기본 사칙연산 계산",
+      id: "discount-calc",
+      text: "할인 계산기 (원가, 할인율 → 최종가격)",
     },
     {
-      id: "unit-conversion",
-      text: "단위 변환 기능",
+      id: "tip-calc",
+      text: "팁 계산기 (식비, 팁비율 → 총비용)",
     },
     {
-      id: "life-calculator",
-      text: "생활 계산기 기능",
-    },
-    {
-      id: "math-calculator",
-      text: "수학 계산기 기능",
+      id: "time-calc",
+      text: "시간 계산기 (분 → 시간과 분)",
     },
     {
       id: "clean-output",
-      text: "결과 깔끔하게 출력",
+      text: "결과 깔끔하게 출력 (천단위 콤마, 소수점)",
+    },
+    {
+      id: "user-friendly",
+      text: "사용자 친화적인 인터페이스",
     },
     {
       id: "no-errors",
       text: "에러 없이 실행",
     },
   ]}
-  completionMessage="🎉 축하합니다! 다기능 계산기가 완성되었습니다!"
+  completionMessage="🎉 축하합니다! 실용적인 생활 계산기가 완성되었습니다!"
 />
 
 ## 🎉 완성 후 해볼 것
 
-완성된 계산기로 실생활 문제를 해결해보세요! 쇼핑할 때 할인 계산, 여행 갈 때 환율 계산, 수학 숙제 할 때 도형 계산 등 다양하게 활용해보세요.
+완성된 계산기로 실생활 문제를 해결해보세요! 쇼핑할 때 할인 계산, 외식할 때 팁 계산, 공부 시간 계산 등 다양하게 활용해보세요.

@@ -1,0 +1,164 @@
+---
+title: "간단한 계산기 (답안)"
+description: "간단한 계산기 프로젝트의 완성된 답안입니다"
+---
+
+# 🧮 간단한 계산기 (답안)
+
+## 🚀 기본 기능 답안
+
+```python
+# 🧮 생활 계산기
+print("🧮 생활에 유용한 계산기")
+print("="*30)
+
+# 1. 할인 계산기
+print("💰 할인 계산기")
+print("-"*20)
+
+original_price = float(input("원래 가격(원): "))
+discount_rate = int(input("할인율(%): "))
+
+# 할인 계산
+discount_amount = original_price * (discount_rate / 100)
+final_price = original_price - discount_amount
+
+print(f"\n📊 할인 계산 결과")
+print(f"원래 가격: {original_price:,.0f}원")
+print(f"할인율: {discount_rate}%")
+print(f"할인 금액: {discount_amount:,.0f}원")
+print(f"최종 가격: {final_price:,.0f}원")
+
+# 2. 팁 계산기
+print(f"\n🍽️ 팁 계산기")
+print("-"*20)
+
+meal_cost = float(input("식사 비용(원): "))
+tip_rate = int(input("팁 비율(%): "))
+
+# 팁 계산
+tip_amount = meal_cost * (tip_rate / 100)
+total_cost = meal_cost + tip_amount
+
+print(f"\n📊 팁 계산 결과")
+print(f"식사 비용: {meal_cost:,.0f}원")
+print(f"팁 비율: {tip_rate}%")
+print(f"팁 금액: {tip_amount:,.0f}원")
+print(f"총 비용: {total_cost:,.0f}원")
+
+# 3. 시간 계산기
+print(f"\n⏰ 시간 계산기")
+print("-"*20)
+
+total_minutes = int(input("시간(분 단위): "))
+
+# 시간 변환
+hours = total_minutes // 60
+minutes = total_minutes % 60
+
+print(f"\n📊 시간 변환 결과")
+print(f"입력한 시간: {total_minutes}분")
+print(f"변환 결과: {hours}시간 {minutes}분")
+
+print(f"\n🎉 계산 완료!")
+```
+
+## 🔄 한 번에 모든 계산 (확장 버전)
+
+```python
+# 🧮 통합 생활 계산기
+print("🧮 생활 계산기 - 모든 기능")
+print("="*35)
+
+# 1. 할인 계산
+print("💰 할인 계산")
+print("-"*15)
+price = float(input("원래 가격(원): "))
+discount_rate = int(input("할인율(%): "))
+
+discount_amount = price * (discount_rate / 100)
+final_price = price - discount_amount
+
+print(f"할인 금액: {discount_amount:,.0f}원")
+print(f"최종 가격: {final_price:,.0f}원")
+
+# 2. 팁 계산
+print(f"\n🍽️ 팁 계산")
+print("-"*15)
+meal_cost = float(input("식사 비용(원): "))
+tip_rate = int(input("팁 비율(%): "))
+
+tip_amount = meal_cost * (tip_rate / 100)
+total_cost = meal_cost + tip_amount
+
+print(f"팁 금액: {tip_amount:,.0f}원")
+print(f"총 비용: {total_cost:,.0f}원")
+
+# 3. 시간 변환
+print(f"\n⏰ 시간 변환")
+print("-"*15)
+total_minutes = int(input("총 분: "))
+
+hours = total_minutes // 60
+minutes = total_minutes % 60
+
+print(f"변환 결과: {hours}시간 {minutes}분")
+
+print(f"\n🎉 모든 계산 완료!")
+```
+
+## 🎯 추가 기능 예시
+
+```python
+# 🧮 더 많은 생활 계산기
+print("🧮 확장 생활 계산기")
+print("="*25)
+
+# BMI 계산기
+print(f"\n⚖️ BMI 계산기")
+print("-"*15)
+
+height = float(input("키(cm): ")) / 100  # cm를 m로 변환
+weight = float(input("몸무게(kg): "))
+
+bmi = weight / (height * height)
+
+print(f"키: {height*100:.0f}cm")
+print(f"몸무게: {weight:.1f}kg")
+print(f"BMI: {bmi:.1f}")
+
+# 환율 계산기
+print(f"\n💵 환율 계산기")
+print("-"*15)
+
+won = float(input("원화 금액: "))
+rate = 1350  # 1달러 = 1350원 (예시)
+
+dollar = won / rate
+
+print(f"원화: {won:,.0f}원")
+print(f"환율: 1달러 = {rate}원")
+print(f"달러: ${dollar:.2f}")
+
+# 연비 계산기
+print(f"\n⛽ 연비 계산기")
+print("-"*15)
+
+distance = float(input("주행 거리(km): "))
+fuel = float(input("사용 연료(L): "))
+
+efficiency = distance / fuel
+
+print(f"주행 거리: {distance}km")
+print(f"사용 연료: {fuel}L")
+print(f"연비: {efficiency:.1f}km/L")
+```
+
+## 💡 핵심 포인트
+
+1. **사칙연산 활용**: 곱셈, 나눗셈, 덧셈, 뺄셈을 실생활에 적용
+2. **타입 변환**: `float()`, `int()` 함수로 적절한 숫자 타입 사용
+3. **포맷팅**: 천단위 콤마 (`:,`), 소수점 자리수 (`.0f`, `.2f`) 제어
+4. **나머지 연산**: `//`(몫), `%`(나머지)를 활용한 시간 변환
+5. **변수 활용**: 계산 결과를 변수에 저장하여 재사용
+6. **실용성**: 일상생활에서 바로 사용할 수 있는 계산 기능

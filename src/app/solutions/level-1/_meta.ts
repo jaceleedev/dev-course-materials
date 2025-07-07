@@ -1,15 +1,15 @@
 import type { MetaRecord } from "nextra";
 
-const level1Meta: MetaRecord = {
-  "mad-libs": {
+const solutionsLevel1Meta: MetaRecord = {
+  "mad-libs-solution": {
     title: "Mad Libs 게임",
   },
-  "business-card": {
+  "business-card-solution": {
     title: "나만의 명함 만들기",
   },
-  calculator: {
+  "calculator-solution": {
     title: "간단한 계산기",
   },
 };
 
-export default level1Meta;
+export default solutionsLevel1Meta;

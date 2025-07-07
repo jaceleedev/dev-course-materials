@@ -19,6 +19,9 @@ const appMeta: MetaRecord = {
   projects: {
     title: "실전 프로젝트",
   },
+  solutions: {
+    title: "답안 모음",
+  },
 };
 
 export default appMeta;
