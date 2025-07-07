@@ -18,7 +18,6 @@ import { pythonChecklistItems } from "./_data";
 
 1. `윈도우 키 + R` → `winver` 입력 → 엔터
    - **winver**는 "Windows Version"의 줄임말로, 현재 설치된 Windows 버전 정보를 보여주는 명령어입니다
-   - 실행하면 Windows 버전, 빌드 번호, 에디션 등이 표시됩니다
 2. Windows 10 이상 권장 (Windows 8.1도 가능하지만 보안 업데이트 종료)
 
 ### Mac 사용자
@@ -59,8 +58,6 @@ cat /etc/os-release  # 대부분의 배포판
 
 > **반드시 Python 3를 설치하세요!** Python 2는 역사적 가치만 있을 뿐, 현재는 사용하지 않습니다.
 
-**앞으로 모든 학습과 개발은 Python 3로 진행됩니다.** Python 2를 배우는 것은 라틴어를 배우는 것과 같아요 - 교양은 될지 몰라도 실무에서는 쓸 일이 없습니다.
-
 ## 🪟 Windows 설치 가이드
 
 ### 공식 웹사이트에서 설치 (권장)
@@ -70,8 +67,6 @@ cat /etc/os-release  # 대부분의 배포판
 1. [python.org](https://www.python.org/downloads/) 접속
 2. "Download Python 3.13.5" 노란색 버튼 클릭
 3. 파일이 다운로드될 때까지 대기
-
-![Python 공식 사이트](https://www.python.org/static/img/python-logo.png)
 
 #### 2단계: 설치 실행
 
@@ -296,18 +291,7 @@ python3 test.py
 
 **원인**: PATH 환경변수에 Python이 등록되지 않음
 
-**해결법 1**: 파이썬 재설치
-
-- "Add Python to PATH" 옵션 체크하고 재설치
-
-**해결법 2**: 수동 PATH 추가
-
-1. `윈도우 키 + R` → `sysdm.cpl` → 엔터
-2. "고급" 탭 → "환경 변수"
-3. 시스템 변수에서 "Path" 선택 → "편집"
-4. "새로 만들기" → Python 설치 경로 추가
-   - 보통 `C:\Users\[사용자명]\AppData\Local\Programs\Python\Python313\`
-   - Scripts 폴더도 추가: `C:\Users\[사용자명]\AppData\Local\Programs\Python\Python313\Scripts\`
+**해결법**: 파이썬 재설치 시 "Add Python to PATH" 옵션 체크
 
 ### 문제 2: Mac에서 "python" vs "python3" 혼동
 
@@ -338,23 +322,6 @@ source myenv/bin/activate  # Linux/Mac
 # myenv\Scripts\activate  # Windows
 ```
 
-### 문제 4: SSL 인증서 오류
-
-**현상**: pip 사용 시 SSL 관련 오류
-
-**해결법**:
-
-```bash
-# 임시 해결 (보안상 권장하지 않음)
-pip install --trusted-host pypi.org --trusted-host pypi.python.org 패키지명
-
-# 근본 해결: 인증서 업데이트
-# Mac:
-/Applications/Python\ 3.13/Install\ Certificates.command
-
-# Windows: 최신 버전 재설치
-```
-
 ## 🎯 설치 체크리스트
 
 다음 항목들을 모두 확인하세요:
@@ -366,6 +333,6 @@ pip install --trusted-host pypi.org --trusted-host pypi.python.org 패키지명
   completionMessage="🎉 축하합니다! 파이썬 설치를 완료했어요!"
 />
 
-## 📚 다음 단계
+## 🚀 다음 단계
 
 파이썬 설치가 완료되었으니, 이제 **편리한 개발환경**을 구축할 차례입니다!

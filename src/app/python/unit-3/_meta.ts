@@ -5,7 +5,7 @@ const pythonUnit3Meta: MetaRecord = {
     title: "Topic 1: 조건문",
   },
   "topic-2": {
-    title: "Topic 2: 복잡한 조건",
+    title: "Topic 2: 논리 연산자",
   },
   "topic-3": {
     title: "Topic 3: while 반복문",
