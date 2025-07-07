@@ -16,13 +16,13 @@ import InteractiveChecklist from "@/components/ui/interactive-checklist";
 ### 기억하지 못하는 프로그램의 문제점
 
 ```python
-print("안녕하세요, 여행자님!")
-print("당신의 레벨은 99네요.")
-# 99라는 정보가 기억되지 않음
+print("안녕하세요, 김철수님!")
+print("당신의 나이는 25세네요.")
+# 25라는 정보가 기억되지 않음
 # 매우 긴 코드 이후에...
-print("이 던전은 레벨 99 이상의 상급자만 도전할 수 있어요.")
+print("이 영화는 25세 이상만 관람할 수 있어요.")
 # 매우 긴 코드 이후에...
-print("당신은 레벨 99인데.. 파티가 없습니까?")
+print("당신은 25세인데... 학생 할인이 가능한가요?")
 ```
 
 **문제점**: 중요한 정보를 기억하지 못해서 매번 같은 값을 반복 입력해야 합니다.
@@ -273,42 +273,138 @@ money //= 3     # money = money // 3
 print(f"최종 금액: {money}")
 ```
 
-## 🚨 자주 발생하는 변수 오류와 해결법
+## 🚨 초보자가 자주 하는 변수 실수와 해결법
 
-### 오류 1: 정의되지 않은 변수 사용
+### 실수 1: 변수를 정의하기 전에 사용
 
 ```python
 # ❌ 틀린 예
 print(student_name)  # NameError: name 'student_name' is not defined
+student_name = "김파이썬"
 
 # ✅ 올바른 예
 student_name = "김파이썬"  # 먼저 변수 정의
 print(student_name)        # 그 다음 사용
 ```
 
-### 오류 2: 변수명 오타
+**기억하세요**: 변수는 반드시 **정의 → 사용** 순서를 지켜야 합니다!
+
+### 실수 2: 변수명 오타
 
 ```python
 # ❌ 틀린 예
 student_name = "김파이썬"
-print(student_nam)    # NameError (오타!)
+print(student_nam)    # NameError! 'm'이 빠짐
 
 # ✅ 올바른 예
 student_name = "김파이썬"
 print(student_name)   # 정확한 이름 사용
 ```
 
-### 오류 3: 타입 혼동
+**팁**: 변수명을 복사+붙여넣기 하거나, 에디터의 자동완성 기능을 활용하세요!
+
+### 실수 3: 대소문자 혼동
 
 ```python
 # ❌ 틀린 예
-age = "20"           # 문자열
+name = "김파이썬"
+print(Name)  # NameError! 'N'이 대문자
+
+# ✅ 올바른 예
+name = "김파이썬"
+print(name)  # 정확한 대소문자
+```
+
+**기억하세요**: 파이썬은 대소문자를 구분합니다. `name`과 `Name`은 다른 변수예요!
+
+### 실수 4: 할당연산자(=)와 비교연산자(==) 혼동
+
+```python
+# ❌ 틀린 예
+age == 20  # 비교만 하고 저장하지 않음
+
+# ✅ 올바른 예
+age = 20   # 값을 변수에 저장
+```
+
+**구분하기**:
+
+- `=`: 값을 저장할 때 (할당)
+- `==`: 값을 비교할 때 (나중에 배울 예정)
+
+### 실수 5: 숫자와 문자열 혼동
+
+```python
+# ❌ 틀린 예
+age = "20"           # 문자열로 저장
 next_age = age + 1   # TypeError: can't add int to string
 
 # ✅ 올바른 예
-age = 20             # 숫자
-next_age = age + 1   # 정상 작동
+age = 20             # 숫자로 저장
+next_age = age + 1   # 정상 작동 (21)
+
+# 또는 문자열을 숫자로 변환
+age = "20"
+next_age = int(age) + 1  # 문자열을 정수로 변환
 ```
+
+### 실수 6: 예약어를 변수명으로 사용
+
+```python
+# ❌ 틀린 예
+if = "조건"      # SyntaxError! 'if'는 파이썬 예약어
+for = 20        # SyntaxError! 'for'도 예약어
+print = "안녕"   # 동작하지만 print 기능을 망가뜨림!
+
+# ✅ 올바른 예
+condition = "조건"    # 의미있는 영어 단어 사용
+count = 20           # 또는 관련된 단어 사용
+message = "안녕"     # print 대신 message 사용
+```
+
+**파이썬 주요 예약어들**: `if`, `else`, `for`, `while`, `def`, `class`, `True`, `False`, `None` 등
+
+### 실수 7: 변수명에 공백이나 특수문자 사용
+
+```python
+# ❌ 틀린 예
+student name = "김파이썬"    # SyntaxError! 공백 불가
+student-name = "김파이썬"    # SyntaxError! 하이픈 불가
+student@name = "김파이썬"    # SyntaxError! @ 불가
+
+# ✅ 올바른 예
+student_name = "김파이썬"    # 언더스코어 사용
+studentName = "김파이썬"     # 카멜케이스 (파이썬에서는 비추천)
+student1 = "김파이썬"        # 숫자는 끝에만 가능
+```
+
+### 💡 변수 실수 방지 팁
+
+1. **의미있는 이름 사용하기**
+
+   ```python
+   # ❌ 나쁜 예
+   a = "김파이썬"
+   b = 20
+
+   # ✅ 좋은 예
+   student_name = "김파이썬"
+   student_age = 20
+   ```
+
+2. **일관된 명명 규칙 사용하기**
+
+   ```python
+   # ✅ snake_case로 통일
+   user_name = "홍길동"
+   user_age = 25
+   user_email = "hong@email.com"
+   ```
+
+3. **에디터의 도움 활용하기**
+   - 자동완성 기능 사용
+   - 오타 체크 기능 활용
+   - 문법 강조 기능으로 오류 확인
 
 ## 🎮 퀴즈: 변수 이해도 확인
 
