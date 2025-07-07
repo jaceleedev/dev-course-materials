@@ -5,10 +5,10 @@ const pythonMeta: MetaRecord = {
     title: "Unit 1: 파이썬 소개",
   },
   "unit-2": {
-    title: "Unit 2: 첫 번째 프로그램",
+    title: "Unit 2: 기본기 다지기",
   },
   "unit-3": {
-    title: "Unit 3: 프로그램의 지능",
+    title: "Unit 3: 조건&반복의 마법",
   },
 };
 
