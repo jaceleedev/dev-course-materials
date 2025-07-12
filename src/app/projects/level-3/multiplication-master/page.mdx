@@ -1,6 +1,6 @@
 ---
 title: "구구단 마스터"
-description: "반복문을 활용하여 구구단 출력부터 게임까지, 완전한 구구단 마스터 프로그램을 만들어보세요"
+description: "반복문을 활용하여 구구단을 자유자재로 다루는 프로그램을 만들어보세요"
 ---
 
 import InteractiveChecklist from "@/components/ui/interactive-checklist";
@@ -9,14 +9,14 @@ import InteractiveChecklist from "@/components/ui/interactive-checklist";
 
 ## 📋 프로젝트 개요
 
-반복문을 활용하여 구구단을 자유자재로 다루는 완전한 마스터 프로그램을 만들어보세요. 단순한 출력부터 재미있는 퀴즈 게임까지, 구구단의 모든 것을 담은 프로젝트입니다!
+반복문을 활용하여 구구단을 마스터하는 프로그램을 만들어보세요. 단순한 출력부터 재미있는 퀴즈 게임까지, 구구단을 완전히 정복해봅시다!
 
 ## 🎯 학습 목표
 
-- for문과 while문을 활용한 반복 처리
-- 중첩 반복문으로 2차원 패턴 구현
+- for문을 활용한 반복 처리
+- while문을 이용한 입력 검증
 - 사용자 상호작용과 반복문의 조합
-- 시간 측정과 점수 시스템 구현
+- 게임 로직과 점수 시스템 구현
 
 ## 🚀 기본 기능
 
@@ -24,515 +24,171 @@ import InteractiveChecklist from "@/components/ui/interactive-checklist";
 
 1. **원하는 단 출력**
 
-   - 사용자가 원하는 구구단 단수 입력
-   - 해당 단의 구구단 완전 출력 (1~9)
+   - 사용자가 원하는 구구단 단수 입력 (2~9단)
+   - 해당 단의 구구단 완전 출력 (×1부터 ×9까지)
    - 깔끔한 형식으로 정렬
 
 2. **입력 검증**
 
-   - 1~9 범위 외 입력에 대한 처리
-   - 재입력 요청 시스템
+   - 2~9 범위 외 입력에 대한 오류 처리
+   - 올바른 입력을 받을 때까지 반복 요청
 
 3. **기본 출력 형식**
    - "3 × 4 = 12" 형태로 출력
-   - 보기 좋은 정렬과 구분선
+   - 보기 좋은 구분선과 제목
 
 ## 🎨 추가 기능 1: 구구단 퀴즈 게임
 
 ### 요구사항
 
-- 랜덤한 구구단 문제 출제 (2단~9단)
-- 사용자 답 입력 및 정답 확인
-- 연속 문제 풀이 (5문제 또는 틀릴 때까지)
-- 정답률 계산 및 표시
+기본 구구단 출력에 재미있는 퀴즈 게임 기능을 추가합니다.
+
+- **문제 출제**: 2~9단 중 랜덤한 구구단 문제 5개 출제
+- **정답 확인**: 사용자 답변과 정답 비교
+- **점수 계산**: 정답 개수를 세어 최종 점수 표시
+- **성적 평가**: 점수에 따른 평가 메시지
 
 ### 게임 진행 방식
 
-- "3 × 7 = ?" 형태로 문제 출제
-- 정답/오답 즉시 피드백
-- 최종 점수 및 평가 제공
+```
+📝 문제 1: 7 × 4 = ?
+답: 28
+🎉 정답입니다!
 
-## 💡 추가 기능 2: 시간 측정 시스템
+📝 문제 2: 6 × 8 = ?
+답: 40
+❌ 틀렸습니다. 정답은 48입니다.
+```
 
-### 요구사항
-
-- 문제 풀이 시간 측정
-- 시간 제한 설정 (예: 10초)
-- 빠른 답변 보너스 점수
-- 시간 초과 시 자동 다음 문제
-
-### 점수 계산 방식
-
-- 기본 점수: 정답 시 10점
-- 시간 보너스: 5초 이내 +5점, 3초 이내 +10점
-- 연속 정답 보너스: 연속 3개 이상 +5점씩
-
-## 🔥 추가 기능 3: 레벨별 도전 시스템
+## 💡 추가 기능 2: 구구단 표 만들기
 
 ### 요구사항
 
-- **레벨 1**: 기본 (5문제, 10초 제한)
-- **레벨 2**: 도전 (10문제, 8초 제한)
-- **레벨 3**: 전문가 (15문제, 6초 제한)
-- **레벨 4**: 마스터 (20문제, 4초 제한)
+여러 단을 한 번에 보여주는 구구단 표를 만듭니다.
 
-### 승급 조건
+- **범위 입력**: 시작 단과 끝 단 입력 (예: 2단부터 5단까지)
+- **표 형태 출력**: 여러 단을 나란히 또는 세로로 정렬
+- **전체 구구단**: 2~9단 전체를 한 번에 보는 옵션
 
-- 각 레벨에서 80% 이상 정답률 달성
-- 평균 응답 시간 기준 달성
-- 연속 정답 기록 달성
+### 출력 예시
 
-### 특별 보상
+```
+📚 2단부터 5단까지
 
-- **완벽 클리어**: 모든 문제 정답 시 보너스 점수
-- **스피드 보너스**: 제한 시간의 절반 이내 완료
-- **마스터 인증**: 모든 레벨 클리어 시 특별 칭호
+=== 2단 ===
+2 × 1 = 2
+2 × 2 = 4
+...
+
+=== 3단 ===
+3 × 1 = 3
+3 × 2 = 6
+...
+```
+
+## 🔥 추가 기능 3: 종합 메뉴 시스템
+
+### 요구사항
+
+모든 기능을 하나의 프로그램에서 선택할 수 있는 메뉴 시스템을 만듭니다.
+
+- **메뉴 표시**: 1~4번 선택지로 기능 나열
+- **반복 실행**: 종료를 선택할 때까지 계속 실행
+- **기능 통합**: 기본 기능, 퀴즈 게임, 구구단 표를 메뉴로 선택
+- **종료 기능**: 4번 선택 시 프로그램 종료
+
+### 메뉴 구성
+
+```
+🎮 메뉴를 선택하세요:
+1. 원하는 단 출력
+2. 구구단 퀴즈 게임
+3. 구구단 표 만들기
+4. 종료
+```
 
 ## 💡 구현 힌트
 
 ### 필요한 파이썬 기능들
 
-#### 1. 기본 구구단 출력
+#### 1. 기본 구구단 출력 구조
 
 ```python
-# 원하는 단 입력
-dan = int(input("몇 단을 출력할까요? (2-9): "))
-
-# 입력 검증
-if dan < 2 or dan > 9:
-    print("❌ 2~9 사이의 숫자를 입력하세요!")
-else:
-    print(f"📚 {dan}단")
-    print("="*15)
-
-    # 1부터 9까지 곱하기
-    for i in range(1, 10):
-        result = dan * i
-        print(f"{dan} × {i} = {result}")
-```
-
-#### 2. 입력 검증 시스템
-
-```python
-# 올바른 입력 받을 때까지 반복
+# 단수 입력 및 검증
 while True:
-    dan = int(input("구구단 몇 단? (2-9): "))
-
+    dan = int(input("몇 단? (2-9): "))
     if 2 <= dan <= 9:
-        print(f"✅ {dan}단을 선택하셨습니다.")
         break
     else:
-        print("❌ 2~9 사이의 숫자를 입력하세요!")
+        print("2~9 사이의 숫자를 입력하세요!")
+
+# 구구단 출력
+for i in range(1, 10):
+    result = dan * i
+    print(f"{dan} × {i} = {result}")
 ```
 
-#### 3. 구구단 퀴즈 게임
+#### 2. 퀴즈 게임 기본 구조
+
+랜덤 문제를 만들기 위해 `import random`을 사용합니다.
 
 ```python
 import random
 
-# 퀴즈 게임 설정
 score = 0
-total_questions = 5
+for question_num in range(1, 6):  # 5문제
+    dan = random.randint(2, 9)  # 2~9단 중 랜덤
+    num = random.randint(1, 9)  # 1~9 중 랜덤
+    answer = dan * num
 
-print("🎮 구구단 퀴즈 게임을 시작합니다!")
-
-for question_num in range(1, total_questions + 1):
-    # 랜덤 문제 생성
-    num1 = random.randint(2, 9)
-    num2 = random.randint(1, 9)
-    correct_answer = num1 * num2
-
-    print(f"\n📝 문제 {question_num}: {num1} × {num2} = ?")
+    print(f"📝 문제 {question_num}: {dan} × {num} = ?")
     user_answer = int(input("답: "))
 
-    if user_answer == correct_answer:
-        print("🎉 정답입니다!")
+    if user_answer == answer:
+        print("🎉 정답!")
         score += 1
     else:
-        print(f"❌ 틀렸습니다. 정답은 {correct_answer}입니다.")
-
-print(f"\n📊 최종 점수: {score}/{total_questions}")
-
-# 성적 평가
-if score == total_questions:
-    print("🏆 완벽해요! 구구단 마스터!")
-elif score >= total_questions * 0.8:
-    print("🌟 우수해요!")
-elif score >= total_questions * 0.6:
-    print("👍 잘했어요!")
-else:
-    print("📚 조금 더 연습해보세요!")
+        print(f"❌ 틀렸습니다. 정답은 {answer}입니다.")
 ```
 
-#### 4. 레벨별 도전 시스템
+#### 3. 여러 단 출력 구조
 
 ```python
-# 레벨별 설정 (기본 변수 사용)
-current_level = 1
-print("🎯 구구단 마스터 도전!")
+start_dan = int(input("시작 단: "))
+end_dan = int(input("끝 단: "))
 
-while current_level <= 4:
-    # 레벨별 문제 수 설정
-    if current_level == 1:
-        level_name = "기본"
-        question_count = 5
-        pass_score = 4  # 80% = 5문제 중 4문제
-    elif current_level == 2:
-        level_name = "도전"
-        question_count = 8
-        pass_score = 6  # 75% = 8문제 중 6문제
-    elif current_level == 3:
-        level_name = "전문가"
-        question_count = 10
-        pass_score = 8  # 80% = 10문제 중 8문제
-    else:  # level 4
-        level_name = "마스터"
-        question_count = 15
-        pass_score = 12  # 80% = 15문제 중 12문제
-
-    print(f"\n🔥 레벨 {current_level}: {level_name}")
-    print(f"📝 문제 수: {question_count}개")
-    print(f"🎯 통과 기준: {pass_score}개 이상 정답")
-
-    input("준비되면 엔터를 누르세요...")
-
-    # 레벨 도전 시작
-    score = 0
-
-    for i in range(question_count):
-        # 문제 생성 (2~9단, 1~9 곱하기)
-        num1 = (i % 8) + 2  # 2~9단 순서대로
-        num2 = (i % 9) + 1  # 1~9 순서대로
-        answer = num1 * num2
-
-        print(f"\n📝 문제 {i+1}: {num1} × {num2} = ?")
-        user_answer = int(input("답: "))
-
-        # 정답 확인
-        if user_answer == answer:
-            print("🎉 정답!")
-            score += 1
-        else:
-            print(f"❌ 틀렸습니다. 정답: {answer}")
-
-    # 레벨 결과 판정
-    print(f"\n📊 레벨 {current_level} 결과:")
-    print(f"🎯 정답: {score}/{question_count}")
-    print(f"📈 정답률: {score * 100 // question_count}%")
-
-    # 승급 조건 확인
-    if score >= pass_score:
-        print(f"🎉 레벨 {current_level} 클리어!")
-
-        # 특별 보너스
-        if score == question_count:
-            print("💎 완벽 클리어 보너스!")
-
-        current_level += 1
-
-        if current_level <= 4:
-            continue_game = input("\n다음 레벨에 도전하시겠습니까? (y/n): ")
-            if continue_game.lower() != 'y':
-                break
-    else:
-        print(f"😢 레벨 {current_level} 실패. {pass_score}개 이상 맞춰야 합니다!")
-        retry = input("재도전하시겠습니까? (y/n): ")
-        if retry.lower() != 'y':
-            break
-
-# 최종 결과
-if current_level > 4:
-    print("\n🏆 축하합니다! 구구단 마스터가 되었습니다!")
-    print("🎖️ 모든 레벨을 정복한 진정한 마스터입니다!")
-else:
-    print(f"\n💪 레벨 {current_level-1}까지 도달했습니다!")
-    print("🔥 다음에 더 높은 레벨에 도전해보세요!")
+for dan in range(start_dan, end_dan + 1):
+    print(f"=== {dan}단 ===")
+    # 각 단의 구구단 출력
 ```
 
-#### 5. 종합 게임 시스템
+#### 4. 메뉴 시스템 구조
 
 ```python
-# 전체 게임 시스템 (기본 변수와 반복문만 사용)
-print("🔢 구구단 마스터 게임")
-
 while True:
-    print("\n" + "="*40)
-    print("🎮 메뉴를 선택하세요:")
     print("1. 원하는 단 출력")
-    print("2. 구구단 퀴즈 게임")
-    print("3. 연속 정답 챌린지")
-    print("4. 레벨별 도전 시스템")
-    print("5. 게임 종료")
+    print("2. 구구단 퀴즈")
+    print("3. 구구단 표")
+    print("4. 종료")
 
-    choice = input("선택 (1-5): ")
+    choice = input("선택: ")
 
     if choice == "1":
-        # 기본 구구단 출력
-        dan = int(input("몇 단을 출력할까요? (2-9): "))
-        if 2 <= dan <= 9:
-            print(f"📚 {dan}단")
-            print("="*15)
-            for i in range(1, 10):
-                print(f"{dan} × {i} = {dan*i}")
-        else:
-            print("❌ 2~9 사이의 숫자를 입력하세요!")
-
+        # 기본 기능 코드
     elif choice == "2":
-        # 구구단 퀴즈 게임
-        print("🎮 구구단 퀴즈 게임 시작!")
-        score = 0
-        total_questions = 5
-
-        for i in range(total_questions):
-            # 문제 생성 (2~9단, 1~9 곱하기)
-            num1 = (i % 8) + 2
-            num2 = (i % 9) + 1
-            answer = num1 * num2
-
-            print(f"\n📝 문제 {i+1}: {num1} × {num2} = ?")
-            user_answer = int(input("답: "))
-
-            if user_answer == answer:
-                print("🎉 정답!")
-                score += 1
-            else:
-                print(f"❌ 틀렸습니다. 정답: {answer}")
-
-        print(f"\n📊 최종 점수: {score}/{total_questions}")
-        if score == total_questions:
-            print("🏆 완벽해요!")
-        elif score >= 4:
-            print("👍 잘했어요!")
-        else:
-            print("📚 더 연습해보세요!")
-
+        # 퀴즈 게임 코드
     elif choice == "3":
-        # 연속 정답 챌린지
-        print("🔥 연속 정답 챌린지!")
-        consecutive_correct = 0
-        max_consecutive = 0
-        total_score = 0
-
-        for i in range(10):  # 10문제
-            num1 = (i % 8) + 2
-            num2 = (i % 9) + 1
-            answer = num1 * num2
-
-            print(f"\n📝 문제 {i+1}: {num1} × {num2} = ?")
-            user_answer = int(input("답: "))
-
-            if user_answer == answer:
-                consecutive_correct += 1
-                base_score = 10
-
-                print(f"🎉 정답! 연속 {consecutive_correct}개 정답!")
-
-                # 연속 정답 보너스
-                if consecutive_correct >= 5:
-                    bonus = 10
-                    print(f"🔥 5연속 정답! 보너스 +{bonus}점!")
-                elif consecutive_correct >= 3:
-                    bonus = 5
-                    print(f"⚡ 3연속 정답! 보너스 +{bonus}점!")
-                else:
-                    bonus = 0
-
-                total_score += base_score + bonus
-
-                if consecutive_correct > max_consecutive:
-                    max_consecutive = consecutive_correct
-
-            else:
-                print(f"❌ 틀렸습니다. 정답: {answer}")
-                consecutive_correct = 0
-                print("💔 연속 기록이 초기화되었습니다.")
-
-        print(f"\n🏆 최종 점수: {total_score}점")
-        print(f"📊 최고 연속 기록: {max_consecutive}개")
-
+        # 구구단 표 코드
     elif choice == "4":
-        # 레벨별 도전 시스템 (위의 코드 실행)
-        print("🎯 레벨별 도전 시스템 시작!")
-        # 위의 레벨별 도전 코드를 여기에 넣어서 실행
-
-    elif choice == "5":
-        print("👋 게임을 종료합니다!")
         break
-
-    else:
-        print("❌ 1~5 중에서 선택하세요!")
-```
-
-#### 6. 표 형태 구구단 출력
-
-```python
-# 가로 정렬 구구단 표
-print("📊 구구단 표 (가로 정렬)")
-print("="*80)
-
-# 헤더 출력
-print("단\\곱", end="")
-for i in range(1, 10):
-    print(f"{i:4d}", end="")
-print()
-
-print("-" * 80)
-
-# 각 단별 출력
-for dan in range(2, 10):
-    print(f"{dan:2d}단", end="")
-
-    for i in range(1, 10):
-        result = dan * i
-        print(f"{result:4d}", end="")
-
-    print()  # 줄바꿈
-```
-
-#### 7. 연속 정답 보너스 시스템
-
-```python
-# 연속 정답 시스템
-consecutive_correct = 0
-total_score = 0
-
-# 여러 문제 진행
-for question_num in range(1, 11):  # 10문제
-    num1 = random.randint(2, 9)
-    num2 = random.randint(1, 9)
-    correct_answer = num1 * num2
-
-    print(f"\n📝 문제 {question_num}: {num1} × {num2} = ?")
-    user_answer = int(input("답: "))
-
-    if user_answer == correct_answer:
-        consecutive_correct += 1
-        base_score = 10
-
-        print(f"🎉 정답! 연속 {consecutive_correct}개 정답!")
-
-        # 연속 정답 보너스
-        if consecutive_correct >= 5:
-            bonus = 10
-            print(f"🔥 5연속 정답! 보너스 +{bonus}점!")
-        elif consecutive_correct >= 3:
-            bonus = 5
-            print(f"⚡ 3연속 정답! 보너스 +{bonus}점!")
-        else:
-            bonus = 0
-
-        total_score += base_score + bonus
-        print(f"💰 현재 총 점수: {total_score}점")
-
-    else:
-        print(f"❌ 틀렸습니다. 정답은 {correct_answer}입니다.")
-        consecutive_correct = 0  # 연속 기록 초기화
-        print("💔 연속 기록이 초기화되었습니다.")
-
-print(f"\n🏆 최종 점수: {total_score}점")
-```
-
-#### 8. 게임 메뉴 시스템
-
-```python
-# 메뉴 시스템
-while True:
-    print("\n🔢 구구단 마스터")
-    print("="*30)
-    print("1. 원하는 단 출력")
-    print("2. 구구단 퀴즈 게임")
-    print("3. 시간 측정 게임")
-    print("4. 전체 구구단 출력")
-    print("5. 연속 정답 챌린지")
-    print("6. 종료")
-
-    choice = input("선택하세요 (1-6): ")
-
-    if choice == "1":
-        # 원하는 단 출력 코드
-        dan = int(input("몇 단을 출력할까요? (2-9): "))
-        if 2 <= dan <= 9:
-            print(f"📚 {dan}단")
-            for i in range(1, 10):
-                result = dan * i
-                print(f"{dan} × {i} = {result}")
-        else:
-            print("❌ 2~9 사이의 숫자를 입력하세요!")
-
-    elif choice == "2":
-        # 구구단 퀴즈 게임 코드
-        print("🎮 구구단 퀴즈 게임!")
-        # 위의 퀴즈 게임 코드 실행
-
-    elif choice == "3":
-        # 시간 측정 게임 코드
-        print("⏰ 시간 측정 게임!")
-        # 위의 시간 측정 코드 실행
-
-    elif choice == "4":
-        # 전체 구구단 출력 코드
-        print("📚 전체 구구단 출력!")
-        # 위의 전체 구구단 코드 실행
-
-    elif choice == "5":
-        # 연속 정답 챌린지 코드
-        print("🔥 연속 정답 챌린지!")
-        # 위의 연속 정답 시스템 코드 실행
-
-    elif choice == "6":
-        print("👋 게임을 종료합니다!")
-        break
-
-    else:
-        print("❌ 1~6 중에서 선택하세요!")
-```
-
-#### 9. 사용자 정의 범위 구구단
-
-```python
-# 사용자가 원하는 범위의 구구단 출력
-print("📚 원하는 범위의 구구단을 출력해보세요!")
-
-start_dan = int(input("시작 단 (2-9): "))
-end_dan = int(input("끝 단 (2-9): "))
-
-if start_dan > end_dan:
-    print("❌ 시작 단이 끝 단보다 클 수 없습니다!")
-elif start_dan < 2 or end_dan > 9:
-    print("❌ 2~9 사이의 숫자를 입력하세요!")
-else:
-    print(f"📊 {start_dan}단부터 {end_dan}단까지")
-    print("="*50)
-
-    for dan in range(start_dan, end_dan + 1):
-        print(f"\n📖 {dan}단")
-        print("-"*15)
-
-        for i in range(1, 10):
-            result = dan * i
-            print(f"{dan} × {i} = {result}")
 ```
 
 ### 반복문 활용 포인트
 
-- **for문**: 정해진 횟수만큼 반복 (1~9까지, 2~9단까지)
-- **while문**: 조건이 참인 동안 반복 (메뉴 시스템, 올바른 입력까지)
-- **중첩 반복문**: 2차원 구조 (단 × 곱하는 수)
-- **range()**: 숫자 범위 생성 (1~9, 2~9)
-
-### 게임 설계 팁
-
-- **난이도 조절**: 문제 수와 시간 제한으로 난이도 조정
-- **피드백 시스템**: 즉각적인 정답/오답 피드백
-- **보상 시스템**: 연속 정답과 빠른 답변에 보너스
-- **사용자 경험**: 명확한 메뉴와 안내 메시지
-
-### 도전 과제
-
-1. **역구구단**: 답을 주고 문제를 맞추는 게임
-2. **구구단 빙고**: 3×3 빙고판으로 구구단 게임
-3. **속도 대결**: 제한 시간 내 최대한 많은 문제 풀기
-4. **구구단 암산**: 여러 단계 계산 문제
+- **for문**: 1부터 9까지, 시작 단부터 끝 단까지의 반복
+- **while문**: 올바른 입력을 받을 때까지 반복
+- **range()**: 숫자 범위 생성 (1, 10), (start_dan, end_dan + 1)
+- **중첩 반복문**: 여러 단 × 각 단의 곱셈
 
 ## 📝 완성 체크리스트
 
@@ -542,43 +198,51 @@ else:
   items={[
     {
       id: "basic-output",
-      text: "원하는 단의 구구단을 for문으로 출력한다",
+      text: "원하는 단의 구구단을 for문으로 정확히 출력한다",
     },
     {
       id: "input-validation",
-      text: "while문으로 올바른 입력을 받을 때까지 반복한다",
+      text: "while문으로 2~9 범위 검증과 재입력을 처리한다",
+    },
+    {
+      id: "clean-format",
+      text: "구분선과 제목으로 보기 좋게 출력한다",
     },
     {
       id: "quiz-game",
-      text: "랜덤 구구단 문제를 출제하는 퀴즈 게임을 구현한다",
+      text: "5문제로 구성된 구구단 퀴즈 게임을 구현한다",
     },
     {
       id: "score-system",
-      text: "정답률과 점수 계산 시스템이 작동한다",
+      text: "정답 개수를 세어 점수와 평가를 표시한다",
     },
     {
-      id: "time-measurement",
-      text: "문제 풀이 시간을 측정하고 표시한다",
+      id: "multiple-tables",
+      text: "시작 단과 끝 단을 입력받아 여러 단을 출력한다",
     },
     {
-      id: "time-bonus",
-      text: "빠른 답변에 대한 보너스 점수 시스템이 있다",
+      id: "table-format",
+      text: "여러 단을 정렬된 표 형태로 출력한다",
     },
     {
-      id: "level-system",
-      text: "4단계 레벨로 구성된 도전 시스템을 구현한다",
+      id: "menu-display",
+      text: "1~4번 메뉴를 명확하게 표시한다",
     },
     {
-      id: "level-progression",
-      text: "정답률 80% 이상으로 승급하는 시스템이 작동한다",
+      id: "menu-loop",
+      text: "while문으로 종료할 때까지 메뉴를 반복 실행한다",
     },
     {
-      id: "difficulty-scaling",
-      text: "레벨별로 문제 수와 시간 제한이 점진적으로 어려워진다",
+      id: "menu-integration",
+      text: "메뉴 선택으로 모든 기능에 접근할 수 있다",
     },
     {
-      id: "menu-system",
-      text: "메뉴 선택으로 다양한 기능에 접근할 수 있다",
+      id: "user-friendly",
+      text: "사용자가 쉽게 이해할 수 있는 안내 메시지를 제공한다",
+    },
+    {
+      id: "error-handling",
+      text: "잘못된 입력에 대한 적절한 처리를 한다",
     },
   ]}
   completionMessage="🎉 축하합니다! 구구단을 완전히 마스터했습니다!"
@@ -586,4 +250,4 @@ else:
 
 ## 🎉 완성 후 해볼 것
 
-완성된 구구단 마스터로 친구들과 구구단 시합을 해보세요! 누가 더 빨리, 정확하게 문제를 푸는지 경쟁해보거나, 어려운 문제를 만들어서 서로 도전해보세요!
+완성된 구구단 마스터로 친구들과 구구단 퀴즈 시합을 해보세요! 누가 더 빨리, 정확하게 문제를 푸는지 경쟁해보거나, 다른 단들의 패턴을 찾아보는 것도 재미있을 거예요!

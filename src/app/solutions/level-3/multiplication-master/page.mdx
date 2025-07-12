@@ -1,6 +1,6 @@
 ---
 title: "구구단 마스터 (답안)"
-description: "구구단 마스터 프로젝트의 완성된 답안입니다"
+description: "리팩토링된 구구단 마스터 프로젝트의 완성된 답안입니다"
 ---
 
 # 🔢 구구단 마스터 (답안)
@@ -9,8 +9,10 @@ description: "구구단 마스터 프로젝트의 완성된 답안입니다"
 
 ```python
 # 🔢 구구단 마스터 - 기본 기능
+print("🔢 구구단 마스터에 오신 것을 환영합니다!")
+print("="*40)
 
-# 입력 검증
+# 단수 입력 및 검증
 while True:
     dan = int(input("몇 단을 출력할까요? (2-9): "))
     if 2 <= dan <= 9:
@@ -19,19 +21,22 @@ while True:
         print("❌ 2~9 사이의 숫자를 입력하세요!")
 
 print(f"\n📚 {dan}단")
-print("="*15)
+print("-"*15)
 
+# 구구단 출력
 for i in range(1, 10):
     result = dan * i
     print(f"{dan} × {i} = {result}")
 
-print("\n🎉 구구단 출력 완료!")
+print("="*40)
+print("🎉 구구단 출력 완료!")
 ```
 
 ## 🎨 추가 기능 1: 구구단 퀴즈 게임
 
 ```python
-# 🔢 구구단 퀴즈 게임 (기본 변수와 반복문만 사용)
+# 🔢 구구단 퀴즈 게임
+import random
 
 print("🎮 구구단 퀴즈 게임에 오신 것을 환영합니다!")
 print("="*50)
@@ -39,21 +44,25 @@ print("="*50)
 score = 0
 total_questions = 5
 
-for question_num in range(1, total_questions + 1):
-    # 간단한 의사 랜덤 문제 생성 (import 없이)
-    num1 = (question_num * 3) % 8 + 2  # 2-9단 중 하나
-    num2 = (question_num * 7) % 9 + 1  # 1-9 중 하나
-    correct_answer = num1 * num2
+print("📝 5문제를 출제합니다!")
+print("-"*30)
 
-    print(f"\n📝 문제 {question_num}: {num1} × {num2} = ?")
+for question_num in range(1, total_questions + 1):
+    # 랜덤 문제 생성
+    dan = random.randint(2, 9)  # 2~9단 중 랜덤
+    num = random.randint(1, 9)  # 1~9 중 랜덤
+    answer = dan * num
+
+    print(f"\n📝 문제 {question_num}: {dan} × {num} = ?")
     user_answer = int(input("답: "))
 
-    if user_answer == correct_answer:
+    if user_answer == answer:
         print("🎉 정답입니다!")
         score += 1
     else:
-        print(f"❌ 틀렸습니다. 정답은 {correct_answer}입니다.")
+        print(f"❌ 틀렸습니다. 정답은 {answer}입니다.")
 
+# 최종 결과
 print(f"\n📊 최종 점수: {score}/{total_questions}")
 
 # 성적 평가
@@ -65,176 +74,52 @@ elif score >= 3:
     print("👍 잘했어요!")
 else:
     print("📚 조금 더 연습해보세요!")
+
+print("="*50)
 ```
 
-## 💡 추가 기능 2: 시간 측정 시스템
+## 💡 추가 기능 2: 구구단 표 만들기
 
 ```python
-# 🔢 시간 측정 시스템 (기본 변수와 반복문만 사용)
+# 🔢 구구단 표 만들기
+print("📚 구구단 표 만들기")
+print("="*30)
 
-print("🎯 시간 측정 구구단 퀴즈!")
-print("="*40)
-
-total_score = 0
-question_count = 3
-
-for question_num in range(1, question_count + 1):
-    # 의사 랜덤 문제 생성
-    num1 = (question_num * 5) % 8 + 2
-    num2 = (question_num * 3) % 9 + 1
-    correct_answer = num1 * num2
-
-    print(f"\n📝 문제 {question_num}: {num1} × {num2} = ?")
-    print("⏰ 빠르게 답하세요!")
-
-    # 간단한 시간 측정 (카운트 기반)
-    import sys
-    start_count = 0
-
-    # 답 입력 전 안내
-    print("준비... 시작!")
-    user_answer = int(input("답: "))
-
-    # 정답 확인
-    if user_answer == correct_answer:
-        base_score = 10
-        print(f"🎉 정답! 기본 점수 {base_score}점")
-        total_score += base_score
+# 범위 입력
+while True:
+    start_dan = int(input("시작 단 (2-9): "))
+    if 2 <= start_dan <= 9:
+        break
     else:
-        print(f"❌ 틀렸습니다. 정답은 {correct_answer}입니다.")
+        print("❌ 2~9 사이의 숫자를 입력하세요!")
 
-print(f"\n📊 총 점수: {total_score}점")
-
-# 점수 평가
-if total_score >= 25:
-    print("🏆 완벽한 스피드! 구구단 마스터!")
-elif total_score >= 20:
-    print("🌟 빠른 계산! 우수해요!")
-elif total_score >= 15:
-    print("👍 좋은 속도! 잘했어요!")
-else:
-    print("📚 조금 더 연습하면 더 빨라질 거예요!")
-```
-
-## 🔥 추가 기능 3: 레벨별 도전 시스템
-
-```python
-# 🔢 레벨별 도전 시스템 (기본 변수와 반복문만 사용)
-
-print("🎯 구구단 마스터 레벨별 도전!")
-print("="*40)
-
-current_level = 1
-print("🚀 레벨 1부터 시작합니다!")
-
-while current_level <= 4:
-    # 레벨별 설정
-    if current_level == 1:
-        level_name = "기본"
-        question_count = 5
-        pass_score = 4  # 80% = 5문제 중 4문제
-    elif current_level == 2:
-        level_name = "도전"
-        question_count = 8
-        pass_score = 6  # 75% = 8문제 중 6문제
-    elif current_level == 3:
-        level_name = "전문가"
-        question_count = 10
-        pass_score = 8  # 80% = 10문제 중 8문제
-    else:  # level 4
-        level_name = "마스터"
-        question_count = 15
-        pass_score = 12  # 80% = 15문제 중 12문제
-
-    print(f"\n🔥 레벨 {current_level}: {level_name}")
-    print(f"📝 문제 수: {question_count}개")
-    print(f"🎯 통과 기준: {pass_score}개 이상 정답")
-    print("="*30)
-
-    ready = input("준비되면 엔터를 누르세요...")
-
-    # 레벨 도전 시작
-    score = 0
-    bonus_score = 0
-    consecutive_correct = 0
-
-    for question_num in range(1, question_count + 1):
-        # 레벨별 문제 난이도 조정
-        if current_level == 1:
-            # 기본 레벨: 2-5단
-            num1 = (question_num * 3) % 4 + 2
-        elif current_level == 2:
-            # 도전 레벨: 2-7단
-            num1 = (question_num * 5) % 6 + 2
-        elif current_level == 3:
-            # 전문가 레벨: 2-9단
-            num1 = (question_num * 7) % 8 + 2
-        else:
-            # 마스터 레벨: 2-9단 (더 어려운 곱셈)
-            num1 = (question_num * 11) % 8 + 2
-
-        num2 = (question_num * 13) % 9 + 1
-        correct_answer = num1 * num2
-
-        print(f"\n📝 문제 {question_num}/{question_count}: {num1} × {num2} = ?")
-        user_answer = int(input("답: "))
-
-        if user_answer == correct_answer:
-            print("🎉 정답!")
-            score += 1
-            consecutive_correct += 1
-
-            # 연속 정답 보너스
-            if consecutive_correct >= 3:
-                bonus_points = consecutive_correct - 2
-                bonus_score += bonus_points
-                print(f"🔥 연속 {consecutive_correct}개 정답! 보너스 +{bonus_points}점!")
-
-        else:
-            print(f"❌ 틀렸습니다. 정답은 {correct_answer}입니다.")
-            consecutive_correct = 0
-
-    # 레벨 결과 판정
-    total_score = score + bonus_score
-    success_rate = (score * 100) // question_count  # 소수점 없이 계산
-
-    print(f"\n📊 레벨 {current_level} 결과:")
-    print(f"✅ 정답: {score}/{question_count} ({success_rate}%)")
-    print(f"🎁 보너스 점수: {bonus_score}점")
-    print(f"🏆 총 점수: {total_score}점")
-
-    if score >= pass_score:
-        print(f"🎉 레벨 {current_level} 클리어!")
-
-        # 특별 보상
-        if score == question_count:
-            print("🏆 완벽 클리어! 마스터 인증!")
-        elif score >= question_count - 1:
-            print("🌟 거의 완벽! 대단해요!")
-
-        current_level += 1
-
-        if current_level <= 4:
-            print(f"🚀 레벨 {current_level}로 승급!")
-        else:
-            print("\n🎊 축하합니다! 모든 레벨을 클리어했습니다!")
-            print("🏆 당신은 진정한 구구단 마스터입니다!")
-            break
+while True:
+    end_dan = int(input("끝 단 (2-9): "))
+    if start_dan <= end_dan <= 9:
+        break
     else:
-        print(f"😢 레벨 {current_level} 실패!")
-        print(f"🎯 {pass_score}개 이상 맞춰야 통과합니다.")
+        print(f"❌ {start_dan}~9 사이의 숫자를 입력하세요!")
 
-        retry = input("다시 도전하시겠습니까? (y/n): ")
-        if retry.lower() != 'y':
-            break
+print(f"\n📊 {start_dan}단부터 {end_dan}단까지")
+print("="*50)
 
-print("\n🎮 구구단 마스터 도전을 마칩니다!")
+# 여러 단 출력
+for dan in range(start_dan, end_dan + 1):
+    print(f"\n=== {dan}단 ===")
+    print("-"*15)
+
+    for i in range(1, 10):
+        result = dan * i
+        print(f"{dan} × {i} = {result}")
+
+print("\n🎉 구구단 표 출력 완료!")
 ```
 
-## 🎮 종합 메뉴 시스템
+## 🔥 추가 기능 3: 종합 메뉴 시스템
 
 ```python
-# 🔢 구구단 마스터 - 종합 메뉴 시스템
+# 🔢 구구단 마스터 - 종합 시스템
+import random
 
 print("🔢 구구단 마스터에 오신 것을 환영합니다!")
 print("="*50)
@@ -244,15 +129,16 @@ while True:
     print("="*30)
     print("1. 원하는 단 출력")
     print("2. 구구단 퀴즈 게임")
-    print("3. 시간 측정 게임")
-    print("4. 레벨별 도전 시스템")
-    print("5. 종료")
+    print("3. 구구단 표 만들기")
+    print("4. 종료")
     print("="*30)
 
-    choice = input("선택하세요 (1-5): ")
+    choice = input("선택하세요 (1-4): ")
 
     if choice == "1":
-        # 원하는 단 출력
+        # 기본 기능 - 원하는 단 출력
+        print("\n📚 원하는 단 출력")
+
         while True:
             dan = int(input("몇 단을 출력할까요? (2-9): "))
             if 2 <= dan <= 9:
@@ -261,67 +147,92 @@ while True:
                 print("❌ 2~9 사이의 숫자를 입력하세요!")
 
         print(f"\n📚 {dan}단")
-        print("="*15)
+        print("-"*15)
 
         for i in range(1, 10):
             result = dan * i
             print(f"{dan} × {i} = {result}")
 
     elif choice == "2":
-        # 구구단 퀴즈 게임
+        # 추가 기능 1 - 구구단 퀴즈 게임
         print("\n🎮 구구단 퀴즈 게임!")
 
         score = 0
         total_questions = 5
 
-        for question_num in range(1, total_questions + 1):
-            num1 = (question_num * 3) % 8 + 2
-            num2 = (question_num * 7) % 9 + 1
-            correct_answer = num1 * num2
+        print("📝 5문제를 출제합니다!")
+        print("-"*30)
 
-            print(f"\n📝 문제 {question_num}: {num1} × {num2} = ?")
+        for question_num in range(1, total_questions + 1):
+            dan = random.randint(2, 9)
+            num = random.randint(1, 9)
+            answer = dan * num
+
+            print(f"\n📝 문제 {question_num}: {dan} × {num} = ?")
             user_answer = int(input("답: "))
 
-            if user_answer == correct_answer:
-                print("🎉 정답!")
+            if user_answer == answer:
+                print("🎉 정답입니다!")
                 score += 1
             else:
-                print(f"❌ 틀렸습니다. 정답은 {correct_answer}입니다.")
+                print(f"❌ 틀렸습니다. 정답은 {answer}입니다.")
 
         print(f"\n📊 최종 점수: {score}/{total_questions}")
 
+        if score == total_questions:
+            print("🏆 완벽해요! 구구단 마스터!")
+        elif score >= 4:
+            print("🌟 우수해요!")
+        elif score >= 3:
+            print("👍 잘했어요!")
+        else:
+            print("📚 조금 더 연습해보세요!")
+
     elif choice == "3":
-        # 시간 측정 게임
-        print("\n🎯 시간 측정 구구단 퀴즈!")
+        # 추가 기능 2 - 구구단 표 만들기
+        print("\n📚 구구단 표 만들기")
 
-        total_score = 0
-        question_count = 3
+        while True:
+            start_dan = int(input("시작 단 (2-9): "))
+            if 2 <= start_dan <= 9:
+                break
+            else:
+                print("❌ 2~9 사이의 숫자를 입력하세요!")
 
-        for question_num in range(1, question_count + 1):
-            num1 = (question_num * 5) % 8 + 2
-            num2 = (question_num * 3) % 9 + 1
-            correct_answer = num1 * num2
+        while True:
+            end_dan = int(input("끝 단 (2-9): "))
+            if start_dan <= end_dan <= 9:
+                break
+            else:
+                print(f"❌ {start_dan}~9 사이의 숫자를 입력하세요!")
 
-            print(f"\n📝 문제 {question_num}: {num1} × {num2} = ?")
-            user_answer = int(input("답: "))
+        print(f"\n📊 {start_dan}단부터 {end_dan}단까지")
+        print("="*50)
 
-            if user_answer == correct_answer:
-                print("🎉 정답! +10점")
-                total_score += 10
+        for dan in range(start_dan, end_dan + 1):
+            print(f"\n=== {dan}단 ===")
+            print("-"*15)
 
-        print(f"\n📊 총 점수: {total_score}점")
+            for i in range(1, 10):
+                result = dan * i
+                print(f"{dan} × {i} = {result}")
+
+        print("\n🎉 구구단 표 출력 완료!")
 
     elif choice == "4":
-        # 레벨별 도전 시스템
-        print("\n🎯 레벨별 도전 시스템!")
-        print("여기서 레벨별 도전 코드 실행...")
-
-    elif choice == "5":
         print("\n👋 구구단 마스터를 이용해주셔서 감사합니다!")
         break
 
     else:
-        print("❌ 1~5 중에서 선택하세요!")
+        print("❌ 1~4 중에서 선택하세요!")
 
 print("🎉 프로그램을 종료합니다!")
 ```
+
+## 💡 핵심 포인트
+
+1. **기본 문법**: 변수, 조건문, 반복문, 입출력만 사용
+2. **입력 검증**: while문으로 올바른 입력까지 반복
+3. **랜덤 사용**: `import random`, `random.randint()` 활용
+4. **메뉴 시스템**: while True와 if-elif로 반복 메뉴 구현
+5. **단계적 확장**: 기본 → 퀴즈 → 표 → 메뉴 순서로 기능 확장
