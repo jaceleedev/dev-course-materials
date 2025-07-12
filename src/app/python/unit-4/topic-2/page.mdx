@@ -139,22 +139,56 @@ print(apple_count)  # 2
 
 ## 🔄 리스트 정렬과 순서
 
-### sort() - 정렬
+### sort() vs sorted() - 정렬의 두 가지 방법
+
+#### sort() 메서드 - 원본 수정
 
 ```python
-# 숫자 정렬
+# 숫자 정렬 (원본 리스트가 변경됨)
 numbers = [3, 1, 4, 1, 5, 9, 2, 6]
-numbers.sort()
-print(numbers)  # [1, 1, 2, 3, 4, 5, 6, 9]
+print(f"정렬 전: {numbers}")
+
+numbers.sort()  # 원본을 직접 수정
+print(f"정렬 후: {numbers}")  # [1, 1, 2, 3, 4, 5, 6, 9]
 
 # 역순 정렬
 numbers.sort(reverse=True)
-print(numbers)  # [9, 6, 5, 4, 3, 2, 1, 1]
+print(f"역순 정렬: {numbers}")  # [9, 6, 5, 4, 3, 2, 1, 1]
 
-# 문자열 정렬
-fruits = ["바나나", "사과", "오렌지"]
-fruits.sort()
-print(fruits)  # ["바나나", "사과", "오렌지"] (ㄱ, ㄴ, ㄷ 순)
+# ⚠️ 주의: sort()는 None을 반환합니다!
+result = numbers.sort()
+print(f"sort() 반환값: {result}")  # None
+```
+
+#### sorted() 함수 - 새로운 리스트 생성
+
+```python
+# 원본은 그대로, 새로운 정렬된 리스트 생성
+original = [3, 1, 4, 1, 5, 9, 2, 6]
+sorted_list = sorted(original)
+
+print(f"원본: {original}")        # [3, 1, 4, 1, 5, 9, 2, 6] (변경 안됨)
+print(f"정렬된 리스트: {sorted_list}")  # [1, 1, 2, 3, 4, 5, 6, 9]
+
+# 역순 정렬
+reverse_sorted = sorted(original, reverse=True)
+print(f"역순 정렬: {reverse_sorted}")  # [9, 6, 5, 4, 3, 2, 1, 1]
+```
+
+#### 언제 어떤 것을 사용할까?
+
+```python
+# sort() 사용 - 원본을 바꿔도 되는 경우
+scores = [85, 92, 78, 96, 88]
+scores.sort(reverse=True)  # 높은 점수부터 정렬
+print(f"성적 순위: {scores}")
+
+# sorted() 사용 - 원본을 보존해야 하는 경우
+original_scores = [85, 92, 78, 96, 88]
+ranking = sorted(original_scores, reverse=True)
+
+print(f"원본 점수: {original_scores}")  # 원본 그대로
+print(f"순위: {ranking}")             # 정렬된 버전
 ```
 
 ### reverse() - 순서 뒤집기
@@ -179,17 +213,18 @@ print(original)  # [1, 2, 3, 4, 5] (원본 그대로)
 print(copied)    # [1, 2, 3, 4, 5, 6] (복사본만 변경)
 ```
 
-### 얕은 복사 vs 깊은 복사
+### 참조 vs 복사의 차이
 
 ```python
-# 참조 복사 (위험!)
+# 참조 (같은 리스트를 가리킴 - 위험!)
 list1 = [1, 2, 3]
-list2 = list1  # 같은 리스트를 가리킴
+list2 = list1  # list2는 list1과 같은 리스트를 가리킴
 
 list2.append(4)
 print(list1)  # [1, 2, 3, 4] (원본도 변경됨!)
+print(list2)  # [1, 2, 3, 4]
 
-# 올바른 복사
+# 복사 (새로운 리스트 생성 - 안전!)
 list1 = [1, 2, 3]
 list2 = list1.copy()  # 새로운 리스트 생성
 
@@ -203,16 +238,16 @@ print(list2)  # [1, 2, 3, 4] (복사본만 변경)
 ### 예시 1: 학생 성적 관리 시스템
 
 ```python
-students = []
-scores = []
+# 학생 이름과 점수
+students = ["김철수", "이영희", "박민수"]
+scores = [85, 92, 78]
 
-# 학생 정보 입력
-for i in range(3):
-    name = input(f"{i+1}번째 학생 이름: ")
-    score = int(input(f"{name}의 점수: "))
+# 새 학생 추가
+students.append("최지영")
+scores.append(96)
 
-    students.append(name)
-    scores.append(score)
+print(f"학생 명단: {students}")
+print(f"점수 목록: {scores}")
 
 # 성적 통계
 print(f"\n📊 성적 통계")
@@ -226,93 +261,75 @@ sorted_scores.sort(reverse=True)
 print(f"점수 순위: {sorted_scores}")
 ```
 
-### 예시 2: 할 일 관리 앱
+### 예시 2: 할 일 관리하기
 
 ```python
-todo_list = []
+# 할 일 목록
+todo_list = ["숙제하기", "운동하기", "독서하기"]
 
-while True:
-    print("\n📋 할 일 관리")
-    print("1. 추가  2. 삭제  3. 목록  4. 종료")
+print("📋 현재 할 일 목록:")
+print(todo_list)
 
-    choice = input("선택: ")
+# 새로운 할 일 추가
+todo_list.append("쇼핑하기")
+print(f"\n할 일 추가 후: {todo_list}")
 
-    if choice == "1":
-        task = input("할 일: ")
-        todo_list.append(task)
-        print(f"'{task}'가 추가되었습니다.")
+# 완료한 일 제거
+todo_list.remove("숙제하기")
+print(f"숙제 완료 후: {todo_list}")
 
-    elif choice == "2":
-        if todo_list:
-            print(f"현재 할 일: {todo_list}")
-            task = input("삭제할 일: ")
-            if task in todo_list:
-                todo_list.remove(task)
-                print(f"'{task}'가 삭제되었습니다.")
-            else:
-                print("해당 할 일이 없습니다.")
-        else:
-            print("할 일이 없습니다.")
+# 목록 길이 확인
+print(f"남은 할 일: {len(todo_list)}개")
 
-    elif choice == "3":
-        if todo_list:
-            print(f"📋 할 일 목록:")
-            for i, task in enumerate(todo_list, 1):
-                print(f"{i}. {task}")
-        else:
-            print("할 일이 없습니다.")
-
-    elif choice == "4":
-        print("프로그램을 종료합니다.")
-        break
+# 특정 할 일 확인
+if "운동하기" in todo_list:
+    print("운동하기가 목록에 있습니다!")
 ```
 
-### 예시 3: 단어 빈도 분석
+### 예시 3: 과일 개수 세기
 
 ```python
-text = "python is great python is fun python is powerful"
-words = text.split()  # 공백으로 분리하여 리스트 생성
+# 과일 목록
+fruits = ["사과", "바나나", "사과", "오렌지", "사과", "바나나"]
 
-# 중복 제거
-unique_words = []
-for word in words:
-    if word not in unique_words:
-        unique_words.append(word)
+print("📊 과일 목록:")
+print(fruits)
 
-# 빈도 분석
-print("📊 단어 빈도 분석:")
-for word in unique_words:
-    count = words.count(word)
-    print(f"{word}: {count}번")
+# 특정 과일 개수 세기
+apple_count = fruits.count("사과")
+banana_count = fruits.count("바나나")
+orange_count = fruits.count("오렌지")
+
+print(f"\n과일 개수:")
+print(f"사과: {apple_count}개")
+print(f"바나나: {banana_count}개")
+print(f"오렌지: {orange_count}개")
+
+# 가장 많은 과일 찾기
+if apple_count > banana_count and apple_count > orange_count:
+    print("사과가 가장 많습니다!")
 ```
 
-## 🔄 리스트 컴프리헨션 맛보기
+## 🔄 메서드 체이닝
 
-### 기본 문법
-
-```python
-# 기존 방법
-numbers = []
-for i in range(5):
-    numbers.append(i * 2)
-print(numbers)  # [0, 2, 4, 6, 8]
-
-# 리스트 컴프리헨션
-numbers = [i * 2 for i in range(5)]
-print(numbers)  # [0, 2, 4, 6, 8]
-```
-
-### 조건 포함
+### 여러 메서드를 연결해서 사용하기
 
 ```python
-# 짝수만 필터링
-numbers = [i for i in range(10) if i % 2 == 0]
-print(numbers)  # [0, 2, 4, 6, 8]
+# 숫자 리스트 만들기
+numbers = [3, 1, 4, 1, 5, 9, 2, 6]
 
-# 문자열 길이 필터링
-words = ["apple", "banana", "cat", "dog"]
-long_words = [word for word in words if len(word) > 3]
-print(long_words)  # ["apple", "banana"]
+# 복사본 만들고 정렬하기
+sorted_numbers = numbers.copy()
+sorted_numbers.sort()
+print(f"원본: {numbers}")
+print(f"정렬된 복사본: {sorted_numbers}")
+
+# 리스트 조작 연속하기
+fruits = ["사과", "바나나"]
+fruits.append("오렌지")
+fruits.append("포도")
+fruits.remove("바나나")
+print(f"최종 과일 목록: {fruits}")
 ```
 
 ## 🚨 자주 발생하는 오류
@@ -332,19 +349,18 @@ else:
     print("포도가 목록에 없습니다.")
 ```
 
-### 오류 2: 반복 중 리스트 수정
+### 오류 2: 잘못된 인덱스 사용
 
 ```python
-# ❌ 위험한 예
-numbers = [1, 2, 3, 4, 5]
-for num in numbers:
-    if num % 2 == 0:
-        numbers.remove(num)  # 반복 중 리스트 수정은 위험!
+# ❌ 틀린 예
+fruits = ["사과", "바나나", "오렌지"]
+fruits.insert(10, "포도")  # 인덱스 10은 너무 큰 값
+print(fruits)  # ["사과", "바나나", "오렌지", "포도"] - 맨 끝에 추가됨
 
-# ✅ 안전한 방법
-numbers = [1, 2, 3, 4, 5]
-odd_numbers = [num for num in numbers if num % 2 == 1]
-print(odd_numbers)  # [1, 3, 5]
+# ✅ 올바른 예
+fruits = ["사과", "바나나", "오렌지"]
+fruits.insert(1, "포도")  # 적절한 인덱스 사용
+print(fruits)  # ["사과", "포도", "바나나", "오렌지"]
 ```
 
 ## 💡 퀴즈: 리스트 메서드 이해도 체크
@@ -396,23 +412,45 @@ list2.extend([4, 5])
 
 </details>
 
-### Q3. 리스트에서 값 '2'를 모두 제거하는 올바른 방법은?
+### Q3. 다음 코드의 출력 결과는?
 
 ```python
-numbers = [1, 2, 3, 2, 4, 2, 5]
+numbers = [3, 1, 4, 2]
+result = numbers.sort()
+print(result)
 ```
 
-1. numbers.remove(2) 한 번 호출
-2. while 2 in numbers: numbers.remove(2)
-3. numbers.remove(2) 세 번 호출
-4. numbers.clear()
+1. [1, 2, 3, 4]
+2. [3, 1, 4, 2]
+3. None
+4. 오류 발생
 
 <details>
 <summary>💡 정답 확인</summary>
 
-**정답: 2번**
+**정답: 3번 (None)**
 
-remove()는 첫 번째 일치하는 값만 제거하므로, 모든 2를 제거하려면 while 반복문을 사용해야 합니다.
+sort() 메서드는 원본 리스트를 직접 수정하고 None을 반환합니다. 정렬된 리스트를 얻으려면 sorted() 함수를 사용해야 합니다.
+
+</details>
+
+### Q4. 원본 리스트를 보존하면서 정렬하려면?
+
+```python
+original = [3, 1, 4, 2]
+```
+
+1. original.sort()
+2. sorted(original)
+3. original.reverse()
+4. 1번과 2번 모두
+
+<details>
+<summary>💡 정답 확인</summary>
+
+**정답: 2번 (sorted(original))**
+
+sorted() 함수는 원본을 변경하지 않고 새로운 정렬된 리스트를 반환합니다.
 
 </details>
 
@@ -438,8 +476,8 @@ remove()는 첫 번째 일치하는 값만 제거하므로, 모든 2를 제거�
     },
     { id: "copy_method", text: "copy()로 리스트를 복사할 수 있다" },
     {
-      id: "list_comprehension",
-      text: "기본적인 리스트 컴프리헨션을 사용할 수 있다",
+      id: "method_chaining",
+      text: "여러 메서드를 연결해서 사용할 수 있다",
     },
     {
       id: "practical_usage",

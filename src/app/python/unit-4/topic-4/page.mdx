@@ -218,22 +218,27 @@ for subject, score in scores.items():
 
 ```python
 # 학생별 성적 딕셔너리
-students_grades = {
-    "김철수": {"수학": 90, "영어": 85, "과학": 92},
-    "이영희": {"수학": 95, "영어": 88, "과학": 87},
-    "박민수": {"수학": 78, "영어": 92, "과학": 89}
+student_scores = {
+    "김철수": 85,
+    "이영희": 92,
+    "박민수": 78,
+    "최지영": 96
 }
 
-# 학생별 평균 계산
-for name, grades in students_grades.items():
-    total = sum(grades.values())
-    average = total / len(grades)
-    print(f"{name}의 평균: {average:.1f}점")
+print("📊 학생 성적:")
+for name, score in student_scores.items():
+    print(f"{name}: {score}점")
 
-# 특정 과목 평균 계산
-math_scores = [grades["수학"] for grades in students_grades.values()]
-math_average = sum(math_scores) / len(math_scores)
-print(f"수학 과목 평균: {math_average:.1f}점")
+# 성적 통계
+scores = student_scores.values()
+average = sum(scores) / len(scores)
+highest = max(scores)
+lowest = min(scores)
+
+print(f"\n📈 성적 통계:")
+print(f"평균: {average:.1f}점")
+print(f"최고점: {highest}점")
+print(f"최저점: {lowest}점")
 ```
 
 ### 예시 2: 단어 빈도 분석
@@ -261,99 +266,89 @@ for word, count in word_count.items():
     print(f"{word}: {count}번")
 ```
 
-### 예시 3: 메뉴 관리 시스템
+### 예시 3: 카페 메뉴 관리
 
 ```python
-# 카페 메뉴 관리
+# 카페 메뉴 (음료와 가격)
 menu = {
-    "음료": {
-        "아메리카노": 4000,
-        "카페라떼": 4500,
-        "카푸치노": 5000
-    },
-    "디저트": {
-        "케이크": 6000,
-        "쿠키": 3000,
-        "마카롱": 2500
-    }
+    "아메리카노": 4000,
+    "카페라떼": 4500,
+    "카푸치노": 5000,
+    "주스": 3500,
+    "케이크": 6000
 }
 
-# 메뉴 출력
 print("☕ 카페 메뉴")
-for category, items in menu.items():
-    print(f"\n【{category}】")
-    for item, price in items.items():
-        print(f"  {item}: {price:,}원")
+for drink, price in menu.items():
+    print(f"{drink}: {price:,}원")
 
 # 가격 검색
-def find_price(item_name):
-    for category, items in menu.items():
-        if item_name in items:
-            return items[item_name]
-    return None
+item_name = "아메리카노"
+if item_name in menu:
+    price = menu[item_name]
+    print(f"\n{item_name} 가격: {price:,}원")
+else:
+    print(f"{item_name}는 메뉴에 없습니다.")
 
-price = find_price("아메리카노")
-if price:
-    print(f"\n아메리카노 가격: {price:,}원")
+# 메뉴 개수
+print(f"\n총 메뉴 개수: {len(menu)}개")
 ```
 
-## 🔄 딕셔너리 컴프리헨션
+## 🔄 딕셔너리 조작 심화
 
-### 기본 문법
+### 딕셔너리 합치기
 
 ```python
-# 기존 방법
-squares = {}
-for i in range(1, 6):
-    squares[i] = i**2
+# 두 딕셔너리 합치기
+dict1 = {"a": 1, "b": 2}
+dict2 = {"c": 3, "d": 4}
 
-# 딕셔너리 컴프리헨션
-squares = {i: i**2 for i in range(1, 6)}
-print(squares)  # {1: 1, 2: 4, 3: 9, 4: 16, 5: 25}
+# update() 메서드 사용
+dict1.update(dict2)
+print(dict1)  # {'a': 1, 'b': 2, 'c': 3, 'd': 4}
+
+# 새로운 딕셔너리 생성
+dict3 = {"e": 5, "f": 6}
+combined = {**dict1, **dict3}
+print(combined)  # {'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5, 'f': 6}
 ```
 
-### 조건부 컴프리헨션
+### 딕셔너리 값 변환
 
 ```python
-# 짝수만 필터링
-even_squares = {i: i**2 for i in range(1, 11) if i % 2 == 0}
-print(even_squares)  # {2: 4, 4: 16, 6: 36, 8: 64, 10: 100}
+# 기존 딕셔너리
+scores = {"수학": 80, "영어": 90, "과학": 85}
 
-# 딕셔너리 변환
-original = {"a": 1, "b": 2, "c": 3, "d": 4}
-filtered = {k: v for k, v in original.items() if v > 2}
-print(filtered)  # {'c': 3, 'd': 4}
+# 모든 점수에 5점 추가
+for subject in scores:
+    scores[subject] += 5
+
+print(scores)  # {'수학': 85, '영어': 95, '과학': 90}
 ```
 
-## 🎯 중첩 딕셔너리
+## 🎯 딕셔너리 안에 딕셔너리
 
-### 2차원 데이터 관리
+### 학생 과목별 성적 관리
 
 ```python
-# 회사 조직도
-company = {
-    "개발팀": {
-        "팀장": "김철수",
-        "팀원": ["이영희", "박민수", "최지영"],
-        "프로젝트": ["웹사이트 개발", "앱 개발"]
-    },
-    "디자인팀": {
-        "팀장": "정수연",
-        "팀원": ["홍길동", "김영수"],
-        "프로젝트": ["UI 디자인", "브랜딩"]
-    }
+# 학생별 과목 성적
+student_grades = {
+    "김철수": {"수학": 90, "영어": 85},
+    "이영희": {"수학": 95, "영어": 88},
+    "박민수": {"수학": 78, "영어": 92}
 }
 
-# 중첩 딕셔너리 접근
-print(company["개발팀"]["팀장"])  # 김철수
-print(company["개발팀"]["팀원"][0])  # 이영희
+# 특정 학생의 성적 확인
+student_name = "김철수"
+print(f"{student_name}의 성적:")
+for subject, score in student_grades[student_name].items():
+    print(f"  {subject}: {score}점")
 
-# 전체 조직도 출력
-for team, info in company.items():
-    print(f"\n🏢 {team}")
-    print(f"  팀장: {info['팀장']}")
-    print(f"  팀원: {', '.join(info['팀원'])}")
-    print(f"  프로젝트: {', '.join(info['프로젝트'])}")
+# 수학 점수만 확인
+print(f"\n수학 성적:")
+for name, grades in student_grades.items():
+    math_score = grades["수학"]
+    print(f"{name}: {math_score}점")
 ```
 
 ## 🚨 자주 발생하는 오류
@@ -457,7 +452,7 @@ items() 메서드를 사용하면 키-값 쌍을 함께 순회할 수 있습니�
     { id: "dict_modification", text: "딕셔너리 값을 수정하고 추가할 수 있다" },
     { id: "dict_methods", text: "주요 딕셔너리 메서드를 활용할 수 있다" },
     { id: "dict_iteration", text: "딕셔너리를 다양한 방법으로 순회할 수 있다" },
-    { id: "dict_comprehension", text: "딕셔너리 컴프리헨션을 사용할 수 있다" },
+    { id: "dict_manipulation", text: "딕셔너리를 조작하고 합칠 수 있다" },
     { id: "nested_dict", text: "중첩 딕셔너리를 다룰 수 있다" },
     {
       id: "practical_usage",
