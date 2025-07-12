@@ -1,0 +1,268 @@
+---
+title: "가위바위보 게임"
+description: "조건문을 활용하여 컴퓨터와 대결하는 재미있는 가위바위보 게임을 만들어보세요"
+---
+
+import InteractiveChecklist from "@/components/ui/interactive-checklist";
+
+# ✂️ 가위바위보 게임
+
+## 📋 프로젝트 개요
+
+컴퓨터와 대결하는 전통적인 가위바위보 게임을 만들어보세요. 랜덤 선택과 조건문을 활용하여 모든 승부 상황을 처리하는 완전한 게임을 구현해봅시다!
+
+## 🎯 학습 목표
+
+- 복잡한 조건문을 이용한 게임 로직 구현
+- 랜덤 모듈을 활용한 컴퓨터 AI 구현
+- 모든 경우의 수를 고려한 완전한 로직 설계
+
+## 🚀 기본 기능
+
+### 핵심 요구사항
+
+1. **사용자 입력 처리**
+
+   - 가위(1), 바위(2), 보(3) 중 선택
+   - 잘못된 입력에 대한 처리
+
+2. **컴퓨터 랜덤 선택**
+
+   - 가위, 바위, 보 중 랜덤하게 선택
+   - 선택 결과 표시
+
+3. **승부 판정**
+
+   - 사용자 승리, 컴퓨터 승리, 무승부 판단
+   - 승부 규칙 정확히 적용
+
+4. **결과 출력**
+   - 양쪽 선택과 최종 결과 표시
+
+## 🎨 추가 기능 1: 점수 시스템
+
+### 요구사항
+
+- 여러 판을 연속으로 진행
+- 사용자와 컴퓨터의 승수 기록
+- 최종 점수 표시 및 우승자 발표
+
+### 게임 진행 방식
+
+- 계속 게임 할지 묻기 (y/n)
+- 누적 점수 실시간 표시
+
+## 💡 추가 기능 2: 3판 2승제
+
+### 요구사항
+
+- 정확히 3판 진행 (반복문 없이 3번의 개별 게임)
+- 각 판의 결과 저장
+- 3판 결과를 바탕으로 최종 승자 결정
+- 상세한 게임 기록 표시
+
+## 💡 구현 힌트
+
+### 필요한 파이썬 기능들
+
+#### 1. 랜덤 모듈 사용
+
+```python
+import random
+
+# 컴퓨터 선택 (1: 가위, 2: 바위, 3: 보)
+computer_choice = random.randint(1, 3)
+```
+
+#### 2. 사용자 입력 및 검증
+
+```python
+print("✂️📜🗿 가위바위보 게임!")
+print("1: 가위 ✂️")
+print("2: 바위 🗿")
+print("3: 보 📜")
+
+user_choice = int(input("선택하세요 (1, 2, 3): "))
+
+if user_choice < 1 or user_choice > 3:
+    print("잘못된 선택입니다!")
+else:
+    # 게임 진행
+```
+
+#### 3. 선택 표시하기
+
+```python
+choices = ["", "가위 ✂️", "바위 🗿", "보 📜"]
+
+print(f"당신의 선택: {choices[user_choice]}")
+print(f"컴퓨터 선택: {choices[computer_choice]}")
+```
+
+#### 4. 승부 판정 로직
+
+```python
+if user_choice == computer_choice:
+    result = "무승부"
+elif (user_choice == 1 and computer_choice == 3) or \
+     (user_choice == 2 and computer_choice == 1) or \
+     (user_choice == 3 and computer_choice == 2):
+    result = "승리"
+    user_score += 1
+else:
+    result = "패배"
+    computer_score += 1
+
+print(f"결과: {result}!")
+```
+
+#### 5. 더 직관적인 승부 판정
+
+```python
+# 승리 조건을 명확히 표시
+if user_choice == computer_choice:
+    print("🤝 무승부입니다!")
+elif user_choice == 1 and computer_choice == 3:
+    print("✂️ 가위가 📜 보를 자릅니다! 당신이 승리!")
+elif user_choice == 2 and computer_choice == 1:
+    print("🗿 바위가 ✂️ 가위를 부숩니다! 당신이 승리!")
+elif user_choice == 3 and computer_choice == 2:
+    print("📜 보가 🗿 바위를 감쌉니다! 당신이 승리!")
+else:
+    # 컴퓨터 승리 경우들
+    if computer_choice == 1 and user_choice == 3:
+        print("✂️ 가위가 📜 보를 자릅니다! 컴퓨터 승리!")
+    elif computer_choice == 2 and user_choice == 1:
+        print("🗿 바위가 ✂️ 가위를 부숩니다! 컴퓨터 승리!")
+    elif computer_choice == 3 and user_choice == 2:
+        print("📜 보가 🗿 바위를 감쌉니다! 컴퓨터 승리!")
+```
+
+#### 6. 점수 표시
+
+```python
+user_score = 0
+computer_score = 0
+
+# 게임 후 점수 업데이트
+print(f"\n📊 현재 점수")
+print(f"당신: {user_score}승")
+print(f"컴퓨터: {computer_score}승")
+```
+
+#### 7. 연속 게임 진행
+
+```python
+continue_game = input("다시 하시겠습니까? (y/n): ")
+
+if continue_game == "y":
+    print("새로운 게임을 시작합니다!")
+    # 새 게임 시작
+else:
+    print("게임을 종료합니다!")
+    # 최종 결과 출력
+```
+
+#### 8. 3판 2승제 구현
+
+```python
+# 각 판의 결과 저장
+round1_result = ""  # "user", "computer", "draw"
+round2_result = ""
+round3_result = ""
+
+user_wins = 0
+computer_wins = 0
+
+# 1라운드
+print("🏁 1라운드 시작!")
+# ... 게임 로직 ...
+if result == "승리":
+    round1_result = "user"
+    user_wins += 1
+elif result == "패배":
+    round1_result = "computer"
+    computer_wins += 1
+else:
+    round1_result = "draw"
+
+# 2라운드, 3라운드도 동일하게...
+
+# 최종 결과 판정
+if user_wins > computer_wins:
+    print("🎉 당신이 최종 승리자입니다!")
+elif computer_wins > user_wins:
+    print("😢 컴퓨터가 최종 승리자입니다!")
+else:
+    print("🤝 최종 무승부입니다!")
+```
+
+### 게임 규칙 정리
+
+- **가위** ✂️ : 보를 이김, 바위에게 짐
+- **바위** 🗿 : 가위를 이김, 보에게 짐
+- **보** 📜 : 바위를 이김, 가위에게 짐
+
+### 재미있는 추가 요소
+
+- 승부 결과에 따른 다양한 메시지
+- 이모지를 활용한 시각적 효과
+- 연승/연패 기록 표시
+- 승률 계산 및 표시
+
+## 🎯 도전 과제
+
+1. **확장된 게임**: 가위바위보보 (보 2개) 추가
+2. **AI 패턴**: 컴퓨터가 사용자 패턴을 분석 (간단한 형태)
+3. **토너먼트**: 여러 명이 참가하는 토너먼트 시스템
+4. **통계 시스템**: 선택 빈도, 승률 등 상세 통계
+
+## 📝 완성 체크리스트
+
+<InteractiveChecklist
+  storageKey="rock-paper-scissors-checklist"
+  title="✂️ 가위바위보 게임 체크리스트"
+  items={[
+    {
+      id: "user-input",
+      text: "사용자의 가위바위보 선택을 입력받는다",
+    },
+    {
+      id: "computer-random",
+      text: "컴퓨터가 랜덤하게 선택한다",
+    },
+    {
+      id: "game-logic",
+      text: "가위바위보 승부 규칙을 정확히 구현한다",
+    },
+    {
+      id: "result-display",
+      text: "양쪽 선택과 승부 결과를 표시한다",
+    },
+    {
+      id: "score-system",
+      text: "점수 시스템이 정확히 작동한다",
+    },
+    {
+      id: "continue-option",
+      text: "연속 게임 진행 옵션을 제공한다",
+    },
+    {
+      id: "three-rounds",
+      text: "3판 2승제를 구현한다",
+    },
+    {
+      id: "input-validation",
+      text: "잘못된 입력에 대한 처리를 한다",
+    },
+    {
+      id: "fun-interface",
+      text: "재미있고 직관적인 인터페이스를 제공한다",
+    },
+  ]}
+  completionMessage="🎉 축하합니다! 완전한 가위바위보 게임이 완성되었습니다!"
+/>
+
+## 🎉 완성 후 해볼 것
+
+완성된 가위바위보 게임으로 친구들과 대결해보세요! 컴퓨터의 패턴을 분석해보거나, 자신만의 필승 전략을 개발해보는 것도 재미있을 거예요.
