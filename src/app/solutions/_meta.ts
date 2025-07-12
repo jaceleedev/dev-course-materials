@@ -7,6 +7,9 @@ const solutionsMeta: MetaRecord = {
   "level-2": {
     title: "레벨 2",
   },
+  "level-3": {
+    title: "레벨 3",
+  },
 };
 
 export default solutionsMeta;

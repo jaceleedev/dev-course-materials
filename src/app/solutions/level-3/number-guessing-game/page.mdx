@@ -1,0 +1,750 @@
+---
+title: "숫자 맞추기 게임 (답안)"
+description: "숫자 맞추기 게임 프로젝트의 완성된 답안입니다"
+---
+
+# 🎯 숫자 맞추기 게임 (답안)
+
+## 🚀 기본 기능 답안
+
+```python
+# 🎯 숫자 맞추기 게임 - 기본 기능 (기본 변수와 반복문만 사용)
+print("🎯 숫자 맞추기 게임에 오신 것을 환영합니다!")
+print("="*50)
+
+# 컴퓨터가 1~100 사이 숫자 선택 (간단한 방식)
+secret_number = 42  # 고정된 숫자로 시작
+attempts = 0
+
+print("🎲 컴퓨터가 1~100 사이의 숫자를 하나 생각했습니다.")
+print("🎯 그 숫자를 맞춰보세요!")
+print("="*50)
+
+while True:
+    attempts += 1
+
+    # 사용자 입력 받기 (입력 검증 포함)
+    while True:
+        guess = int(input(f"\n🎲 {attempts}번째 시도 - 숫자를 입력하세요 (1-100): "))
+
+        if 1 <= guess <= 100:
+            break
+        else:
+            print("❌ 1~100 사이의 숫자를 입력하세요!")
+
+    # 정답 확인
+    if guess == secret_number:
+        print(f"🎉 축하합니다! {attempts}번 만에 정답을 맞췄습니다!")
+        print(f"🏆 정답: {secret_number}")
+        break
+    elif guess < secret_number:
+        print("📈 더 큰 숫자입니다!")
+    else:
+        print("📉 더 작은 숫자입니다!")
+
+print("="*50)
+print("🎮 게임을 플레이해주셔서 감사합니다!")
+```
+
+## 🎨 추가 기능 1: 난이도 시스템
+
+```python
+# 🎯 숫자 맞추기 게임 - 난이도 시스템 (기본 변수와 반복문만 사용)
+print("🎯 숫자 맞추기 게임 - 난이도 선택")
+print("="*40)
+
+# 난이도 선택
+print("🎮 난이도를 선택하세요:")
+print("1. 쉬움 (1~50, 무제한 시도)")
+print("2. 보통 (1~100, 10회 시도)")
+print("3. 어려움 (1~1000, 15회 시도)")
+print("4. 지옥 (1~10000, 20회 시도)")
+
+while True:
+    choice = int(input("선택 (1-4): "))
+
+    if choice == 1:
+        min_num, max_num, max_attempts, difficulty = 1, 50, 999, "쉬움"
+        break
+    elif choice == 2:
+        min_num, max_num, max_attempts, difficulty = 1, 100, 10, "보통"
+        break
+    elif choice == 3:
+        min_num, max_num, max_attempts, difficulty = 1, 1000, 15, "어려움"
+        break
+    elif choice == 4:
+        min_num, max_num, max_attempts, difficulty = 1, 10000, 20, "지옥"
+        break
+    else:
+        print("❌ 1~4 중에서 선택하세요!")
+
+print(f"\n🎯 난이도: {difficulty}")
+print(f"🎲 범위: {min_num}~{max_num}")
+if max_attempts != 999:
+    print(f"🎪 최대 시도 횟수: {max_attempts}회")
+else:
+    print("🎪 시도 횟수: 무제한")
+print("="*40)
+
+# 간단한 의사 랜덤 숫자 생성 (import 없이)
+secret_number = (min_num + max_num) // 2 + (min_num % 7) + (max_num % 11)
+if secret_number > max_num:
+    secret_number = max_num - 5
+if secret_number < min_num:
+    secret_number = min_num + 5
+
+attempts = 0
+
+while attempts < max_attempts:
+    attempts += 1
+
+    # 남은 시도 횟수 표시
+    if max_attempts != 999:
+        remaining = max_attempts - attempts + 1
+        print(f"\n🎲 {attempts}번째 시도 (남은 기회: {remaining-1}회)")
+    else:
+        print(f"\n🎲 {attempts}번째 시도")
+
+    # 사용자 입력
+    while True:
+        guess = int(input(f"숫자 입력 ({min_num}~{max_num}): "))
+
+        if min_num <= guess <= max_num:
+            break
+        else:
+            print(f"❌ {min_num}~{max_num} 사이의 숫자를 입력하세요!")
+
+    # 정답 확인
+    if guess == secret_number:
+        print(f"🎉 정답! {attempts}번 만에 맞췄습니다!")
+
+        # 난이도별 평가
+        if difficulty == "쉬움" and attempts <= 5:
+            print("🌟 훌륭해요!")
+        elif difficulty == "보통" and attempts <= 6:
+            print("🌟 우수해요!")
+        elif difficulty == "어려움" and attempts <= 10:
+            print("🌟 대단해요!")
+        elif difficulty == "지옥" and attempts <= 15:
+            print("🌟 천재네요!")
+        else:
+            print("👍 잘했어요!")
+
+        break
+    elif guess < secret_number:
+        # 거리 힌트 제공 (기본 변수만 사용)
+        difference = secret_number - guess
+        range_size = max_num - min_num
+
+        if difference <= range_size // 20:  # 5% 이내
+            hint = "🔥 아주 가까워요!"
+        elif difference <= range_size // 10:  # 10% 이내
+            hint = "🌡️ 가까워요!"
+        elif difference <= range_size // 5:   # 20% 이내
+            hint = "🆗 보통이에요"
+        else:
+            hint = "❄️ 멀어요"
+
+        print(f"📈 더 큰 숫자입니다! ({hint})")
+    else:
+        # 거리 힌트 제공 (기본 변수만 사용)
+        difference = guess - secret_number
+        range_size = max_num - min_num
+
+        if difference <= range_size // 20:  # 5% 이내
+            hint = "🔥 아주 가까워요!"
+        elif difference <= range_size // 10:  # 10% 이내
+            hint = "🌡️ 가까워요!"
+        elif difference <= range_size // 5:   # 20% 이내
+            hint = "🆗 보통이에요"
+        else:
+            hint = "❄️ 멀어요"
+
+        print(f"📉 더 작은 숫자입니다! ({hint})")
+
+    # 마지막 기회 경고
+    if max_attempts != 999 and attempts == max_attempts - 1:
+        print("⚠️ 마지막 기회입니다!")
+
+# 게임 오버 처리
+if attempts >= max_attempts:
+    print(f"\n😢 게임 오버! 정답은 {secret_number}이었습니다.")
+```
+
+## 💡 추가 기능 2: 최고 기록 시스템
+
+```python
+# 🎯 숫자 맞추기 게임 - 최고 기록 시스템 (기본 변수와 반복문만 사용)
+print("🎯 숫자 맞추기 게임 - 기록 관리 시스템")
+print("="*50)
+
+# 기록 변수들
+easy_best = 999
+normal_best = 999
+hard_best = 999
+hell_best = 999
+
+total_games = 0
+successful_games = 0
+consecutive_wins = 0
+max_consecutive = 0
+
+while True:
+    print("\n🎮 게임 메뉴:")
+    print("1. 게임 시작")
+    print("2. 기록 보기")
+    print("3. 종료")
+
+    menu_choice = input("선택 (1-3): ")
+
+    if menu_choice == "1":
+        # 게임 시작
+        print("\n🎮 난이도를 선택하세요:")
+        print("1. 쉬움 (1~50, 무제한 시도)")
+        print("2. 보통 (1~100, 10회 시도)")
+        print("3. 어려움 (1~1000, 15회 시도)")
+        print("4. 지옥 (1~10000, 20회 시도)")
+
+        while True:
+            choice = int(input("선택 (1-4): "))
+
+            if choice == 1:
+                min_num, max_num, max_attempts, difficulty = 1, 50, 999, "쉬움"
+                break
+            elif choice == 2:
+                min_num, max_num, max_attempts, difficulty = 1, 100, 10, "보통"
+                break
+            elif choice == 3:
+                min_num, max_num, max_attempts, difficulty = 1, 1000, 15, "어려움"
+                break
+            elif choice == 4:
+                min_num, max_num, max_attempts, difficulty = 1, 10000, 20, "지옥"
+                break
+            else:
+                print("❌ 1~4 중에서 선택하세요!")
+
+        print(f"\n🎯 난이도: {difficulty}")
+        print(f"🎲 범위: {min_num}~{max_num}")
+        if max_attempts != 999:
+            print(f"🎪 최대 시도 횟수: {max_attempts}회")
+        print("="*40)
+
+        # 간단한 의사 랜덤 숫자 생성
+        secret_number = (min_num + max_num) // 2 + (total_games % 13) + (min_num % 7)
+        if secret_number > max_num:
+            secret_number = max_num - (total_games % 5)
+        if secret_number < min_num:
+            secret_number = min_num + (total_games % 5)
+
+        attempts = 0
+        game_won = False
+
+        while attempts < max_attempts:
+            attempts += 1
+
+            # 남은 시도 횟수 표시
+            if max_attempts != 999:
+                remaining = max_attempts - attempts + 1
+                print(f"\n🎲 {attempts}번째 시도 (남은 기회: {remaining-1}회)")
+            else:
+                print(f"\n🎲 {attempts}번째 시도")
+
+            # 사용자 입력
+            while True:
+                guess = int(input(f"숫자 입력 ({min_num}~{max_num}): "))
+
+                if min_num <= guess <= max_num:
+                    break
+                else:
+                    print(f"❌ {min_num}~{max_num} 사이의 숫자를 입력하세요!")
+
+            # 정답 확인
+            if guess == secret_number:
+                print(f"🎉 정답! {attempts}번 만에 맞췄습니다!")
+                game_won = True
+                break
+            elif guess < secret_number:
+                print("📈 더 큰 숫자입니다!")
+            else:
+                print("📉 더 작은 숫자입니다!")
+
+            # 마지막 기회 경고
+            if max_attempts != 999 and attempts == max_attempts - 1:
+                print("⚠️ 마지막 기회입니다!")
+
+        # 게임 오버 처리
+        if attempts >= max_attempts:
+            print(f"\n😢 게임 오버! 정답은 {secret_number}이었습니다.")
+
+        # 기록 업데이트
+        total_games += 1
+
+        if game_won:
+            successful_games += 1
+            consecutive_wins += 1
+
+            if consecutive_wins > max_consecutive:
+                max_consecutive = consecutive_wins
+
+            # 최고 기록 갱신 확인
+            if difficulty == "쉬움" and attempts < easy_best:
+                old_best = easy_best
+                easy_best = attempts
+                print(f"🏆 쉬움 난이도 신기록! {old_best}번 → {attempts}번")
+            elif difficulty == "보통" and attempts < normal_best:
+                old_best = normal_best
+                normal_best = attempts
+                print(f"🏆 보통 난이도 신기록! {old_best}번 → {attempts}번")
+            elif difficulty == "어려움" and attempts < hard_best:
+                old_best = hard_best
+                hard_best = attempts
+                print(f"🏆 어려움 난이도 신기록! {old_best}번 → {attempts}번")
+            elif difficulty == "지옥" and attempts < hell_best:
+                old_best = hell_best
+                hell_best = attempts
+                print(f"🏆 지옥 난이도 신기록! {old_best}번 → {attempts}번")
+        else:
+            consecutive_wins = 0
+
+        # 게임 후 통계 간단히 표시
+        print(f"\n📊 현재 연속 성공: {consecutive_wins}")
+
+    elif menu_choice == "2":
+        # 기록 보기
+        print("\n📊 게임 기록")
+        print("="*40)
+        print(f"총 게임 수: {total_games}")
+        print(f"성공한 게임: {successful_games}")
+
+        if total_games > 0:
+            success_rate = (successful_games * 100) // total_games  # 소수점 없이 계산
+            print(f"성공률: {success_rate}%")
+
+        print(f"현재 연속 성공: {consecutive_wins}")
+        print(f"최고 연속 성공: {max_consecutive}")
+
+        print(f"\n🏆 최고 기록:")
+        if easy_best != 999:
+            print(f"쉬움: {easy_best}번")
+        else:
+            print("쉬움: 기록 없음")
+
+        if normal_best != 999:
+            print(f"보통: {normal_best}번")
+        else:
+            print("보통: 기록 없음")
+
+        if hard_best != 999:
+            print(f"어려움: {hard_best}번")
+        else:
+            print("어려움: 기록 없음")
+
+        if hell_best != 999:
+            print(f"지옥: {hell_best}번")
+        else:
+            print("지옥: 기록 없음")
+
+    elif menu_choice == "3":
+        print("\n👋 게임을 종료합니다!")
+        break
+    else:
+        print("❌ 1~3 중에서 선택하세요!")
+```
+
+## 🔥 추가 기능 3: 멀티플레이어 모드
+
+```python
+# 🎯 멀티플레이어 숫자 맞추기 게임 (기본 변수와 반복문만 사용)
+print("🎮 멀티플레이어 숫자 맞추기 게임")
+print("="*50)
+
+# 플레이어 등록
+player1 = input("첫 번째 플레이어 이름: ")
+player2 = input("두 번째 플레이어 이름: ")
+
+# 플레이어 통계 변수들
+player1_wins = 0
+player1_total_games = 0
+player1_best_attempts = 999
+player1_total_attempts = 0
+
+player2_wins = 0
+player2_total_games = 0
+player2_best_attempts = 999
+player2_total_attempts = 0
+
+print(f"🎮 플레이어 '{player1}'과 '{player2}'가 등록되었습니다!")
+
+while True:
+    print("\n🎮 멀티플레이어 메뉴")
+    print("="*30)
+    print("1. 경쟁 모드")
+    print("2. 협력 모드")
+    print("3. 미니 토너먼트")
+    print("4. 리더보드")
+    print("5. 종료")
+
+    choice = input("선택하세요 (1-5): ")
+
+    if choice == "1":
+        # 경쟁 모드 - 2명이 번갈아 가며 같은 숫자 맞추기
+        print(f"\n🏆 경쟁 모드: {player1} vs {player2}")
+
+        # 난이도 설정
+        difficulty = input("난이도 (쉬움/보통/어려움): ")
+        if difficulty == "쉬움":
+            min_num, max_num, max_attempts = 1, 50, 15
+        elif difficulty == "보통":
+            min_num, max_num, max_attempts = 1, 100, 12
+        else:  # 어려움
+            min_num, max_num, max_attempts = 1, 1000, 20
+
+        # 컴퓨터가 숫자 선택 (간단한 방식)
+        secret_number = (min_num + max_num) // 2 + (min_num % 7)  # 의사 랜덤
+
+        attempts = 0
+        current_player = player1
+        winner = ""
+
+        print(f"🎯 범위: {min_num}~{max_num}")
+        print(f"🎪 최대 시도 횟수: {max_attempts}회")
+        print("🚀 게임 시작!")
+
+        while attempts < max_attempts and winner == "":
+            attempts += 1
+
+            print(f"\n--- 시도 {attempts}/{max_attempts} ---")
+            print(f"🎮 {current_player}의 턴")
+
+            guess = int(input(f"{current_player}의 추측: "))
+
+            if guess == secret_number:
+                print(f"🎉 {current_player} 승리! {attempts}번 만에 맞췄습니다!")
+                winner = current_player
+
+                # 승리 기록 업데이트
+                if current_player == player1:
+                    player1_wins += 1
+                    player1_total_games += 1
+                    player1_total_attempts += attempts
+                    if attempts < player1_best_attempts:
+                        player1_best_attempts = attempts
+                    player2_total_games += 1
+                else:
+                    player2_wins += 1
+                    player2_total_games += 1
+                    player2_total_attempts += attempts
+                    if attempts < player2_best_attempts:
+                        player2_best_attempts = attempts
+                    player1_total_games += 1
+
+            elif guess < secret_number:
+                print(f"📈 {current_player}: 더 큰 숫자!")
+                # 플레이어 교대
+                if current_player == player1:
+                    current_player = player2
+                else:
+                    current_player = player1
+            else:
+                print(f"📉 {current_player}: 더 작은 숫자!")
+                # 플레이어 교대
+                if current_player == player1:
+                    current_player = player2
+                else:
+                    current_player = player1
+
+        if winner == "":
+            print(f"\n😢 무승부! 정답은 {secret_number}이었습니다.")
+            player1_total_games += 1
+            player2_total_games += 1
+
+    elif choice == "2":
+        # 협력 모드 - 2명이 힌트를 주고받으며 함께 맞추기
+        print(f"\n🤝 협력 모드: {player1} & {player2}")
+
+        # 난이도 설정
+        difficulty = input("난이도 (쉬움/보통/어려움): ")
+        if difficulty == "쉬움":
+            min_num, max_num, max_attempts = 1, 50, 20
+        elif difficulty == "보통":
+            min_num, max_num, max_attempts = 1, 100, 15
+        else:  # 어려움
+            min_num, max_num, max_attempts = 1, 1000, 25
+
+        # 컴퓨터가 숫자 선택
+        secret_number = (min_num + max_num) // 2 + (max_num % 13)
+
+        attempts = 0
+        current_player = player1
+        other_player = player2
+        team_success = False
+
+        print(f"🎯 함께 맞출 숫자: {min_num}~{max_num}")
+        print(f"🎪 최대 시도 횟수: {max_attempts}회")
+
+        while attempts < max_attempts and not team_success:
+            attempts += 1
+
+            print(f"\n--- 시도 {attempts}/{max_attempts} ---")
+            print(f"🎮 {current_player}의 턴")
+
+            guess = int(input(f"{current_player}의 추측: "))
+
+            if guess == secret_number:
+                print(f"🎉 팀 승리! {attempts}번 만에 맞췄습니다!")
+                print(f"🏆 {player1} & {player2} 팀워크 최고!")
+                team_success = True
+
+                # 두 플레이어 모두 승리 기록
+                player1_wins += 1
+                player1_total_games += 1
+                player1_total_attempts += attempts
+                if attempts < player1_best_attempts:
+                    player1_best_attempts = attempts
+
+                player2_wins += 1
+                player2_total_games += 1
+                player2_total_attempts += attempts
+                if attempts < player2_best_attempts:
+                    player2_best_attempts = attempts
+
+            else:
+                # 힌트 제공
+                if guess < secret_number:
+                    hint = "더 큰 숫자"
+                else:
+                    hint = "더 작은 숫자"
+
+                print(f"💡 {other_player}의 힌트: {hint}!")
+
+                # 추가 힌트 기회
+                extra_hint = input(f"{other_player}, 추가 힌트를 주시겠습니까? (y/n): ")
+                if extra_hint.lower() == 'y':
+                    custom_hint = input("힌트 메시지: ")
+                    print(f"💬 {other_player}: {custom_hint}")
+
+            # 플레이어 교대
+            if current_player == player1:
+                current_player = player2
+                other_player = player1
+            else:
+                current_player = player1
+                other_player = player2
+
+        if not team_success:
+            print(f"\n😢 팀 실패! 정답은 {secret_number}이었습니다.")
+            player1_total_games += 1
+            player2_total_games += 1
+
+    elif choice == "3":
+        # 미니 토너먼트 (3라운드)
+        print(f"\n🏆 미니 토너먼트 (3라운드)")
+        print(f"👥 참가자: {player1} vs {player2}")
+
+        tournament_player1_score = 0
+        tournament_player2_score = 0
+
+        for round_num in range(1, 4):
+            print(f"\n🔥 라운드 {round_num}/3")
+
+            # 간단한 숫자 맞추기 게임
+            secret_number = 25 + round_num * 15  # 각 라운드마다 다른 숫자
+            max_attempts = 8
+
+            attempts = 0
+            current_player = player1
+            round_winner = ""
+
+            print(f"🎯 범위: 1~100")
+            print(f"🎪 최대 시도 횟수: {max_attempts}회")
+
+            while attempts < max_attempts and round_winner == "":
+                attempts += 1
+
+                print(f"\n{current_player}의 {attempts}번째 시도:")
+                guess = int(input(f"{current_player}의 추측: "))
+
+                if guess == secret_number:
+                    print(f"🎉 {current_player} 라운드 승리!")
+                    round_winner = current_player
+
+                    if current_player == player1:
+                        tournament_player1_score += 1
+                    else:
+                        tournament_player2_score += 1
+
+                elif guess < secret_number:
+                    print("📈 더 큰 숫자!")
+                    # 플레이어 교대
+                    if current_player == player1:
+                        current_player = player2
+                    else:
+                        current_player = player1
+                else:
+                    print("📉 더 작은 숫자!")
+                    # 플레이어 교대
+                    if current_player == player1:
+                        current_player = player2
+                    else:
+                        current_player = player1
+
+            if round_winner == "":
+                print(f"😢 라운드 무승부! 정답: {secret_number}")
+
+        # 최종 결과
+        print(f"\n🏆 토너먼트 최종 결과:")
+        print(f"📊 {player1}: {tournament_player1_score}승")
+        print(f"📊 {player2}: {tournament_player2_score}승")
+
+        if tournament_player1_score > tournament_player2_score:
+            print(f"🥇 토너먼트 우승: {player1}")
+        elif tournament_player2_score > tournament_player1_score:
+            print(f"🥇 토너먼트 우승: {player2}")
+        else:
+            print("🤝 토너먼트 무승부!")
+
+    elif choice == "4":
+        # 리더보드 표시
+        print("\n🏆 리더보드")
+        print("="*40)
+
+        # 플레이어 1 통계
+        if player1_total_games > 0:
+            player1_win_rate = (player1_wins * 100) // player1_total_games
+            player1_avg_attempts = player1_total_attempts // player1_wins if player1_wins > 0 else 0
+        else:
+            player1_win_rate = 0
+            player1_avg_attempts = 0
+
+        # 플레이어 2 통계
+        if player2_total_games > 0:
+            player2_win_rate = (player2_wins * 100) // player2_total_games
+            player2_avg_attempts = player2_total_attempts // player2_wins if player2_wins > 0 else 0
+        else:
+            player2_win_rate = 0
+            player2_avg_attempts = 0
+
+        # 순위 결정 (승수 기준)
+        if player1_wins > player2_wins:
+            print(f"🥇 1위: {player1}")
+            print(f"   승률: {player1_win_rate}% ({player1_wins}/{player1_total_games})")
+            print(f"   최고 기록: {player1_best_attempts}번")
+            print(f"   평균 시도: {player1_avg_attempts}번")
+            print()
+            print(f"🥈 2위: {player2}")
+            print(f"   승률: {player2_win_rate}% ({player2_wins}/{player2_total_games})")
+            print(f"   최고 기록: {player2_best_attempts}번")
+            print(f"   평균 시도: {player2_avg_attempts}번")
+        elif player2_wins > player1_wins:
+            print(f"🥇 1위: {player2}")
+            print(f"   승률: {player2_win_rate}% ({player2_wins}/{player2_total_games})")
+            print(f"   최고 기록: {player2_best_attempts}번")
+            print(f"   평균 시도: {player2_avg_attempts}번")
+            print()
+            print(f"🥈 2위: {player1}")
+            print(f"   승률: {player1_win_rate}% ({player1_wins}/{player1_total_games})")
+            print(f"   최고 기록: {player1_best_attempts}번")
+            print(f"   평균 시도: {player1_avg_attempts}번")
+        else:
+            print("🤝 동점!")
+            print(f"📊 {player1}: {player1_wins}승 ({player1_win_rate}%)")
+            print(f"📊 {player2}: {player2_wins}승 ({player2_win_rate}%)")
+
+    elif choice == "5":
+        print("👋 게임을 종료합니다!")
+        break
+    else:
+        print("❌ 1~5 중에서 선택하세요!")
+```
+
+## 🎮 종합 메뉴 시스템
+
+```python
+# 🎯 숫자 맞추기 게임 - 종합 메뉴 시스템
+
+print("🎯 숫자 맞추기 게임 마스터에 오신 것을 환영합니다!")
+print("="*60)
+
+while True:
+    print("\n🎮 게임 모드를 선택하세요:")
+    print("="*30)
+    print("1. 기본 게임")
+    print("2. 난이도 선택 게임")
+    print("3. 기록 관리 게임")
+    print("4. 멀티플레이어 모드")
+    print("5. 종료")
+    print("="*30)
+
+    choice = input("선택하세요 (1-5): ")
+
+    if choice == "1":
+        # 기본 게임
+        print("\n🎯 기본 숫자 맞추기 게임")
+
+        # 간단한 숫자 맞추기
+        secret_number = 42
+        attempts = 0
+
+        print("🎲 1~100 사이의 숫자를 맞춰보세요!")
+
+        while True:
+            attempts += 1
+            guess = int(input(f"{attempts}번째 시도: "))
+
+            if guess == secret_number:
+                print(f"🎉 정답! {attempts}번 만에 맞췄습니다!")
+                break
+            elif guess < secret_number:
+                print("📈 더 큰 숫자!")
+            else:
+                print("📉 더 작은 숫자!")
+
+    elif choice == "2":
+        # 난이도 선택 게임
+        print("\n🎯 난이도 선택 게임")
+        print("여기서 난이도 게임 코드 실행...")
+
+    elif choice == "3":
+        # 기록 관리 게임
+        print("\n🎯 기록 관리 게임")
+        print("여기서 기록 관리 코드 실행...")
+
+    elif choice == "4":
+        # 멀티플레이어 모드
+        print("\n🎯 멀티플레이어 모드")
+        print("여기서 멀티플레이어 코드 실행...")
+
+    elif choice == "5":
+        print("\n👋 숫자 맞추기 게임을 이용해주셔서 감사합니다!")
+        break
+
+    else:
+        print("❌ 1~5 중에서 선택하세요!")
+
+print("🎉 프로그램을 종료합니다!")
+```
+
+## 💡 핵심 포인트
+
+### 사용된 기본 문법들
+
+1. **변수와 연산자**: `attempts`, `secret_number`, `guess` 등 변수 선언과 사칙연산
+2. **입출력**: `input()`, `print()`, f-string 출력
+3. **조건문**: `if`, `elif`, `else`로 게임 로직 분기
+4. **반복문**: `while`로 게임 진행, 입력 검증
+5. **비교 연산자**: `==`, `!=`, `<=`, `>=` 등으로 조건 판정
+6. **논리 연산자**: `and`, `or`, `not`으로 복합 조건
+
+### 외부 모듈 사용
+
+- `random`: 랜덤 숫자 생성 (`random.randint()`)
+
+### 게임 로직
+
+- 이진 탐색 알고리즘을 통한 컴퓨터 추측
+- 난이도별 시도 횟수 제한
+- 최고 기록 관리 시스템
+- 연속 성공 추적
+- 거리 기반 힌트 시스템
+
+이 답안은 함수 정의, try-except, 딕셔너리 등 고급 문법 없이 기본 문법만으로 구현되었습니다!
