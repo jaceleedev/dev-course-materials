@@ -9,11 +9,11 @@ import InteractiveChecklist from "@/components/ui/interactive-checklist";
 
 ## 📋 프로젝트 개요
 
-입력받은 점수를 바탕으로 학점을 계산하고, 장학금 대상 여부를 판단하는 실용적인 프로그램을 만들어보세요. 조건문을 활용하여 복잡한 판단 로직을 구현해봅시다!
+입력받은 점수를 바탕으로 학점을 계산하고, 장학금 대상 여부를 판단하는 실용적인 프로그램을 만들어보세요. 조건문을 활용하여 점수 구간별 판단 로직을 구현해봅시다!
 
 ## 🎯 학습 목표
 
-- 다중 조건문(if-elif-else)을 활용한 복잡한 판단 로직 구현
+- 다중 조건문(if-elif-else)을 활용한 구간별 판단
 - 논리 연산자를 이용한 복합 조건 처리
 - 실생활 문제를 프로그래밍으로 해결하는 경험
 
@@ -21,12 +21,14 @@ import InteractiveChecklist from "@/components/ui/interactive-checklist";
 
 ### 핵심 요구사항
 
+**점수를 입력받아 학점을 계산하는 프로그램**
+
 1. **점수 입력 및 검증**
 
    - 0~100점 범위의 점수 입력받기
-   - 유효하지 않은 점수에 대한 처리
+   - 범위를 벗어난 점수에 대한 오류 메시지
 
-2. **학점 계산**
+2. **학점 계산 기준**
 
    - A: 90점 이상
    - B: 80점 이상 90점 미만
@@ -36,227 +38,288 @@ import InteractiveChecklist from "@/components/ui/interactive-checklist";
 
 3. **결과 출력**
    - 입력받은 점수와 해당하는 학점 표시
-   - 깔끔한 출력 형태
+   - 명확하고 보기 좋은 출력 형태
 
 ## 🎨 추가 기능 1: 장학금 판정 시스템
 
 ### 요구사항
 
-기본 학점 계산 위에 장학금 대상 여부를 추가로 판정합니다.
+기본 학점 계산에 장학금 대상 여부를 추가로 판정합니다.
 
-- **성적 우수 장학금**: A학점 (90점 이상)
-- **성적 개선 장학금**: B학점 이상 (80점 이상)
+- **성적우수 장학금**: A학점 (90점 이상)
+- **성적향상 장학금**: B학점 이상 (80점 이상)
 - **격려 장학금**: C학점 이상 (70점 이상)
+- **해당없음**: D학점 이하 (70점 미만)
 
-### 추가 기능
+### 출력 예시
 
-- 학점과 함께 해당하는 장학금 안내
-- 장학금별 특징과 혜택 설명
+```
+점수: 85점
+학점: B
+장학금: 성적향상 장학금 대상입니다!
+```
 
-## 💡 추가 기능 2: 상세 성적 분석
-
-### 요구사항
-
-기본 학점 계산과 장학금 판정을 확장하여 더 상세한 분석을 제공합니다.
-
-- **성적 등급 세분화**: +, 0, - 구분 (예: A+, A0, A-)
-- **다음 학점까지 필요 점수**: 더 높은 학점을 위해 필요한 점수
-- **성적 상태 메시지**: 성적에 따른 격려 또는 조언
-
-### 세분화된 학점 기준
-
-- A+: 97점 이상, A0: 93점 이상, A-: 90점 이상
-- B+: 87점 이상, B0: 83점 이상, B-: 80점 이상
-- 이하 동일한 패턴으로 구성
-
-## 🔥 추가 기능 3: 종합 성적 관리
+## 💡 추가 기능 2: 세부 학점 시스템
 
 ### 요구사항
 
-이전 모든 기능을 통합하여 종합적인 성적 관리 시스템을 구현합니다.
+기본 학점을 더 세분화하여 +, 0, - 구분을 추가합니다.
 
-- **이전 학기 성적 입력**: 이전 학기 점수 입력받기
-- **성적 변화 분석**: 이전 학기 대비 향상/하락 정도 계산
-- **목표 설정**: 다음 학기 목표 학점 설정 및 필요 점수 계산
-- **종합 조언**: 전체적인 학습 조언 제공
+- **A학점 세분화**: A+ (97점 이상), A0 (93점 이상), A- (90점 이상)
+- **B학점 세분화**: B+ (87점 이상), B0 (83점 이상), B- (80점 이상)
+- **C, D학점도 동일한 방식으로 세분화**
+- **다음 등급까지 필요 점수**: 더 높은 등급을 위해 필요한 점수 계산
 
-### 비교 분석
+### 출력 예시
 
-- 성적 향상도에 따른 추가 장학금 기회
-- 목표 달성을 위한 구체적인 조언
-- 학점 관리 팁 제공
+```
+점수: 85점
+기본 학점: B
+세부 학점: B0
+다음 등급(B+)까지: 2점 부족
+```
 
 ## 💡 구현 힌트
 
 ### 필요한 파이썬 기능들
 
-#### 1. 기본 조건문 구조
+#### 1. 기본 학점 계산 구조
 
 ```python
-# 기본 학점 계산 구조
+# 점수 입력 및 검증
 score = int(input("점수를 입력하세요 (0-100): "))
 
-if score >= 90:
-    grade = "A"
-elif score >= 80:
-    grade = "B"
-elif score >= 70:
-    grade = "C"
-elif score >= 60:
-    grade = "D"
-else:
-    grade = "F"
-```
-
-#### 2. 입력 검증 방법
-
-```python
-# 점수 범위 확인
 if score < 0 or score > 100:
-    print("잘못된 점수입니다.")
+    print("잘못된 점수입니다. 0-100 사이의 값을 입력하세요.")
 else:
-    # 학점 계산 진행
+    # 학점 계산
+    if score >= 90:
+        grade = "A"
+    elif score >= 80:
+        grade = "B"
+    elif score >= 70:
+        grade = "C"
+    elif score >= 60:
+        grade = "D"
+    else:
+        grade = "F"
+
+    print(f"점수: {score}점, 학점: {grade}")
 ```
 
-#### 3. 장학금 판정 로직
+#### 2. 장학금 판정 로직
 
 ```python
 # 학점 계산 후 장학금 판정
-if score >= 90:
-    print("성적 우수 장학금 대상")
-elif score >= 80:
-    print("성적 개선 장학금 대상")
-elif score >= 70:
-    print("격려 장학금 대상")
+if grade == "A":
+    scholarship = "성적우수 장학금"
+elif grade == "B":
+    scholarship = "성적향상 장학금"
+elif grade == "C":
+    scholarship = "격려 장학금"
+else:
+    scholarship = "해당없음"
+
+if scholarship != "해당없음":
+    print(f"장학금: {scholarship} 대상입니다!")
+else:
+    print("장학금: 해당하는 장학금이 없습니다.")
 ```
 
-### 조건문 활용 포인트
-
-#### 1. 다중 조건문 (if-elif-else)
-
-- **순서가 중요**: 높은 점수부터 낮은 점수 순으로 체크
-- **범위 조건**: `>=`, `<` 등을 활용한 점수 구간 설정
-- **명확한 기준**: 각 학점별 명확한 점수 기준 설정
-
-#### 2. 논리 연산자 활용
-
-- **and 연산자**: 여러 조건을 동시에 만족하는 경우
-- **or 연산자**: 여러 조건 중 하나라도 만족하는 경우
-- **not 연산자**: 조건을 반대로 확인하는 경우
-
-#### 3. 중첩 조건문
-
-- **복잡한 판정**: 장학금 판정 시 여러 조건을 중첩해서 체크
-- **세부 분류**: 학점 내에서 +, 0, - 세분화
-- **단계별 처리**: 먼저 기본 조건을 체크한 후 세부 조건 확인
-
-### 세분화된 학점 계산 힌트
+#### 3. 세부 학점 계산
 
 ```python
 # A학점 세분화 예시
 if score >= 97:
     detailed_grade = "A+"
+    next_grade = "최고 등급입니다!"
 elif score >= 93:
     detailed_grade = "A0"
+    next_grade = f"A+까지 {97 - score}점 부족"
 elif score >= 90:
     detailed_grade = "A-"
-# 이하 B, C, D학점도 동일한 방식으로...
+    next_grade = f"A0까지 {93 - score}점 부족"
+# B, C, D학점도 동일한 방식으로...
 ```
 
-### 성적 비교 시스템 힌트
+### 조건문 활용 포인트
+
+#### 1. 구간별 조건 처리
 
 ```python
-# 이전 학기와 비교
-current_score = int(input("현재 학기 점수: "))
-previous_score = int(input("이전 학기 점수: "))
+# 점수 구간을 높은 점수부터 체크
+# 첫 번째로 만족하는 조건에서 멈춤
+if score >= 90:      # 90점 이상 = A
+    grade = "A"
+elif score >= 80:    # 80점 이상 90점 미만 = B
+    grade = "B"
+elif score >= 70:    # 70점 이상 80점 미만 = C
+    grade = "C"
+# ... 계속
+```
 
-score_change = current_score - previous_score
+#### 2. 복합 조건 활용
 
-if score_change > 0:
-    print(f"{score_change}점 향상")
-elif score_change < 0:
-    print(f"{abs(score_change)}점 하락")
-else:
-    print("성적 동일")
+```python
+# 범위 검증
+if score < 0 or score > 100:
+    print("잘못된 점수")
+
+# 여러 조건 동시 확인
+if grade == "A" and score >= 95:
+    special_recognition = "최우수상"
+```
+
+#### 3. 중첩 조건문
+
+```python
+# 기본 학점 판정 후 세부 등급 판정
+if score >= 90:
+    grade = "A"
+    if score >= 97:
+        detailed_grade = "A+"
+    elif score >= 93:
+        detailed_grade = "A0"
+    else:
+        detailed_grade = "A-"
 ```
 
 ### 프로그램 설계 팁
 
-#### 1. 사용자 친화적 인터페이스
+#### 1. 명확한 출력 형태
 
-- **명확한 안내**: 사용자가 무엇을 입력해야 하는지 명확히 안내
-- **이모지 활용**: 시각적으로 보기 좋은 출력 만들기
-- **단계별 진행**: 복잡한 기능도 단계별로 차근차근 진행
+```python
+print("="*40)
+print("📊 학점 계산 결과")
+print("="*40)
+print(f"입력 점수: {score}점")
+print(f"학점: {grade}")
+print(f"장학금: {scholarship}")
+print("="*40)
+```
 
 #### 2. 오류 처리
 
-- **입력 검증**: 잘못된 입력에 대한 적절한 처리
-- **범위 확인**: 점수 범위, 선택 범위 등 확인
-- **친절한 오류 메시지**: 사용자가 이해하기 쉬운 오류 메시지
+```python
+# 숫자가 아닌 입력 처리
+try:
+    score = int(input("점수 입력: "))
+except ValueError:
+    print("숫자를 입력해주세요!")
 
-#### 3. 확장 가능한 구조
+# 하지만 level-2에서는 단순하게 처리
+score = int(input("점수 입력: "))
+if score < 0 or score > 100:
+    print("0-100 사이의 점수를 입력하세요!")
+```
 
-- **모듈화**: 기능별로 코드를 나누어 관리
-- **재사용성**: 비슷한 기능은 재사용할 수 있도록 구성
-- **점진적 개선**: 기본 기능부터 시작해서 점진적으로 기능 추가
+#### 3. 단계적 확장
+
+```python
+# 1단계: 기본 학점만
+# 2단계: 기본 학점 + 장학금
+# 3단계: 기본 학점 + 장학금 + 세부 등급
+```
+
+### 실제 활용 예시
+
+#### 1. 여러 과목 성적 관리
+
+```python
+# 3과목 점수 입력받아 각각 처리
+math_score = int(input("수학 점수: "))
+english_score = int(input("영어 점수: "))
+science_score = int(input("과학 점수: "))
+
+# 각 과목별로 동일한 학점 계산 로직 적용
+# 수학 학점 계산
+if math_score >= 90:
+    math_grade = "A"
+elif math_score >= 80:
+    math_grade = "B"
+# ... 계속
+
+# 영어, 과학도 동일하게...
+
+# 평균 계산
+average = (math_score + english_score + science_score) / 3
+print(f"평균: {average:.1f}점")
+```
+
+#### 2. 성적 향상도 체크
+
+```python
+# 이전 성적과 비교
+previous_score = int(input("이전 학기 점수: "))
+current_score = int(input("이번 학기 점수: "))
+
+improvement = current_score - previous_score
+
+if improvement > 0:
+    print(f"성적이 {improvement}점 향상되었습니다!")
+elif improvement < 0:
+    print(f"성적이 {abs(improvement)}점 하락했습니다.")
+else:
+    print("성적이 동일합니다.")
+```
 
 ### 도전 과제
 
-1. **여러 과목 관리**: 여러 과목의 점수를 입력받아 평균 계산
-2. **학점 가중치**: 학점 수에 따른 가중 평균 계산
-3. **성적 그래프**: 텍스트로 간단한 성적 그래프 표현
-4. **목표 달성 계획**: 구체적인 학습 계획 제시
+1. **GPA 계산**: A=4.0, B=3.0 등으로 GPA 점수 계산
+2. **학기별 관리**: 여러 학기 성적을 비교 분석
+3. **목표 설정**: 원하는 학점을 위해 필요한 점수 계산
+4. **통계 정보**: 여러 과목의 최고점, 최저점, 평균 등
 
 ## 📝 완성 체크리스트
 
 <InteractiveChecklist
-  storageKey="grade-calculator-checklist"
+  storageKey="improved-grade-calculator-checklist"
   title="📊 학점 계산기 체크리스트"
   items={[
     {
       id: "basic-calculation",
-      text: "기본 점수 입력과 A~F 학점 계산이 정확히 작동한다",
+      text: "점수 입력받아 A~F 학점을 정확히 계산한다",
     },
     {
       id: "input-validation",
-      text: "0-100 범위 외의 점수 입력에 대한 오류 처리를 한다",
+      text: "0-100 범위 외의 점수에 대한 오류 처리를 한다",
+    },
+    {
+      id: "clear-output",
+      text: "점수와 학점을 명확하고 보기 좋게 출력한다",
     },
     {
       id: "scholarship-system",
-      text: "3단계 장학금 판정 시스템이 정확히 작동한다",
+      text: "4단계 장학금 판정 시스템을 구현한다",
+    },
+    {
+      id: "scholarship-output",
+      text: "장학금 대상 여부를 적절히 안내한다",
     },
     {
       id: "detailed-grading",
       text: "세분화된 학점 시스템(+, 0, -)을 구현한다",
     },
     {
-      id: "score-analysis",
-      text: "다음 학점까지 필요한 점수를 계산한다",
+      id: "next-grade-info",
+      text: "다음 등급까지 필요한 점수를 계산해서 알려준다",
     },
     {
-      id: "comprehensive-system",
-      text: "이전 학기 점수와 비교하여 성적 변화를 분석한다",
+      id: "comprehensive-output",
+      text: "기본학점, 세부학점, 장학금을 종합적으로 출력한다",
     },
     {
-      id: "goal-setting",
-      text: "목표 학점 설정과 달성 방법을 제시한다",
+      id: "multiple-subjects",
+      text: "여러 과목의 점수를 처리할 수 있다 (도전과제)",
     },
     {
-      id: "advice-system",
-      text: "성적에 따른 적절한 조언을 제공한다",
-    },
-    {
-      id: "user-interface",
-      text: "사용자 친화적인 인터페이스와 출력 형태를 구현한다",
-    },
-    {
-      id: "error-handling",
-      text: "모든 예외 상황에 대한 적절한 처리를 한다",
+      id: "user-friendly",
+      text: "사용자가 이해하기 쉬운 인터페이스를 제공한다",
     },
   ]}
-  completionMessage="🎉 축하합니다! 완벽한 학점 계산기를 완성했습니다!"
+  completionMessage="🎉 축하합니다! 실용적인 학점 계산기를 완성했습니다!"
 />
 
 ## 🎉 완성 후 해볼 것
 
-완성된 학점 계산기로 실제 성적을 관리해보세요! 목표 학점을 설정하고 달성 계획을 세워보면서 실생활에 유용한 프로그램을 만들었다는 성취감을 느껴보세요!
+완성된 학점 계산기로 실제 성적을 관리해보세요! 목표 학점을 설정하고 현재 상태를 확인하며, 어떤 성적을 받아야 원하는 학점을 달성할 수 있는지 계산해보세요!
