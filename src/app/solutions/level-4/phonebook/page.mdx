@@ -1,0 +1,931 @@
+---
+title: "스마트 전화번호부 (답안)"
+description: "스마트 전화번호부 프로젝트의 완성된 답안입니다"
+---
+
+# 📞 스마트 전화번호부 (답안)
+
+## 🚀 기본 기능 답안
+
+```python
+# 📞 스마트 전화번호부 - 기본 기능
+print("📞 스마트 전화번호부에 오신 것을 환영합니다!")
+print("="*50)
+
+# 전체 연락처를 저장할 리스트
+contacts = []
+
+while True:
+    print("\n📱 메뉴를 선택하세요:")
+    print("="*25)
+    print("1. 연락처 추가")
+    print("2. 전체 연락처 보기")
+    print("3. 연락처 삭제")
+    print("4. 종료")
+    print("="*25)
+
+    choice = input("선택하세요 (1-4): ")
+
+    if choice == "1":
+        # 연락처 추가
+        print("\n📱 새 연락처 추가")
+        print("-"*20)
+
+        name = input("이름: ")
+        phone = input("전화번호: ")
+        email = input("이메일: ")
+
+        # 딕셔너리로 연락처 정보 저장
+        new_contact = {
+            "name": name,
+            "phone": phone,
+            "email": email
+        }
+
+        contacts.append(new_contact)
+        print(f"✅ {name}님의 연락처가 추가되었습니다!")
+
+    elif choice == "2":
+        # 전체 연락처 보기
+        print("\n📋 전체 연락처 목록")
+        print("="*30)
+
+        if len(contacts) == 0:
+            print("저장된 연락처가 없습니다.")
+        else:
+            for i in range(len(contacts)):
+                contact = contacts[i]
+                print(f"{i+1}. 📞 {contact['name']}")
+                print(f"   전화: {contact['phone']}")
+                print(f"   이메일: {contact['email']}")
+                print("-"*25)
+
+    elif choice == "3":
+        # 연락처 삭제
+        if len(contacts) == 0:
+            print("❌ 삭제할 연락처가 없습니다.")
+        else:
+            print("\n🗑️ 연락처 삭제")
+            delete_name = input("삭제할 연락처 이름: ")
+
+            found = False
+            for i in range(len(contacts)):
+                if contacts[i]["name"] == delete_name:
+                    removed_contact = contacts[i]
+                    del contacts[i]
+                    print(f"✅ {removed_contact['name']}님의 연락처가 삭제되었습니다.")
+                    found = True
+                    break
+
+            if not found:
+                print("❌ 해당 이름의 연락처를 찾을 수 없습니다.")
+
+    elif choice == "4":
+        print("\n👋 전화번호부를 종료합니다!")
+        break
+
+    else:
+        print("❌ 1~4 중에서 선택하세요!")
+
+print("🎉 프로그램을 종료합니다!")
+```
+
+## 🎨 추가 기능 1: 연락처 검색
+
+```python
+# 📞 스마트 전화번호부 - 연락처 검색
+print("📞 스마트 전화번호부 - 연락처 검색")
+print("="*50)
+
+# 전체 연락처를 저장할 리스트
+contacts = []
+
+# 샘플 데이터
+sample_contacts = [
+    {"name": "김철수", "phone": "010-1234-5678", "email": "kim@email.com"},
+    {"name": "김영희", "phone": "010-5678-9012", "email": "younghee@email.com"},
+    {"name": "이민수", "phone": "010-9876-5432", "email": "minsu@email.com"},
+    {"name": "박지영", "phone": "010-1111-2222", "email": "jiyoung@email.com"},
+    {"name": "최수현", "phone": "010-3333-4444", "email": "suhyun@email.com"}
+]
+
+contacts.extend(sample_contacts)
+
+while True:
+    print("\n📱 메뉴를 선택하세요:")
+    print("="*25)
+    print("1. 연락처 검색")
+    print("2. 전체 연락처 보기")
+    print("3. 종료")
+    print("="*25)
+
+    choice = input("선택하세요 (1-3): ")
+
+    if choice == "1":
+        # 연락처 검색
+        print("\n🔍 연락처 검색")
+        search_name = input("검색할 이름: ")
+
+        found_contacts = []
+        for contact in contacts:
+            if search_name in contact["name"]:
+                found_contacts.append(contact)
+
+        if len(found_contacts) == 0:
+            print("❌ 검색 결과가 없습니다.")
+        else:
+            print(f"\n🔍 검색 결과: {search_name} ({len(found_contacts)}명)")
+            print("-"*30)
+
+            for contact in found_contacts:
+                print(f"📞 {contact['name']} - {contact['phone']}")
+                print(f"   📧 {contact['email']}")
+                print("-"*20)
+
+    elif choice == "2":
+        # 전체 연락처 보기
+        print("\n📋 전체 연락처 목록")
+        print("="*30)
+
+        for i in range(len(contacts)):
+            contact = contacts[i]
+            print(f"{i+1}. 📞 {contact['name']}")
+            print(f"   전화: {contact['phone']}")
+            print(f"   이메일: {contact['email']}")
+            print("-"*25)
+
+    elif choice == "3":
+        print("\n👋 전화번호부를 종료합니다!")
+        break
+
+    else:
+        print("❌ 1~3 중에서 선택하세요!")
+
+print("🎉 프로그램을 종료합니다!")
+```
+
+## 👥 추가 기능 2: 그룹 관리
+
+```python
+# 📞 스마트 전화번호부 - 그룹 관리
+print("📞 스마트 전화번호부 - 그룹 관리")
+print("="*50)
+
+# 전체 연락처를 저장할 리스트
+contacts = []
+
+# 그룹 목록
+groups = ["가족", "친구", "회사", "기타"]
+
+while True:
+    print("\n📱 메뉴를 선택하세요:")
+    print("="*25)
+    print("1. 연락처 추가")
+    print("2. 전체 연락처 보기")
+    print("3. 종료")
+    print("="*25)
+
+    choice = input("선택하세요 (1-3): ")
+
+    if choice == "1":
+        # 연락처 추가
+        print("\n📱 새 연락처 추가")
+        print("-"*20)
+
+        name = input("이름: ")
+        phone = input("전화번호: ")
+        email = input("이메일: ")
+
+        # 그룹 선택
+        print("\n그룹을 선택하세요:")
+        for i in range(len(groups)):
+            print(f"{i+1}. {groups[i]}")
+
+        group_choice = int(input("선택 (1-4): ")) - 1
+        selected_group = groups[group_choice]
+
+        new_contact = {
+            "name": name,
+            "phone": phone,
+            "email": email,
+            "group": selected_group,
+            "favorite": False
+        }
+
+        contacts.append(new_contact)
+        print(f"✅ {name}님이 '{selected_group}' 그룹에 추가되었습니다!")
+
+    elif choice == "2":
+        # 전체 연락처 보기
+        print("\n📋 전체 연락처 목록")
+        print("="*40)
+
+        if len(contacts) == 0:
+            print("저장된 연락처가 없습니다.")
+        else:
+            for i in range(len(contacts)):
+                contact = contacts[i]
+                print(f"{i+1}. 📞 {contact['name']}")
+                print(f"   전화: {contact['phone']}")
+                print(f"   이메일: {contact['email']}")
+                print(f"   그룹: {contact['group']}")
+                print("-"*30)
+
+    elif choice == "3":
+        print("\n👋 전화번호부를 종료합니다!")
+        break
+
+    else:
+        print("❌ 1~3 중에서 선택하세요!")
+
+print("🎉 프로그램을 종료합니다!")
+```
+
+## 📂 추가 기능 3: 그룹별 조회
+
+```python
+# 📞 스마트 전화번호부 - 그룹별 조회
+print("📞 스마트 전화번호부 - 그룹별 조회")
+print("="*50)
+
+# 전체 연락처를 저장할 리스트
+contacts = []
+
+# 그룹 목록
+groups = ["가족", "친구", "회사", "기타"]
+
+# 샘플 데이터
+sample_contacts = [
+    {"name": "김철수", "phone": "010-1234-5678", "email": "kim@email.com", "group": "친구", "favorite": False},
+    {"name": "이영희", "phone": "010-5678-9012", "email": "younghee@email.com", "group": "회사", "favorite": True},
+    {"name": "박민수", "phone": "010-9876-5432", "email": "minsu@email.com", "group": "가족", "favorite": False},
+    {"name": "최지영", "phone": "010-1111-2222", "email": "jiyoung@email.com", "group": "친구", "favorite": True},
+    {"name": "정수현", "phone": "010-3333-4444", "email": "suhyun@email.com", "group": "회사", "favorite": False}
+]
+
+contacts.extend(sample_contacts)
+
+while True:
+    print("\n📱 메뉴를 선택하세요:")
+    print("="*25)
+    print("1. 그룹별 조회")
+    print("2. 전체 연락처 보기")
+    print("3. 종료")
+    print("="*25)
+
+    choice = input("선택하세요 (1-3): ")
+
+    if choice == "1":
+        # 그룹별 조회
+        print("\n📂 그룹별 연락처 조회")
+        print("조회할 그룹을 선택하세요:")
+        for i in range(len(groups)):
+            print(f"{i+1}. {groups[i]}")
+
+        group_choice = int(input("선택 (1-4): ")) - 1
+        selected_group = groups[group_choice]
+
+        group_contacts = []
+        for contact in contacts:
+            if contact["group"] == selected_group:
+                group_contacts.append(contact)
+
+        print(f"\n👥 {selected_group} 그룹 ({len(group_contacts)}명)")
+        print("-"*30)
+
+        if len(group_contacts) == 0:
+            print("해당 그룹에 연락처가 없습니다.")
+        else:
+            for contact in group_contacts:
+                print(f"📞 {contact['name']} - {contact['phone']}")
+                print(f"   📧 {contact['email']}")
+                print("-"*20)
+
+    elif choice == "2":
+        # 전체 연락처 보기
+        print("\n📋 전체 연락처 목록")
+        print("="*40)
+
+        for i in range(len(contacts)):
+            contact = contacts[i]
+            print(f"{i+1}. 📞 {contact['name']}")
+            print(f"   전화: {contact['phone']}")
+            print(f"   이메일: {contact['email']}")
+            print(f"   그룹: {contact['group']}")
+            print("-"*30)
+
+    elif choice == "3":
+        print("\n👋 전화번호부를 종료합니다!")
+        break
+
+    else:
+        print("❌ 1~3 중에서 선택하세요!")
+
+print("🎉 프로그램을 종료합니다!")
+```
+
+## ✏️ 추가 기능 4: 연락처 수정
+
+```python
+# 📞 스마트 전화번호부 - 연락처 수정
+print("📞 스마트 전화번호부 - 연락처 수정")
+print("="*50)
+
+# 전체 연락처를 저장할 리스트
+contacts = []
+
+# 그룹 목록
+groups = ["가족", "친구", "회사", "기타"]
+
+# 샘플 데이터
+sample_contacts = [
+    {"name": "김철수", "phone": "010-1234-5678", "email": "kim@email.com", "group": "친구", "favorite": False},
+    {"name": "이영희", "phone": "010-5678-9012", "email": "younghee@email.com", "group": "회사", "favorite": True},
+    {"name": "박민수", "phone": "010-9876-5432", "email": "minsu@email.com", "group": "가족", "favorite": False}
+]
+
+contacts.extend(sample_contacts)
+
+while True:
+    print("\n📱 메뉴를 선택하세요:")
+    print("="*25)
+    print("1. 연락처 수정")
+    print("2. 전체 연락처 보기")
+    print("3. 종료")
+    print("="*25)
+
+    choice = input("선택하세요 (1-3): ")
+
+    if choice == "1":
+        # 연락처 수정
+        if len(contacts) == 0:
+            print("❌ 수정할 연락처가 없습니다.")
+        else:
+            print("\n✏️ 연락처 수정")
+            edit_name = input("수정할 연락처 이름: ")
+
+            found = False
+            for contact in contacts:
+                if contact["name"] == edit_name:
+                    # 현재 정보 출력
+                    print(f"\n📞 {contact['name']}님의 현재 정보:")
+                    print(f"   전화번호: {contact['phone']}")
+                    print(f"   이메일: {contact['email']}")
+                    print(f"   그룹: {contact['group']}")
+
+                    # 수정할 항목 선택
+                    print("\n수정할 항목을 선택하세요:")
+                    print("1. 전화번호  2. 이메일  3. 그룹  4. 모두")
+                    edit_choice = input("선택: ")
+
+                    if edit_choice == "1":
+                        new_phone = input("새로운 전화번호: ")
+                        contact["phone"] = new_phone
+                    elif edit_choice == "2":
+                        new_email = input("새로운 이메일: ")
+                        contact["email"] = new_email
+                    elif edit_choice == "3":
+                        print("새로운 그룹:")
+                        for i in range(len(groups)):
+                            print(f"{i+1}. {groups[i]}")
+                        group_choice = int(input("선택: ")) - 1
+                        contact["group"] = groups[group_choice]
+                    elif edit_choice == "4":
+                        new_phone = input("새로운 전화번호: ")
+                        new_email = input("새로운 이메일: ")
+                        print("새로운 그룹:")
+                        for i in range(len(groups)):
+                            print(f"{i+1}. {groups[i]}")
+                        group_choice = int(input("선택: ")) - 1
+
+                        contact["phone"] = new_phone
+                        contact["email"] = new_email
+                        contact["group"] = groups[group_choice]
+
+                    print(f"✅ {contact['name']}님의 정보가 수정되었습니다!")
+                    found = True
+                    break
+
+            if not found:
+                print("❌ 해당 이름의 연락처를 찾을 수 없습니다.")
+
+    elif choice == "2":
+        # 전체 연락처 보기
+        print("\n📋 전체 연락처 목록")
+        print("="*40)
+
+        for i in range(len(contacts)):
+            contact = contacts[i]
+            print(f"{i+1}. 📞 {contact['name']}")
+            print(f"   전화: {contact['phone']}")
+            print(f"   이메일: {contact['email']}")
+            print(f"   그룹: {contact['group']}")
+            print("-"*30)
+
+    elif choice == "3":
+        print("\n👋 전화번호부를 종료합니다!")
+        break
+
+    else:
+        print("❌ 1~3 중에서 선택하세요!")
+
+print("🎉 프로그램을 종료합니다!")
+```
+
+## ⭐ 추가 기능 5: 즐겨찾기 관리
+
+```python
+# 📞 스마트 전화번호부 - 즐겨찾기 관리
+print("📞 스마트 전화번호부 - 즐겨찾기 관리")
+print("="*50)
+
+# 전체 연락처를 저장할 리스트
+contacts = []
+
+# 샘플 데이터
+sample_contacts = [
+    {"name": "김철수", "phone": "010-1234-5678", "email": "kim@email.com", "group": "친구", "favorite": False},
+    {"name": "이영희", "phone": "010-5678-9012", "email": "younghee@email.com", "group": "회사", "favorite": True},
+    {"name": "박민수", "phone": "010-9876-5432", "email": "minsu@email.com", "group": "가족", "favorite": False},
+    {"name": "최지영", "phone": "010-1111-2222", "email": "jiyoung@email.com", "group": "친구", "favorite": True},
+    {"name": "정수현", "phone": "010-3333-4444", "email": "suhyun@email.com", "group": "회사", "favorite": False}
+]
+
+contacts.extend(sample_contacts)
+
+while True:
+    print("\n📱 메뉴를 선택하세요:")
+    print("="*25)
+    print("1. 즐겨찾기 추가/제거")
+    print("2. 즐겨찾기 목록 보기")
+    print("3. 전체 연락처 보기")
+    print("4. 종료")
+    print("="*25)
+
+    choice = input("선택하세요 (1-4): ")
+
+    if choice == "1":
+        # 즐겨찾기 설정/해제
+        print("\n⭐ 즐겨찾기 관리")
+        favorite_name = input("즐겨찾기 설정할 이름: ")
+
+        found = False
+        for contact in contacts:
+            if contact["name"] == favorite_name:
+                if contact["favorite"]:
+                    contact["favorite"] = False
+                    print(f"⭐ {favorite_name}님을 즐겨찾기에서 제거했습니다.")
+                else:
+                    contact["favorite"] = True
+                    print(f"⭐ {favorite_name}님을 즐겨찾기에 추가했습니다.")
+                found = True
+                break
+
+        if not found:
+            print("❌ 해당 이름의 연락처를 찾을 수 없습니다.")
+
+    elif choice == "2":
+        # 즐겨찾기 목록 조회
+        print("\n⭐ 즐겨찾기 연락처")
+        print("-"*30)
+
+        favorite_contacts = []
+        for contact in contacts:
+            if contact["favorite"]:
+                favorite_contacts.append(contact)
+
+        if len(favorite_contacts) == 0:
+            print("즐겨찾기에 추가된 연락처가 없습니다.")
+        else:
+            print(f"⭐ 즐겨찾기 연락처 ({len(favorite_contacts)}명)")
+            print("-"*30)
+
+            for contact in favorite_contacts:
+                print(f"📞 {contact['name']} - {contact['phone']}")
+                print(f"   📧 {contact['email']}")
+                print(f"   👥 {contact['group']}")
+                print("-"*15)
+
+    elif choice == "3":
+        # 전체 연락처 보기
+        print("\n📋 전체 연락처 목록")
+        print("="*40)
+
+        for i in range(len(contacts)):
+            contact = contacts[i]
+            star = "⭐" if contact["favorite"] else "  "
+            print(f"{i+1}. {star} 📞 {contact['name']}")
+            print(f"   전화: {contact['phone']}")
+            print(f"   이메일: {contact['email']}")
+            print(f"   그룹: {contact['group']}")
+            print("-"*30)
+
+    elif choice == "4":
+        print("\n👋 전화번호부를 종료합니다!")
+        break
+
+    else:
+        print("❌ 1~4 중에서 선택하세요!")
+
+print("🎉 프로그램을 종료합니다!")
+```
+
+## 📊 추가 기능 6: 통계 및 정보
+
+```python
+# 📞 스마트 전화번호부 - 통계 및 정보
+print("📞 스마트 전화번호부 - 통계 및 정보")
+print("="*50)
+
+# 전체 연락처를 저장할 리스트
+contacts = []
+
+# 샘플 데이터
+sample_contacts = [
+    {"name": "김철수", "phone": "010-1234-5678", "email": "kim@email.com", "group": "친구", "favorite": False},
+    {"name": "이영희", "phone": "010-5678-9012", "email": "younghee@email.com", "group": "회사", "favorite": True},
+    {"name": "박민수", "phone": "010-9876-5432", "email": "minsu@email.com", "group": "가족", "favorite": False},
+    {"name": "최지영", "phone": "010-1111-2222", "email": "jiyoung@email.com", "group": "친구", "favorite": True},
+    {"name": "정수현", "phone": "010-3333-4444", "email": "suhyun@email.com", "group": "회사", "favorite": False},
+    {"name": "김민지", "phone": "010-5555-6666", "email": "minji@email.com", "group": "가족", "favorite": True},
+    {"name": "박상우", "phone": "010-7777-8888", "email": "sangwoo@email.com", "group": "친구", "favorite": False},
+    {"name": "이준호", "phone": "010-9999-0000", "email": "junho@email.com", "group": "회사", "favorite": False}
+]
+
+contacts.extend(sample_contacts)
+
+while True:
+    print("\n📱 메뉴를 선택하세요:")
+    print("="*25)
+    print("1. 통계 보기")
+    print("2. 최근 추가 연락처")
+    print("3. 전체 연락처 보기")
+    print("4. 종료")
+    print("="*25)
+
+    choice = input("선택하세요 (1-4): ")
+
+    if choice == "1":
+        # 통계 보기
+        print("\n📊 전화번호부 통계")
+        print("="*20)
+
+        # 전체 통계 계산
+        total_contacts = len(contacts)
+        favorite_count = 0
+        group_count = {"가족": 0, "친구": 0, "회사": 0, "기타": 0}
+
+        for contact in contacts:
+            if contact["favorite"]:
+                favorite_count += 1
+
+            group = contact["group"]
+            group_count[group] += 1
+
+        print(f"📞 전체 연락처: {total_contacts}명")
+        print(f"⭐ 즐겨찾기: {favorite_count}명")
+        print("\n👥 그룹별 분포:")
+
+        for group in group_count:
+            count = group_count[group]
+            print(f"   - {group}: {count}명")
+
+    elif choice == "2":
+        # 최근 추가된 연락처
+        print("\n📅 최근 추가된 연락처")
+        print("="*25)
+
+        if len(contacts) == 0:
+            print("추가된 연락처가 없습니다.")
+        else:
+            # 최근 3개 연락처 표시
+            recent_contacts = contacts[-3:]
+
+            print(f"최근 {len(recent_contacts)}명:")
+            for i, contact in enumerate(recent_contacts, 1):
+                print(f"   {i}. {contact['name']} ({contact['group']})")
+
+    elif choice == "3":
+        # 전체 연락처 보기
+        print("\n📋 전체 연락처 목록")
+        print("="*40)
+
+        for i in range(len(contacts)):
+            contact = contacts[i]
+            star = "⭐" if contact["favorite"] else "  "
+            print(f"{i+1}. {star} 📞 {contact['name']}")
+            print(f"   전화: {contact['phone']}")
+            print(f"   이메일: {contact['email']}")
+            print(f"   그룹: {contact['group']}")
+            print("-"*30)
+
+    elif choice == "4":
+        print("\n👋 전화번호부를 종료합니다!")
+        break
+
+    else:
+        print("❌ 1~4 중에서 선택하세요!")
+
+print("🎉 프로그램을 종료합니다!")
+```
+
+## 🎯 통합 완성 버전
+
+```python
+# 📞 스마트 전화번호부 - 모든 기능 통합
+print("📞 스마트 전화번호부 - 모든 기능 통합")
+print("="*50)
+
+# 전체 연락처를 저장할 리스트
+contacts = []
+
+# 그룹 목록
+groups = ["가족", "친구", "회사", "기타"]
+
+while True:
+    print("\n📱 스마트 전화번호부")
+    print("="*30)
+    print("1. 연락처 추가")
+    print("2. 전체 연락처 보기")
+    print("3. 연락처 삭제")
+    print("4. 연락처 검색")
+    print("5. 그룹 관리")
+    print("6. 그룹별 보기")
+    print("7. 연락처 수정")
+    print("8. 즐겨찾기 관리")
+    print("9. 통계 보기")
+    print("10. 종료")
+    print("="*30)
+
+    choice = input("메뉴를 선택하세요 (1-10): ")
+
+    if choice == "1":
+        # 연락처 추가
+        print("\n📱 새 연락처 추가")
+        print("-"*20)
+
+        name = input("이름: ")
+        phone = input("전화번호: ")
+        email = input("이메일: ")
+
+        # 그룹 선택
+        print("\n그룹을 선택하세요:")
+        for i in range(len(groups)):
+            print(f"{i+1}. {groups[i]}")
+
+        group_choice = int(input("선택 (1-4): ")) - 1
+        selected_group = groups[group_choice]
+
+        new_contact = {
+            "name": name,
+            "phone": phone,
+            "email": email,
+            "group": selected_group,
+            "favorite": False
+        }
+
+        contacts.append(new_contact)
+        print(f"✅ {name}님이 '{selected_group}' 그룹에 추가되었습니다!")
+
+    elif choice == "2":
+        # 전체 연락처 보기
+        print("\n📋 전체 연락처 목록")
+        print("="*40)
+
+        if len(contacts) == 0:
+            print("저장된 연락처가 없습니다.")
+        else:
+            for i in range(len(contacts)):
+                contact = contacts[i]
+                star = "⭐" if contact["favorite"] else "  "
+                print(f"{i+1}. {star} 📞 {contact['name']}")
+                print(f"   전화: {contact['phone']}")
+                print(f"   이메일: {contact['email']}")
+                print(f"   그룹: {contact['group']}")
+                print("-"*30)
+
+    elif choice == "3":
+        # 연락처 삭제
+        if len(contacts) == 0:
+            print("❌ 삭제할 연락처가 없습니다.")
+        else:
+            print("\n🗑️ 연락처 삭제")
+            delete_name = input("삭제할 연락처 이름: ")
+
+            found = False
+            for i in range(len(contacts)):
+                if contacts[i]["name"] == delete_name:
+                    removed_contact = contacts[i]
+                    del contacts[i]
+                    print(f"✅ {removed_contact['name']}님의 연락처가 삭제되었습니다.")
+                    found = True
+                    break
+
+            if not found:
+                print("❌ 해당 이름의 연락처를 찾을 수 없습니다.")
+
+    elif choice == "4":
+        # 연락처 검색
+        print("\n🔍 연락처 검색")
+        search_name = input("검색할 이름: ")
+
+        found_contacts = []
+        for contact in contacts:
+            if search_name in contact["name"]:
+                found_contacts.append(contact)
+
+        if len(found_contacts) == 0:
+            print("❌ 검색 결과가 없습니다.")
+        else:
+            print(f"\n🔍 검색 결과: {search_name} ({len(found_contacts)}명)")
+            print("-"*30)
+
+            for contact in found_contacts:
+                print(f"📞 {contact['name']} - {contact['phone']}")
+                print(f"   📧 {contact['email']}")
+                print(f"   👥 {contact['group']}")
+                print("-"*20)
+
+    elif choice == "5":
+        # 그룹 관리 (연락처 추가와 동일)
+        print("\n👥 그룹 관리")
+        print("새 연락처를 추가하여 그룹을 설정하세요.")
+
+        # 연락처 추가 코드와 동일
+        name = input("이름: ")
+        phone = input("전화번호: ")
+        email = input("이메일: ")
+
+        print("\n그룹을 선택하세요:")
+        for i in range(len(groups)):
+            print(f"{i+1}. {groups[i]}")
+
+        group_choice = int(input("선택 (1-4): ")) - 1
+        selected_group = groups[group_choice]
+
+        new_contact = {
+            "name": name,
+            "phone": phone,
+            "email": email,
+            "group": selected_group,
+            "favorite": False
+        }
+
+        contacts.append(new_contact)
+        print(f"✅ {name}님이 '{selected_group}' 그룹에 추가되었습니다!")
+
+    elif choice == "6":
+        # 그룹별 보기
+        print("\n📂 그룹별 연락처 조회")
+        print("조회할 그룹을 선택하세요:")
+        for i in range(len(groups)):
+            print(f"{i+1}. {groups[i]}")
+
+        group_choice = int(input("선택 (1-4): ")) - 1
+        selected_group = groups[group_choice]
+
+        group_contacts = []
+        for contact in contacts:
+            if contact["group"] == selected_group:
+                group_contacts.append(contact)
+
+        print(f"\n👥 {selected_group} 그룹 ({len(group_contacts)}명)")
+        print("-"*30)
+
+        if len(group_contacts) == 0:
+            print("해당 그룹에 연락처가 없습니다.")
+        else:
+            for contact in group_contacts:
+                print(f"📞 {contact['name']} - {contact['phone']}")
+                print(f"   📧 {contact['email']}")
+                print("-"*20)
+
+    elif choice == "7":
+        # 연락처 수정
+        if len(contacts) == 0:
+            print("❌ 수정할 연락처가 없습니다.")
+        else:
+            print("\n✏️ 연락처 수정")
+            edit_name = input("수정할 연락처 이름: ")
+
+            found = False
+            for contact in contacts:
+                if contact["name"] == edit_name:
+                    print(f"\n📞 {contact['name']}님의 현재 정보:")
+                    print(f"   전화번호: {contact['phone']}")
+                    print(f"   이메일: {contact['email']}")
+                    print(f"   그룹: {contact['group']}")
+
+                    print("\n수정할 항목을 선택하세요:")
+                    print("1. 전화번호  2. 이메일  3. 그룹")
+                    edit_choice = input("선택: ")
+
+                    if edit_choice == "1":
+                        new_phone = input("새로운 전화번호: ")
+                        contact["phone"] = new_phone
+                    elif edit_choice == "2":
+                        new_email = input("새로운 이메일: ")
+                        contact["email"] = new_email
+                    elif edit_choice == "3":
+                        print("새로운 그룹:")
+                        for i in range(len(groups)):
+                            print(f"{i+1}. {groups[i]}")
+                        group_choice = int(input("선택: ")) - 1
+                        contact["group"] = groups[group_choice]
+
+                    print(f"✅ {contact['name']}님의 정보가 수정되었습니다!")
+                    found = True
+                    break
+
+            if not found:
+                print("❌ 해당 이름의 연락처를 찾을 수 없습니다.")
+
+    elif choice == "8":
+        # 즐겨찾기 관리
+        print("\n⭐ 즐겨찾기 관리")
+        print("1. 즐겨찾기 추가/제거  2. 즐겨찾기 목록 보기")
+        favorite_choice = input("선택 (1-2): ")
+
+        if favorite_choice == "1":
+            # 즐겨찾기 설정/해제
+            favorite_name = input("즐겨찾기 설정할 이름: ")
+
+            found = False
+            for contact in contacts:
+                if contact["name"] == favorite_name:
+                    if contact["favorite"]:
+                        contact["favorite"] = False
+                        print(f"⭐ {favorite_name}님을 즐겨찾기에서 제거했습니다.")
+                    else:
+                        contact["favorite"] = True
+                        print(f"⭐ {favorite_name}님을 즐겨찾기에 추가했습니다.")
+                    found = True
+                    break
+
+            if not found:
+                print("❌ 해당 이름의 연락처를 찾을 수 없습니다.")
+
+        elif favorite_choice == "2":
+            # 즐겨찾기 목록 조회
+            print("\n⭐ 즐겨찾기 연락처")
+            print("-"*30)
+
+            favorite_contacts = []
+            for contact in contacts:
+                if contact["favorite"]:
+                    favorite_contacts.append(contact)
+
+            if len(favorite_contacts) == 0:
+                print("즐겨찾기에 추가된 연락처가 없습니다.")
+            else:
+                print(f"⭐ 즐겨찾기 연락처 ({len(favorite_contacts)}명)")
+                print("-"*30)
+
+                for contact in favorite_contacts:
+                    print(f"📞 {contact['name']} - {contact['phone']}")
+                    print(f"   📧 {contact['email']}")
+                    print(f"   👥 {contact['group']}")
+                    print("-"*15)
+
+    elif choice == "9":
+        # 통계 보기
+        print("\n📊 전화번호부 통계")
+        print("="*20)
+
+        # 전체 통계 계산
+        total_contacts = len(contacts)
+        favorite_count = 0
+        group_count = {"가족": 0, "친구": 0, "회사": 0, "기타": 0}
+
+        for contact in contacts:
+            if contact["favorite"]:
+                favorite_count += 1
+
+            group = contact["group"]
+            group_count[group] += 1
+
+        print(f"📞 전체 연락처: {total_contacts}명")
+        print(f"⭐ 즐겨찾기: {favorite_count}명")
+        print("\n👥 그룹별 분포:")
+
+        for group in group_count:
+            count = group_count[group]
+            print(f"   - {group}: {count}명")
+
+        # 최근 추가된 연락처
+        if len(contacts) > 0:
+            print("\n📅 최근 추가된 연락처:")
+            recent_contacts = contacts[-3:]  # 최근 3개
+
+            for i, contact in enumerate(recent_contacts, 1):
+                print(f"   {i}. {contact['name']} ({contact['group']})")
+
+    elif choice == "10":
+        print("\n👋 전화번호부를 종료합니다!")
+        break
+
+    else:
+        print("❌ 1~10 중에서 선택하세요!")
+
+print("🎉 프로그램을 종료합니다!")
+```

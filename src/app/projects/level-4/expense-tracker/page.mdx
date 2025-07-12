@@ -1,0 +1,721 @@
+---
+title: "개인 가계부"
+description: "리스트와 딕셔너리를 활용하여 수입과 지출을 체계적으로 관리하는 가계부를 만들어보세요"
+---
+
+import InteractiveChecklist from "@/components/ui/interactive-checklist";
+
+# 💰 개인 가계부
+
+## 📋 프로젝트 개요
+
+리스트와 딕셔너리를 활용하여 개인의 수입과 지출을 체계적으로 관리하는 가계부 프로그램을 만들어보세요. 돈의 흐름을 추적하고 분석하여 현명한 소비 습관을 기르는 데 도움이 되는 실용적인 도구를 구현해봅시다!
+
+## 🎯 학습 목표
+
+- 리스트를 활용한 거래 내역 관리
+- 딕셔너리를 이용한 구조화된 금융 정보 저장
+- 반복문과 조건문을 조합한 데이터 분석
+- 실생활 금융 관리를 프로그래밍으로 해결하는 경험
+
+## 🚀 기본 기능
+
+### 핵심 요구사항
+
+**수입과 지출을 기록하고 관리하는 가계부**
+
+1. **거래 내역 기록**
+
+   - 수입/지출 구분하여 입력
+   - 금액, 내용, 날짜 정보 저장
+   - 딕셔너리 형태로 구조화하여 리스트에 저장
+
+2. **거래 내역 조회**
+
+   - 모든 거래 내역을 시간순으로 출력
+   - 수입과 지출을 구분하여 표시
+   - 잔액 계산 및 표시
+
+3. **기본 통계**
+   - 총 수입, 총 지출, 현재 잔액 계산
+   - 간단한 수지 분석 제공
+
+## 🎨 추가 기능 1: 카테고리 분류
+
+### 요구사항
+
+거래 기록 시 카테고리를 설정하여 지출을 체계적으로 분류합니다.
+
+- **카테고리 분류**: 식비, 교통비, 쇼핑, 생활비 등으로 지출 분류
+- **카테고리 선택**: 거래 기록 시 해당하는 카테고리 선택
+
+### 카테고리 관리 예시
+
+```
+💸 지출 기록
+============
+금액: 15000
+내용: 점심 식사
+카테고리를 선택하세요:
+1. 식비  2. 교통비  3. 쇼핑  4. 생활비  5. 기타
+선택: 1
+✅ 식비 카테고리에 15,000원 지출이 기록되었습니다!
+```
+
+## 💡 추가 기능 2: 카테고리별 조회
+
+### 요구사항
+
+특정 카테고리의 거래 내역만 모아서 확인할 수 있는 기능을 추가합니다.
+
+- **카테고리별 조회**: 특정 카테고리의 거래 내역만 모아보기
+- **카테고리별 합계**: 해당 카테고리의 총 지출 계산
+
+### 카테고리별 조회 예시
+
+```
+📂 카테고리별 조회
+==================
+1. 식비  2. 교통비  3. 쇼핑  4. 생활비  5. 기타
+선택: 1
+
+💸 식비 카테고리 (5건)
+총 지출: 75,000원
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📅 2025-03-15  💸 15,000원 - 점심 식사
+📅 2025-03-16  💸 20,000원 - 저녁 식사
+📅 2025-03-17  💸 12,000원 - 커피
+📅 2025-03-18  💸 18,000원 - 아침 식사
+📅 2025-03-19  💸 10,000원 - 간식
+```
+
+## 🔍 추가 기능 3: 날짜별 검색
+
+### 요구사항
+
+특정 날짜의 거래 내역을 검색하여 하루 단위로 가계부를 확인할 수 있습니다.
+
+- **날짜별 검색**: 특정 날짜의 거래 내역 조회
+- **일일 수지**: 해당 날짜의 수입/지출 합계 및 수지 계산
+
+### 날짜별 검색 예시
+
+```
+📅 날짜별 검색
+==============
+검색할 날짜 (YYYY-MM-DD): 2025-03-15
+
+📅 2025-03-15 거래 내역 (3건)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+💰 수입: 50,000원 - 용돈
+💸 지출: 15,000원 - 점심 식사 (식비)
+💸 지출: 3,000원 - 버스비 (교통비)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 일일 수지: +32,000원
+```
+
+## 🔍 추가 기능 4: 내용 검색
+
+### 요구사항
+
+거래 내용으로 검색하여 특정 항목의 지출 내역을 쉽게 찾을 수 있습니다.
+
+- **내용 검색**: 거래 내용에 포함된 단어로 검색
+- **검색 결과**: 일치하는 모든 거래 내역 표시
+
+### 내용 검색 예시
+
+```
+🔍 내용 검색
+=============
+검색어: 커피
+
+🔍 검색 결과: 커피 (4건)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📅 2025-03-10  💸 4,500원 - 아메리카노 커피
+📅 2025-03-12  💸 5,000원 - 카페라떼 커피
+📅 2025-03-15  💸 4,000원 - 커피 원두 구매
+📅 2025-03-18  💸 6,000원 - 스타벅스 커피
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+💸 총 지출: 19,500원
+```
+
+## 📊 추가 기능 5: 월별 통계
+
+### 요구사항
+
+특정 월의 수입/지출을 분석하여 가계부 패턴을 파악할 수 있습니다.
+
+- **월별 통계**: 월별 수입/지출 요약
+- **카테고리별 통계**: 어느 분야에서 가장 많이 지출하는지 분석
+
+### 월별 통계 예시
+
+```
+📊 3월 가계부 요약
+==================
+💰 총 수입: 2,500,000원
+💸 총 지출: 1,850,000원
+💵 잔액: +650,000원
+
+📈 카테고리별 지출:
+   - 식비: 450,000원 (24.3%)
+   - 교통비: 180,000원 (9.7%)
+   - 쇼핑: 320,000원 (17.3%)
+   - 생활비: 280,000원 (15.1%)
+   - 기타: 620,000원 (33.5%)
+```
+
+## 💰 추가 기능 6: 예산 관리
+
+### 요구사항
+
+카테고리별 예산을 설정하고 지출을 통제할 수 있는 기능을 추가합니다.
+
+- **예산 설정**: 카테고리별 월 예산 설정
+- **예산 대비 지출**: 현재 지출과 예산 비교
+- **예산 초과 알림**: 예산 초과 시 경고 메시지
+
+### 예산 관리 예시
+
+```
+💡 예산 관리
+=============
+📊 예산 대비 지출 현황
+
+📂 식비
+   예산: 400,000원
+   지출: 320,000원
+   잔여: 80,000원
+   사용률: 80%
+   ⚠️ 예산 80% 사용 📊
+
+📂 교통비
+   예산: 150,000원
+   지출: 180,000원
+   잔여: -30,000원
+   사용률: 120%
+   ⚠️ 예산 초과! 🚨
+```
+
+## 💡 구현 힌트
+
+### 1. 메뉴 시스템 구현
+
+프로그램의 전체 구조를 만들어보세요.
+
+```python
+# 메뉴 시스템 구현
+while True:
+    print("\n💰 가계부 관리 시스템")
+    print("=" * 30)
+    print("1. 수입 기록")
+    print("2. 지출 기록")
+    print("3. 거래 내역 조회")
+    print("4. 카테고리별 조회")
+    print("5. 날짜별 검색")
+    print("6. 내용 검색")
+    print("7. 월별 통계")
+    print("8. 예산 관리")
+    print("9. 종료")
+    print("=" * 30)
+
+    choice = input("선택 (1-9): ")
+
+    if choice == "1":
+        # 수입 기록 코드 작성
+        print("💰 수입 기록")
+        print("-" * 20)
+        # 여기에 수입 기록 코드를 작성하세요
+
+    elif choice == "2":
+        # 지출 기록 코드 작성
+        print("💸 지출 기록")
+        print("-" * 20)
+        # 여기에 지출 기록 코드를 작성하세요
+
+    elif choice == "3":
+        # 거래 내역 조회 코드 작성
+        print("📋 거래 내역 조회")
+        print("-" * 20)
+        # 여기에 거래 내역 조회 코드를 작성하세요
+
+    elif choice == "4":
+        # 카테고리별 조회 코드 작성
+        print("📂 카테고리별 조회")
+        print("-" * 20)
+        # 여기에 카테고리별 조회 코드를 작성하세요
+
+    elif choice == "5":
+        # 날짜별 검색 코드 작성
+        print("📅 날짜별 검색")
+        print("-" * 20)
+        # 여기에 날짜별 검색 코드를 작성하세요
+
+    elif choice == "6":
+        # 내용 검색 코드 작성
+        print("🔍 내용 검색")
+        print("-" * 20)
+        # 여기에 내용 검색 코드를 작성하세요
+
+    elif choice == "7":
+        # 월별 통계 코드 작성
+        print("📊 월별 통계")
+        print("-" * 20)
+        # 여기에 월별 통계 코드를 작성하세요
+
+    elif choice == "8":
+        # 예산 관리 코드 작성
+        print("💡 예산 관리")
+        print("-" * 20)
+        # 여기에 예산 관리 코드를 작성하세요
+
+    elif choice == "9":
+        print("👋 프로그램을 종료합니다.")
+        break
+    else:
+        print("❌ 잘못된 선택입니다.")
+```
+
+### 2. 데이터 구조 설계
+
+```python
+# 모든 거래 내역을 저장할 리스트
+transactions = []
+
+# 각 거래는 딕셔너리로 구성 (기본 기능용)
+transaction = {
+    "type": "지출",           # "수입" 또는 "지출"
+    "amount": 15000,          # 금액
+    "content": "점심 식사",    # 내용
+    "date": "2025-03-15"      # 날짜
+}
+
+# 거래를 리스트에 추가
+transactions.append(transaction)
+```
+
+### 기본 기능 구현
+
+#### 3. 거래 기록 기능 (기본)
+
+```python
+print("💰 새 거래 기록")
+print("-" * 20)
+
+# 수입/지출 선택
+print("1. 수입  2. 지출")
+type_choice = input("선택 (1-2): ")
+transaction_type = "수입" if type_choice == "1" else "지출"
+
+# 금액 입력
+amount = int(input("금액: "))
+
+# 내용 입력
+content = input("내용: ")
+
+# 날짜 입력
+date = input("날짜 (YYYY-MM-DD): ")
+
+# 거래 정보를 딕셔너리로 저장 (기본 기능)
+new_transaction = {
+    "type": transaction_type,
+    "amount": amount,
+    "content": content,
+    "date": date
+}
+
+transactions.append(new_transaction)
+print(f"✅ {transaction_type} {amount:,}원이 기록되었습니다!")
+```
+
+#### 4. 거래 내역 조회 기능 (기본)
+
+```python
+print("📋 전체 거래 내역")
+print("=" * 40)
+
+if len(transactions) == 0:
+    print("기록된 거래가 없습니다.")
+else:
+    balance = 0  # 잔액 계산용
+
+    for i in range(len(transactions)):
+        transaction = transactions[i]
+
+        # 잔액 계산
+        if transaction["type"] == "수입":
+            balance += transaction["amount"]
+            sign = "+"
+            emoji = "💰"
+        else:
+            balance -= transaction["amount"]
+            sign = "-"
+            emoji = "💸"
+
+        print(f"{i+1}. {emoji} {transaction['date']}")
+        print(f"   {transaction['type']}: {sign}{transaction['amount']:,}원")
+        print(f"   내용: {transaction['content']}")
+        print(f"   잔액: {balance:,}원")
+        print("-" * 30)
+```
+
+#### 5. 기본 통계 계산
+
+```python
+# 총 수입, 총 지출 계산
+total_income = 0
+total_expense = 0
+
+for transaction in transactions:
+    if transaction["type"] == "수입":
+        total_income += transaction["amount"]
+    else:
+        total_expense += transaction["amount"]
+
+# 잔액 계산
+balance = total_income - total_expense
+
+# 통계 출력
+print("📊 가계부 요약")
+print("=" * 20)
+print(f"💰 총 수입: {total_income:,}원")
+print(f"💸 총 지출: {total_expense:,}원")
+print(f"💵 현재 잔액: {balance:,}원")
+
+if balance > 0:
+    print("✅ 흑자입니다! 👍")
+elif balance < 0:
+    print("❌ 적자입니다! 💪 절약이 필요해요.")
+else:
+    print("💯 수지가 맞습니다!")
+```
+
+### 추가 기능 구현
+
+#### 6. 추가 기능 1: 카테고리 분류
+
+```python
+# 카테고리 목록 준비
+categories = ["식비", "교통비", "쇼핑", "생활비", "기타"]
+
+# 거래 기록 시 카테고리 추가
+if transaction_type == "지출":
+    print("카테고리를 선택하세요:")
+    for i in range(len(categories)):
+        print(f"{i+1}. {categories[i]}")
+
+    category_choice = int(input("선택: ")) - 1
+    category = categories[category_choice]
+else:
+    category = "수입"
+
+# 카테고리가 포함된 거래 딕셔너리
+new_transaction = {
+    "type": transaction_type,
+    "amount": amount,
+    "category": category,
+    "content": content,
+    "date": date
+}
+```
+
+#### 추가 기능 2: 카테고리별 조회
+
+```python
+# 카테고리 선택
+print("📂 카테고리별 조회")
+print("조회할 카테고리를 선택하세요:")
+for i in range(len(categories)):
+    print(f"{i+1}. {categories[i]}")
+
+category_choice = int(input("선택: ")) - 1
+selected_category = categories[category_choice]
+
+# 해당 카테고리의 거래만 찾기
+category_transactions = []
+category_total = 0
+
+for transaction in transactions:
+    if transaction["category"] == selected_category:
+        category_transactions.append(transaction)
+        category_total += transaction["amount"]
+
+# 결과 출력
+print(f"\n💸 {selected_category} 카테고리 ({len(category_transactions)}건)")
+print(f"총 지출: {category_total:,}원")
+print("-" * 30)
+
+for transaction in category_transactions:
+    print(f"📅 {transaction['date']}")
+    print(f"💸 {transaction['amount']:,}원 - {transaction['content']}")
+    print("-" * 15)
+```
+
+#### 추가 기능 3: 날짜별 검색
+
+```python
+# 날짜 입력
+search_date = input("검색할 날짜 (YYYY-MM-DD): ")
+
+# 해당 날짜의 거래 찾기
+found_transactions = []
+daily_income = 0
+daily_expense = 0
+
+for transaction in transactions:
+    if transaction["date"] == search_date:
+        found_transactions.append(transaction)
+
+        if transaction["type"] == "수입":
+            daily_income += transaction["amount"]
+        else:
+            daily_expense += transaction["amount"]
+
+# 결과 출력
+if len(found_transactions) == 0:
+    print("❌ 해당 날짜의 거래가 없습니다.")
+else:
+    print(f"📅 {search_date} 거래 내역 ({len(found_transactions)}건)")
+    print("-" * 30)
+
+    for transaction in found_transactions:
+        emoji = "💰" if transaction["type"] == "수입" else "💸"
+        print(f"{emoji} {transaction['type']}: {transaction['amount']:,}원")
+        print(f"   내용: {transaction['content']}")
+        print("-" * 15)
+
+    daily_balance = daily_income - daily_expense
+    print(f"📊 일일 수지: {daily_balance:,}원")
+```
+
+#### 추가 기능 4: 내용 검색
+
+```python
+# 검색어 입력
+search_keyword = input("검색할 내용: ")
+
+# 검색 결과 저장
+found_transactions = []
+total_amount = 0
+
+for transaction in transactions:
+    if search_keyword in transaction["content"]:
+        found_transactions.append(transaction)
+        total_amount += transaction["amount"]
+
+# 결과 출력
+if len(found_transactions) == 0:
+    print("❌ 검색 결과가 없습니다.")
+else:
+    print(f"🔍 검색 결과: {search_keyword} ({len(found_transactions)}건)")
+    print("-" * 30)
+
+    for transaction in found_transactions:
+        emoji = "💰" if transaction["type"] == "수입" else "💸"
+        print(f"📅 {transaction['date']}  {emoji} {transaction['amount']:,}원")
+        print(f"   내용: {transaction['content']}")
+        print("-" * 15)
+
+    print(f"💸 총 금액: {total_amount:,}원")
+```
+
+#### 추가 기능 5: 월별 통계
+
+```python
+# 월 입력
+target_month = input("분석할 월 (MM): ")
+
+# 월별 데이터 수집
+monthly_income = 0
+monthly_expense = 0
+monthly_transactions = []
+
+for transaction in transactions:
+    # 날짜에서 월 추출 (YYYY-MM-DD 형식)
+    date_parts = transaction["date"].split("-")
+    month = date_parts[1]
+
+    if month == target_month:
+        monthly_transactions.append(transaction)
+
+        if transaction["type"] == "수입":
+            monthly_income += transaction["amount"]
+        else:
+            monthly_expense += transaction["amount"]
+
+# 월별 통계 출력
+print(f"📊 {target_month}월 가계부 요약")
+print("=" * 25)
+print(f"📈 거래 건수: {len(monthly_transactions)}건")
+print(f"💰 총 수입: {monthly_income:,}원")
+print(f"💸 총 지출: {monthly_expense:,}원")
+
+monthly_balance = monthly_income - monthly_expense
+print(f"💵 월 수지: {monthly_balance:,}원")
+
+if monthly_balance > 0:
+    print("✅ 이번 달은 흑자네요! 🎉")
+elif monthly_balance < 0:
+    print("⚠️ 이번 달은 적자입니다. 💪")
+else:
+    print("💯 수지가 딱 맞네요!")
+```
+
+#### 추가 기능 6: 예산 관리
+
+```python
+# 예산 설정
+budgets = {}
+
+print("💡 카테고리별 월 예산 설정")
+print("=" * 25)
+
+for category in categories:
+    budget = int(input(f"{category} 월 예산: "))
+    budgets[category] = budget
+
+# 현재 지출 계산
+category_expenses = {}
+for category in categories:
+    category_expenses[category] = 0
+
+for transaction in transactions:
+    if transaction["type"] == "지출":
+        category = transaction["category"]
+        category_expenses[category] += transaction["amount"]
+
+# 예산 대비 지출 비교
+print("\n📊 예산 대비 지출 현황")
+print("=" * 25)
+
+for category in categories:
+    budget = budgets[category]
+    spent = category_expenses[category]
+    remaining = budget - spent
+    usage_rate = (spent * 100) // budget if budget > 0 else 0
+
+    print(f"\n📂 {category}")
+    print(f"   예산: {budget:,}원")
+    print(f"   지출: {spent:,}원")
+    print(f"   잔여: {remaining:,}원")
+    print(f"   사용률: {usage_rate}%")
+
+    if usage_rate >= 100:
+        print("   ⚠️ 예산 초과! 🚨")
+    elif usage_rate >= 80:
+        print("   ⚠️ 예산 80% 사용 📊")
+    else:
+        print("   ✅ 양호 👍")
+```
+
+### 메뉴 시스템 구현
+
+```python
+while True:
+    print("\n💰 개인 가계부")
+    print("=" * 20)
+    print("1. 거래 기록")
+    print("2. 전체 내역 보기")
+    print("3. 기본 통계")
+    print("4. 카테고리별 조회")
+    print("5. 날짜별 검색")
+    print("6. 내용 검색")
+    print("7. 월별 분석")
+    print("8. 예산 관리")
+    print("9. 종료")
+    print("=" * 20)
+
+    choice = input("메뉴를 선택하세요 (1-9): ")
+
+    if choice == "1":
+        # 거래 기록 코드
+        pass
+    elif choice == "2":
+        # 전체 내역 보기 코드
+        pass
+    elif choice == "3":
+        # 기본 통계 코드
+        pass
+    elif choice == "4":
+        # 카테고리별 조회 코드
+        pass
+    elif choice == "5":
+        # 날짜별 검색 코드
+        pass
+    elif choice == "6":
+        # 내용 검색 코드
+        pass
+    elif choice == "7":
+        # 월별 분석 코드
+        pass
+    elif choice == "8":
+        # 예산 관리 코드
+        pass
+    elif choice == "9":
+        print("👋 가계부를 종료합니다!")
+        break
+    else:
+        print("❌ 1~9 중에서 선택하세요!")
+```
+
+## 🎯 도전 과제
+
+1. **수입 카테고리**: 급여, 용돈, 투자수익 등 수입도 카테고리 분류
+2. **반복 거래**: 매월 정기적으로 발생하는 거래 자동 기록
+3. **목표 설정**: 저축 목표 설정 및 달성률 추적
+4. **그래프 표시**: 문자로 간단한 막대그래프나 파이차트 구현
+
+## 📝 완성 체크리스트
+
+<InteractiveChecklist
+  storageKey="expense-tracker-checklist"
+  title="💰 개인 가계부 체크리스트"
+  items={[
+    {
+      id: "basic-record",
+      text: "거래 기록 기능 (수입/지출을 딕셔너리로 저장하고 리스트에 추가)",
+    },
+    {
+      id: "basic-view",
+      text: "전체 거래 내역 조회 (시간순으로 모든 거래를 보기 좋게 출력)",
+    },
+    {
+      id: "basic-stats",
+      text: "기본 통계 계산 (총 수입, 총 지출, 현재 잔액 계산 및 표시)",
+    },
+    {
+      id: "category-system",
+      text: "추가 기능 1: 카테고리 분류 (식비, 교통비 등으로 지출 분류)",
+    },
+    {
+      id: "category-view",
+      text: "추가 기능 2: 카테고리별 조회 (특정 카테고리의 거래만 모아보기)",
+    },
+    {
+      id: "date-search",
+      text: "추가 기능 3: 날짜별 검색 (특정 날짜의 거래 내역 조회)",
+    },
+    {
+      id: "content-search",
+      text: "추가 기능 4: 내용 검색 (거래 내용으로 검색하기)",
+    },
+    {
+      id: "monthly-analysis",
+      text: "추가 기능 5: 월별 통계 (특정 월의 수입/지출 요약)",
+    },
+    {
+      id: "budget-management",
+      text: "추가 기능 6: 예산 관리 (카테고리별 예산 설정 및 초과 여부 확인)",
+    },
+    {
+      id: "menu-system",
+      text: "메뉴 시스템 (반복 실행되는 사용자 친화적 인터페이스)",
+    },
+  ]}
+  completionMessage="🎉 축하합니다! 체계적인 개인 가계부를 완성했습니다!"
+/>
+
+## 🎉 완성 후 해볼 것
+
+완성된 가계부로 실제 한 달간 가계를 관리해보세요! 매일 지출을 기록하고, 일주일마다 통계를 확인하며, 월말에는 예산 대비 실제 지출을 분석해보세요. 어떤 카테고리에서 가장 많이 지출하는지, 절약할 수 있는 부분은 어디인지 찾아보세요!

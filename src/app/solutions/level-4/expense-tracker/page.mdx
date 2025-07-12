@@ -1,0 +1,1074 @@
+---
+title: "개인 가계부 (답안)"
+description: "개인 가계부 프로젝트의 완성된 답안입니다"
+---
+
+# 💰 개인 가계부 (답안)
+
+## 🚀 기본 기능 답안
+
+```python
+# 💰 개인 가계부 - 기본 기능
+print("💰 개인 가계부에 오신 것을 환영합니다!")
+print("="*40)
+
+# 모든 거래 내역을 저장할 리스트
+transactions = []
+
+while True:
+    print("\n💰 메뉴를 선택하세요:")
+    print("="*25)
+    print("1. 거래 기록")
+    print("2. 전체 내역 보기")
+    print("3. 기본 통계")
+    print("4. 종료")
+    print("="*25)
+
+    choice = input("선택하세요 (1-4): ")
+
+    if choice == "1":
+        # 거래 기록
+        print("\n💰 새 거래 기록")
+        print("-"*20)
+
+        # 수입/지출 선택
+        print("1. 수입  2. 지출")
+        type_choice = input("선택 (1-2): ")
+        transaction_type = "수입" if type_choice == "1" else "지출"
+
+        # 금액 입력
+        amount = int(input("금액: "))
+
+        # 내용 입력
+        content = input("내용: ")
+
+        # 날짜 입력
+        date = input("날짜 (YYYY-MM-DD): ")
+
+        # 거래 정보를 딕셔너리로 저장
+        new_transaction = {
+            "type": transaction_type,
+            "amount": amount,
+            "content": content,
+            "date": date
+        }
+
+        transactions.append(new_transaction)
+        print(f"✅ {transaction_type} {amount:,}원이 기록되었습니다!")
+
+    elif choice == "2":
+        # 전체 내역 보기
+        print("\n📋 전체 거래 내역")
+        print("="*40)
+
+        if len(transactions) == 0:
+            print("기록된 거래가 없습니다.")
+        else:
+            balance = 0  # 잔액 계산용
+
+            for i in range(len(transactions)):
+                transaction = transactions[i]
+
+                # 잔액 계산
+                if transaction["type"] == "수입":
+                    balance += transaction["amount"]
+                    sign = "+"
+                    emoji = "💰"
+                else:
+                    balance -= transaction["amount"]
+                    sign = "-"
+                    emoji = "💸"
+
+                print(f"{i+1}. {emoji} {transaction['date']}")
+                print(f"   {transaction['type']}: {sign}{transaction['amount']:,}원")
+                print(f"   내용: {transaction['content']}")
+                print(f"   잔액: {balance:,}원")
+                print("-"*30)
+
+    elif choice == "3":
+        # 기본 통계
+        print("\n📊 가계부 요약")
+        print("="*20)
+
+        # 총 수입, 총 지출 계산
+        total_income = 0
+        total_expense = 0
+
+        for transaction in transactions:
+            if transaction["type"] == "수입":
+                total_income += transaction["amount"]
+            else:
+                total_expense += transaction["amount"]
+
+        # 잔액 계산
+        balance = total_income - total_expense
+
+        print(f"💰 총 수입: {total_income:,}원")
+        print(f"💸 총 지출: {total_expense:,}원")
+        print(f"💵 현재 잔액: {balance:,}원")
+
+        if balance > 0:
+            print("✅ 흑자입니다! 👍")
+        elif balance < 0:
+            print("❌ 적자입니다! 💪 절약이 필요해요.")
+        else:
+            print("💯 수지가 맞습니다!")
+
+    elif choice == "4":
+        print("\n👋 가계부를 종료합니다!")
+        break
+
+    else:
+        print("❌ 1~4 중에서 선택하세요!")
+
+print("🎉 프로그램을 종료합니다!")
+```
+
+## 🎨 추가 기능 1: 카테고리 분류
+
+```python
+# 💰 개인 가계부 - 카테고리 분류
+print("💰 개인 가계부 - 카테고리 분류")
+print("="*40)
+
+# 모든 거래 내역을 저장할 리스트
+transactions = []
+
+# 카테고리 목록
+categories = ["식비", "교통비", "쇼핑", "생활비", "기타"]
+
+while True:
+    print("\n💰 메뉴를 선택하세요:")
+    print("="*30)
+    print("1. 거래 기록")
+    print("2. 전체 내역 보기")
+    print("3. 기본 통계")
+    print("4. 종료")
+    print("="*30)
+
+    choice = input("선택하세요 (1-4): ")
+
+    if choice == "1":
+        # 거래 기록
+        print("\n💰 새 거래 기록")
+        print("-"*20)
+
+        # 수입/지출 선택
+        print("1. 수입  2. 지출")
+        type_choice = input("선택 (1-2): ")
+        transaction_type = "수입" if type_choice == "1" else "지출"
+
+        # 금액 입력
+        amount = int(input("금액: "))
+
+        # 내용 입력
+        content = input("내용: ")
+
+        # 날짜 입력
+        date = input("날짜 (YYYY-MM-DD): ")
+
+        # 카테고리 선택 (지출인 경우만)
+        if transaction_type == "지출":
+            print("카테고리를 선택하세요:")
+            for i in range(len(categories)):
+                print(f"{i+1}. {categories[i]}")
+
+            category_choice = int(input("선택 (1-5): ")) - 1
+            category = categories[category_choice]
+        else:
+            category = "수입"
+
+        # 거래 정보를 딕셔너리로 저장
+        new_transaction = {
+            "type": transaction_type,
+            "amount": amount,
+            "category": category,
+            "content": content,
+            "date": date
+        }
+
+        transactions.append(new_transaction)
+        print(f"✅ {category} 카테고리에 {transaction_type} {amount:,}원이 기록되었습니다!")
+
+    elif choice == "2":
+        # 전체 내역 보기
+        print("\n📋 전체 거래 내역")
+        print("="*40)
+
+        if len(transactions) == 0:
+            print("기록된 거래가 없습니다.")
+        else:
+            balance = 0  # 잔액 계산용
+
+            for i in range(len(transactions)):
+                transaction = transactions[i]
+
+                # 잔액 계산
+                if transaction["type"] == "수입":
+                    balance += transaction["amount"]
+                    sign = "+"
+                    emoji = "💰"
+                else:
+                    balance -= transaction["amount"]
+                    sign = "-"
+                    emoji = "💸"
+
+                print(f"{i+1}. {emoji} {transaction['date']}")
+                print(f"   {transaction['type']}: {sign}{transaction['amount']:,}원")
+                print(f"   내용: {transaction['content']}")
+                print(f"   카테고리: {transaction['category']}")
+                print(f"   잔액: {balance:,}원")
+                print("-"*30)
+
+    elif choice == "3":
+        # 기본 통계
+        print("\n📊 가계부 요약")
+        print("="*20)
+
+        # 총 수입, 총 지출 계산
+        total_income = 0
+        total_expense = 0
+
+        for transaction in transactions:
+            if transaction["type"] == "수입":
+                total_income += transaction["amount"]
+            else:
+                total_expense += transaction["amount"]
+
+        # 잔액 계산
+        balance = total_income - total_expense
+
+        print(f"💰 총 수입: {total_income:,}원")
+        print(f"💸 총 지출: {total_expense:,}원")
+        print(f"💵 현재 잔액: {balance:,}원")
+
+        if balance > 0:
+            print("✅ 흑자입니다! 👍")
+        elif balance < 0:
+            print("❌ 적자입니다! 💪 절약이 필요해요.")
+        else:
+            print("💯 수지가 맞습니다!")
+
+    elif choice == "4":
+        print("\n👋 가계부를 종료합니다!")
+        break
+
+    else:
+        print("❌ 1~4 중에서 선택하세요!")
+
+print("🎉 프로그램을 종료합니다!")
+```
+
+## 📂 추가 기능 2: 카테고리별 조회
+
+```python
+# 💰 개인 가계부 - 카테고리별 조회
+print("💰 개인 가계부 - 카테고리별 조회")
+print("="*40)
+
+# 모든 거래 내역을 저장할 리스트
+transactions = []
+
+# 카테고리 목록
+categories = ["식비", "교통비", "쇼핑", "생활비", "기타"]
+
+# 샘플 데이터 (실제로는 위의 기능들로 데이터 입력)
+sample_transactions = [
+    {"type": "지출", "amount": 15000, "category": "식비", "content": "점심 식사", "date": "2025-03-15"},
+    {"type": "지출", "amount": 3000, "category": "교통비", "content": "버스비", "date": "2025-03-15"},
+    {"type": "지출", "amount": 20000, "category": "식비", "content": "저녁 식사", "date": "2025-03-16"},
+    {"type": "지출", "amount": 50000, "category": "쇼핑", "content": "옷 구매", "date": "2025-03-17"},
+    {"type": "수입", "amount": 100000, "category": "수입", "content": "용돈", "date": "2025-03-18"}
+]
+
+transactions.extend(sample_transactions)
+
+while True:
+    print("\n💰 메뉴를 선택하세요:")
+    print("="*30)
+    print("1. 카테고리별 조회")
+    print("2. 전체 내역 보기")
+    print("3. 종료")
+    print("="*30)
+
+    choice = input("선택하세요 (1-3): ")
+
+    if choice == "1":
+        # 카테고리별 조회
+        print("\n📂 카테고리별 조회")
+        print("조회할 카테고리를 선택하세요:")
+        for i in range(len(categories)):
+            print(f"{i+1}. {categories[i]}")
+
+        category_choice = int(input("선택 (1-5): ")) - 1
+        selected_category = categories[category_choice]
+
+        # 해당 카테고리의 거래만 찾기
+        category_transactions = []
+        category_total = 0
+
+        for transaction in transactions:
+            if transaction["category"] == selected_category:
+                category_transactions.append(transaction)
+                category_total += transaction["amount"]
+
+        # 결과 출력
+        print(f"\n💸 {selected_category} 카테고리 ({len(category_transactions)}건)")
+        print(f"총 지출: {category_total:,}원")
+        print("-"*30)
+
+        for transaction in category_transactions:
+            print(f"📅 {transaction['date']}")
+            print(f"💸 {transaction['amount']:,}원 - {transaction['content']}")
+            print("-"*15)
+
+    elif choice == "2":
+        # 전체 내역 보기
+        print("\n📋 전체 거래 내역")
+        print("="*40)
+
+        for i in range(len(transactions)):
+            transaction = transactions[i]
+            emoji = "💰" if transaction["type"] == "수입" else "💸"
+            print(f"{i+1}. {emoji} {transaction['date']}")
+            print(f"   {transaction['type']}: {transaction['amount']:,}원")
+            print(f"   내용: {transaction['content']}")
+            print(f"   카테고리: {transaction['category']}")
+            print("-"*30)
+
+    elif choice == "3":
+        print("\n👋 가계부를 종료합니다!")
+        break
+
+    else:
+        print("❌ 1~3 중에서 선택하세요!")
+
+print("🎉 프로그램을 종료합니다!")
+```
+
+## 📅 추가 기능 3: 날짜별 검색
+
+```python
+# 💰 개인 가계부 - 날짜별 검색
+print("💰 개인 가계부 - 날짜별 검색")
+print("="*40)
+
+# 모든 거래 내역을 저장할 리스트
+transactions = []
+
+# 샘플 데이터
+sample_transactions = [
+    {"type": "수입", "amount": 50000, "category": "수입", "content": "용돈", "date": "2025-03-15"},
+    {"type": "지출", "amount": 15000, "category": "식비", "content": "점심 식사", "date": "2025-03-15"},
+    {"type": "지출", "amount": 3000, "category": "교통비", "content": "버스비", "date": "2025-03-15"},
+    {"type": "지출", "amount": 20000, "category": "식비", "content": "저녁 식사", "date": "2025-03-16"},
+    {"type": "지출", "amount": 50000, "category": "쇼핑", "content": "옷 구매", "date": "2025-03-17"}
+]
+
+transactions.extend(sample_transactions)
+
+while True:
+    print("\n💰 메뉴를 선택하세요:")
+    print("="*30)
+    print("1. 날짜별 검색")
+    print("2. 전체 내역 보기")
+    print("3. 종료")
+    print("="*30)
+
+    choice = input("선택하세요 (1-3): ")
+
+    if choice == "1":
+        # 날짜별 검색
+        print("\n📅 날짜별 검색")
+        search_date = input("검색할 날짜 (YYYY-MM-DD): ")
+
+        found_transactions = []
+        daily_income = 0
+        daily_expense = 0
+
+        for transaction in transactions:
+            if transaction["date"] == search_date:
+                found_transactions.append(transaction)
+
+                if transaction["type"] == "수입":
+                    daily_income += transaction["amount"]
+                else:
+                    daily_expense += transaction["amount"]
+
+        if len(found_transactions) == 0:
+            print("❌ 해당 날짜의 거래가 없습니다.")
+        else:
+            print(f"📅 {search_date} 거래 내역 ({len(found_transactions)}건)")
+            print("-"*30)
+
+            for transaction in found_transactions:
+                emoji = "💰" if transaction["type"] == "수입" else "💸"
+                print(f"{emoji} {transaction['type']}: {transaction['amount']:,}원")
+                print(f"   내용: {transaction['content']}")
+                print(f"   카테고리: {transaction['category']}")
+                print("-"*15)
+
+            daily_balance = daily_income - daily_expense
+            print(f"📊 일일 수지: {daily_balance:,}원")
+
+    elif choice == "2":
+        # 전체 내역 보기
+        print("\n📋 전체 거래 내역")
+        print("="*40)
+
+        for i in range(len(transactions)):
+            transaction = transactions[i]
+            emoji = "💰" if transaction["type"] == "수입" else "💸"
+            print(f"{i+1}. {emoji} {transaction['date']}")
+            print(f"   {transaction['type']}: {transaction['amount']:,}원")
+            print(f"   내용: {transaction['content']}")
+            print(f"   카테고리: {transaction['category']}")
+            print("-"*30)
+
+    elif choice == "3":
+        print("\n👋 가계부를 종료합니다!")
+        break
+
+    else:
+        print("❌ 1~3 중에서 선택하세요!")
+
+print("🎉 프로그램을 종료합니다!")
+```
+
+## 🔍 추가 기능 4: 내용 검색
+
+```python
+# 💰 개인 가계부 - 내용 검색
+print("💰 개인 가계부 - 내용 검색")
+print("="*40)
+
+# 모든 거래 내역을 저장할 리스트
+transactions = []
+
+# 샘플 데이터
+sample_transactions = [
+    {"type": "지출", "amount": 4500, "category": "식비", "content": "아메리카노 커피", "date": "2025-03-10"},
+    {"type": "지출", "amount": 5000, "category": "식비", "content": "카페라떼 커피", "date": "2025-03-12"},
+    {"type": "지출", "amount": 4000, "category": "쇼핑", "content": "커피 원두 구매", "date": "2025-03-15"},
+    {"type": "지출", "amount": 6000, "category": "식비", "content": "스타벅스 커피", "date": "2025-03-18"},
+    {"type": "지출", "amount": 15000, "category": "식비", "content": "점심 식사", "date": "2025-03-15"},
+    {"type": "지출", "amount": 20000, "category": "식비", "content": "저녁 식사", "date": "2025-03-16"}
+]
+
+transactions.extend(sample_transactions)
+
+while True:
+    print("\n💰 메뉴를 선택하세요:")
+    print("="*30)
+    print("1. 내용 검색")
+    print("2. 전체 내역 보기")
+    print("3. 종료")
+    print("="*30)
+
+    choice = input("선택하세요 (1-3): ")
+
+    if choice == "1":
+        # 내용 검색
+        print("\n🔍 내용 검색")
+        search_keyword = input("검색할 내용: ")
+
+        found_transactions = []
+        total_amount = 0
+
+        for transaction in transactions:
+            if search_keyword in transaction["content"]:
+                found_transactions.append(transaction)
+                total_amount += transaction["amount"]
+
+        if len(found_transactions) == 0:
+            print("❌ 검색 결과가 없습니다.")
+        else:
+            print(f"🔍 검색 결과: {search_keyword} ({len(found_transactions)}건)")
+            print("-"*30)
+
+            for transaction in found_transactions:
+                emoji = "💰" if transaction["type"] == "수입" else "💸"
+                print(f"📅 {transaction['date']}  {emoji} {transaction['amount']:,}원")
+                print(f"   내용: {transaction['content']}")
+                print(f"   카테고리: {transaction['category']}")
+                print("-"*15)
+
+            print(f"💸 총 금액: {total_amount:,}원")
+
+    elif choice == "2":
+        # 전체 내역 보기
+        print("\n📋 전체 거래 내역")
+        print("="*40)
+
+        for i in range(len(transactions)):
+            transaction = transactions[i]
+            emoji = "💰" if transaction["type"] == "수입" else "💸"
+            print(f"{i+1}. {emoji} {transaction['date']}")
+            print(f"   {transaction['type']}: {transaction['amount']:,}원")
+            print(f"   내용: {transaction['content']}")
+            print(f"   카테고리: {transaction['category']}")
+            print("-"*30)
+
+    elif choice == "3":
+        print("\n👋 가계부를 종료합니다!")
+        break
+
+    else:
+        print("❌ 1~3 중에서 선택하세요!")
+
+print("🎉 프로그램을 종료합니다!")
+```
+
+## 📊 추가 기능 5: 월별 통계
+
+```python
+# 💰 개인 가계부 - 월별 통계
+print("💰 개인 가계부 - 월별 통계")
+print("="*40)
+
+# 모든 거래 내역을 저장할 리스트
+transactions = []
+
+# 샘플 데이터 (다양한 월의 데이터)
+sample_transactions = [
+    {"type": "수입", "amount": 2500000, "category": "수입", "content": "급여", "date": "2025-03-01"},
+    {"type": "지출", "amount": 450000, "category": "식비", "content": "3월 식비", "date": "2025-03-05"},
+    {"type": "지출", "amount": 180000, "category": "교통비", "content": "3월 교통비", "date": "2025-03-10"},
+    {"type": "지출", "amount": 320000, "category": "쇼핑", "content": "3월 쇼핑", "date": "2025-03-15"},
+    {"type": "지출", "amount": 280000, "category": "생활비", "content": "3월 생활비", "date": "2025-03-20"},
+    {"type": "수입", "amount": 2000000, "category": "수입", "content": "급여", "date": "2025-02-01"},
+    {"type": "지출", "amount": 400000, "category": "식비", "content": "2월 식비", "date": "2025-02-05"},
+    {"type": "지출", "amount": 150000, "category": "교통비", "content": "2월 교통비", "date": "2025-02-10"}
+]
+
+transactions.extend(sample_transactions)
+
+while True:
+    print("\n💰 메뉴를 선택하세요:")
+    print("="*30)
+    print("1. 월별 통계")
+    print("2. 전체 내역 보기")
+    print("3. 종료")
+    print("="*30)
+
+    choice = input("선택하세요 (1-3): ")
+
+    if choice == "1":
+        # 월별 통계
+        print("\n📊 월별 통계")
+        target_month = input("분석할 월 (MM): ")
+
+        monthly_income = 0
+        monthly_expense = 0
+        monthly_transactions = []
+
+        for transaction in transactions:
+            # 날짜에서 월 추출 (YYYY-MM-DD 형식)
+            date_parts = transaction["date"].split("-")
+            month = date_parts[1]
+
+            if month == target_month:
+                monthly_transactions.append(transaction)
+
+                if transaction["type"] == "수입":
+                    monthly_income += transaction["amount"]
+                else:
+                    monthly_expense += transaction["amount"]
+
+        # 월별 통계 출력
+        print(f"\n📊 {target_month}월 가계부 요약")
+        print("="*25)
+        print(f"📈 거래 건수: {len(monthly_transactions)}건")
+        print(f"💰 총 수입: {monthly_income:,}원")
+        print(f"💸 총 지출: {monthly_expense:,}원")
+
+        monthly_balance = monthly_income - monthly_expense
+        print(f"💵 월 수지: {monthly_balance:,}원")
+
+        if monthly_balance > 0:
+            print("✅ 이번 달은 흑자네요! 🎉")
+        elif monthly_balance < 0:
+            print("⚠️ 이번 달은 적자입니다. 💪")
+        else:
+            print("💯 수지가 딱 맞네요!")
+
+        # 카테고리별 통계
+        if monthly_expense > 0:
+            print(f"\n📈 카테고리별 지출:")
+            categories = ["식비", "교통비", "쇼핑", "생활비", "기타"]
+            for category in categories:
+                category_total = 0
+                for transaction in monthly_transactions:
+                    if transaction["type"] == "지출" and transaction["category"] == category:
+                        category_total += transaction["amount"]
+
+                if category_total > 0:
+                    percentage = (category_total * 100) // monthly_expense
+                    print(f"   - {category}: {category_total:,}원 ({percentage}%)")
+
+    elif choice == "2":
+        # 전체 내역 보기
+        print("\n📋 전체 거래 내역")
+        print("="*40)
+
+        for i in range(len(transactions)):
+            transaction = transactions[i]
+            emoji = "💰" if transaction["type"] == "수입" else "💸"
+            print(f"{i+1}. {emoji} {transaction['date']}")
+            print(f"   {transaction['type']}: {transaction['amount']:,}원")
+            print(f"   내용: {transaction['content']}")
+            print(f"   카테고리: {transaction['category']}")
+            print("-"*30)
+
+    elif choice == "3":
+        print("\n👋 가계부를 종료합니다!")
+        break
+
+    else:
+        print("❌ 1~3 중에서 선택하세요!")
+
+print("🎉 프로그램을 종료합니다!")
+```
+
+## 💰 추가 기능 6: 예산 관리
+
+```python
+# 💰 개인 가계부 - 예산 관리
+print("💰 개인 가계부 - 예산 관리")
+print("="*40)
+
+# 모든 거래 내역을 저장할 리스트
+transactions = []
+
+# 카테고리 목록
+categories = ["식비", "교통비", "쇼핑", "생활비", "기타"]
+
+# 샘플 데이터
+sample_transactions = [
+    {"type": "지출", "amount": 320000, "category": "식비", "content": "3월 식비", "date": "2025-03-05"},
+    {"type": "지출", "amount": 180000, "category": "교통비", "content": "3월 교통비", "date": "2025-03-10"},
+    {"type": "지출", "amount": 250000, "category": "쇼핑", "content": "3월 쇼핑", "date": "2025-03-15"},
+    {"type": "지출", "amount": 200000, "category": "생활비", "content": "3월 생활비", "date": "2025-03-20"},
+    {"type": "지출", "amount": 100000, "category": "기타", "content": "3월 기타", "date": "2025-03-25"}
+]
+
+transactions.extend(sample_transactions)
+
+while True:
+    print("\n💰 메뉴를 선택하세요:")
+    print("="*30)
+    print("1. 예산 설정")
+    print("2. 예산 대비 지출 현황")
+    print("3. 전체 내역 보기")
+    print("4. 종료")
+    print("="*30)
+
+    choice = input("선택하세요 (1-4): ")
+
+    if choice == "1":
+        # 예산 설정
+        budgets = {}
+
+        print("\n💡 카테고리별 월 예산 설정")
+        print("="*25)
+
+        for category in categories:
+            budget = int(input(f"{category} 월 예산: "))
+            budgets[category] = budget
+
+        print("✅ 예산이 설정되었습니다!")
+
+    elif choice == "2":
+        # 예산 대비 지출 현황
+        if 'budgets' not in locals():
+            print("❌ 먼저 예산을 설정해주세요!")
+            continue
+
+        # 현재 지출 계산
+        category_expenses = {}
+        for category in categories:
+            category_expenses[category] = 0
+
+        for transaction in transactions:
+            if transaction["type"] == "지출":
+                category = transaction["category"]
+                if category in category_expenses:
+                    category_expenses[category] += transaction["amount"]
+
+        # 예산 대비 지출 비교
+        print("\n📊 예산 대비 지출 현황")
+        print("="*25)
+
+        for category in categories:
+            if category in budgets:
+                budget = budgets[category]
+                spent = category_expenses[category]
+                remaining = budget - spent
+                usage_rate = (spent * 100) // budget if budget > 0 else 0
+
+                print(f"\n📂 {category}")
+                print(f"   예산: {budget:,}원")
+                print(f"   지출: {spent:,}원")
+                print(f"   잔여: {remaining:,}원")
+                print(f"   사용률: {usage_rate}%")
+
+                if usage_rate >= 100:
+                    print("   ⚠️ 예산 초과! 🚨")
+                elif usage_rate >= 80:
+                    print("   ⚠️ 예산 80% 사용 📊")
+                else:
+                    print("   ✅ 양호 👍")
+
+    elif choice == "3":
+        # 전체 내역 보기
+        print("\n📋 전체 거래 내역")
+        print("="*40)
+
+        for i in range(len(transactions)):
+            transaction = transactions[i]
+            emoji = "💰" if transaction["type"] == "수입" else "💸"
+            print(f"{i+1}. {emoji} {transaction['date']}")
+            print(f"   {transaction['type']}: {transaction['amount']:,}원")
+            print(f"   내용: {transaction['content']}")
+            print(f"   카테고리: {transaction['category']}")
+            print("-"*30)
+
+    elif choice == "4":
+        print("\n👋 가계부를 종료합니다!")
+        break
+
+    else:
+        print("❌ 1~4 중에서 선택하세요!")
+
+print("🎉 프로그램을 종료합니다!")
+```
+
+## 🎯 통합 완성 버전
+
+```python
+# 💰 개인 가계부 - 모든 기능 통합
+print("💰 개인 가계부 - 모든 기능 통합")
+print("="*40)
+
+# 모든 거래 내역을 저장할 리스트
+transactions = []
+
+# 카테고리 목록
+categories = ["식비", "교통비", "쇼핑", "생활비", "기타"]
+
+# 예산 저장 딕셔너리
+budgets = {}
+
+while True:
+    print("\n💰 개인 가계부")
+    print("="*20)
+    print("1. 거래 기록")
+    print("2. 전체 내역 보기")
+    print("3. 기본 통계")
+    print("4. 카테고리별 조회")
+    print("5. 날짜별 검색")
+    print("6. 내용 검색")
+    print("7. 월별 분석")
+    print("8. 예산 관리")
+    print("9. 종료")
+    print("="*20)
+
+    choice = input("메뉴를 선택하세요 (1-9): ")
+
+    if choice == "1":
+        # 거래 기록
+        print("\n💰 새 거래 기록")
+        print("-"*20)
+
+        # 수입/지출 선택
+        print("1. 수입  2. 지출")
+        type_choice = input("선택 (1-2): ")
+        transaction_type = "수입" if type_choice == "1" else "지출"
+
+        # 금액 입력
+        amount = int(input("금액: "))
+
+        # 내용 입력
+        content = input("내용: ")
+
+        # 날짜 입력
+        date = input("날짜 (YYYY-MM-DD): ")
+
+        # 카테고리 선택 (지출인 경우만)
+        if transaction_type == "지출":
+            print("카테고리를 선택하세요:")
+            for i in range(len(categories)):
+                print(f"{i+1}. {categories[i]}")
+
+            category_choice = int(input("선택 (1-5): ")) - 1
+            category = categories[category_choice]
+        else:
+            category = "수입"
+
+        # 거래 정보를 딕셔너리로 저장
+        new_transaction = {
+            "type": transaction_type,
+            "amount": amount,
+            "category": category,
+            "content": content,
+            "date": date
+        }
+
+        transactions.append(new_transaction)
+        print(f"✅ {category} 카테고리에 {transaction_type} {amount:,}원이 기록되었습니다!")
+
+    elif choice == "2":
+        # 전체 내역 보기
+        print("\n📋 전체 거래 내역")
+        print("="*40)
+
+        if len(transactions) == 0:
+            print("기록된 거래가 없습니다.")
+        else:
+            balance = 0  # 잔액 계산용
+
+            for i in range(len(transactions)):
+                transaction = transactions[i]
+
+                # 잔액 계산
+                if transaction["type"] == "수입":
+                    balance += transaction["amount"]
+                    sign = "+"
+                    emoji = "💰"
+                else:
+                    balance -= transaction["amount"]
+                    sign = "-"
+                    emoji = "💸"
+
+                print(f"{i+1}. {emoji} {transaction['date']}")
+                print(f"   {transaction['type']}: {sign}{transaction['amount']:,}원")
+                print(f"   내용: {transaction['content']}")
+                print(f"   카테고리: {transaction['category']}")
+                print(f"   잔액: {balance:,}원")
+                print("-"*30)
+
+    elif choice == "3":
+        # 기본 통계
+        print("\n📊 가계부 요약")
+        print("="*20)
+
+        # 총 수입, 총 지출 계산
+        total_income = 0
+        total_expense = 0
+
+        for transaction in transactions:
+            if transaction["type"] == "수입":
+                total_income += transaction["amount"]
+            else:
+                total_expense += transaction["amount"]
+
+        # 잔액 계산
+        balance = total_income - total_expense
+
+        print(f"💰 총 수입: {total_income:,}원")
+        print(f"💸 총 지출: {total_expense:,}원")
+        print(f"💵 현재 잔액: {balance:,}원")
+
+        if balance > 0:
+            print("✅ 흑자입니다! 👍")
+        elif balance < 0:
+            print("❌ 적자입니다! 💪 절약이 필요해요.")
+        else:
+            print("💯 수지가 맞습니다!")
+
+    elif choice == "4":
+        # 카테고리별 조회
+        print("\n📂 카테고리별 조회")
+        print("조회할 카테고리를 선택하세요:")
+        for i in range(len(categories)):
+            print(f"{i+1}. {categories[i]}")
+
+        category_choice = int(input("선택 (1-5): ")) - 1
+        selected_category = categories[category_choice]
+
+        # 해당 카테고리의 거래만 찾기
+        category_transactions = []
+        category_total = 0
+
+        for transaction in transactions:
+            if transaction["category"] == selected_category:
+                category_transactions.append(transaction)
+                category_total += transaction["amount"]
+
+        # 결과 출력
+        print(f"\n💸 {selected_category} 카테고리 ({len(category_transactions)}건)")
+        print(f"총 지출: {category_total:,}원")
+        print("-"*30)
+
+        for transaction in category_transactions:
+            print(f"📅 {transaction['date']}")
+            print(f"💸 {transaction['amount']:,}원 - {transaction['content']}")
+            print("-"*15)
+
+    elif choice == "5":
+        # 날짜별 검색
+        print("\n📅 날짜별 검색")
+        search_date = input("검색할 날짜 (YYYY-MM-DD): ")
+
+        found_transactions = []
+        daily_income = 0
+        daily_expense = 0
+
+        for transaction in transactions:
+            if transaction["date"] == search_date:
+                found_transactions.append(transaction)
+
+                if transaction["type"] == "수입":
+                    daily_income += transaction["amount"]
+                else:
+                    daily_expense += transaction["amount"]
+
+        if len(found_transactions) == 0:
+            print("❌ 해당 날짜의 거래가 없습니다.")
+        else:
+            print(f"📅 {search_date} 거래 내역 ({len(found_transactions)}건)")
+            print("-"*30)
+
+            for transaction in found_transactions:
+                emoji = "💰" if transaction["type"] == "수입" else "💸"
+                print(f"{emoji} {transaction['type']}: {transaction['amount']:,}원")
+                print(f"   내용: {transaction['content']}")
+                print(f"   카테고리: {transaction['category']}")
+                print("-"*15)
+
+            daily_balance = daily_income - daily_expense
+            print(f"📊 일일 수지: {daily_balance:,}원")
+
+    elif choice == "6":
+        # 내용 검색
+        print("\n🔍 내용 검색")
+        search_keyword = input("검색할 내용: ")
+
+        found_transactions = []
+        total_amount = 0
+
+        for transaction in transactions:
+            if search_keyword in transaction["content"]:
+                found_transactions.append(transaction)
+                total_amount += transaction["amount"]
+
+        if len(found_transactions) == 0:
+            print("❌ 검색 결과가 없습니다.")
+        else:
+            print(f"🔍 검색 결과: {search_keyword} ({len(found_transactions)}건)")
+            print("-"*30)
+
+            for transaction in found_transactions:
+                emoji = "💰" if transaction["type"] == "수입" else "💸"
+                print(f"📅 {transaction['date']}  {emoji} {transaction['amount']:,}원")
+                print(f"   내용: {transaction['content']}")
+                print(f"   카테고리: {transaction['category']}")
+                print("-"*15)
+
+            print(f"💸 총 금액: {total_amount:,}원")
+
+    elif choice == "7":
+        # 월별 분석
+        print("\n📊 월별 분석")
+        target_month = input("분석할 월 (MM): ")
+
+        monthly_income = 0
+        monthly_expense = 0
+        monthly_transactions = []
+
+        for transaction in transactions:
+            # 날짜에서 월 추출 (YYYY-MM-DD 형식)
+            date_parts = transaction["date"].split("-")
+            month = date_parts[1]
+
+            if month == target_month:
+                monthly_transactions.append(transaction)
+
+                if transaction["type"] == "수입":
+                    monthly_income += transaction["amount"]
+                else:
+                    monthly_expense += transaction["amount"]
+
+        # 월별 통계 출력
+        print(f"\n📊 {target_month}월 가계부 요약")
+        print("="*25)
+        print(f"📈 거래 건수: {len(monthly_transactions)}건")
+        print(f"💰 총 수입: {monthly_income:,}원")
+        print(f"💸 총 지출: {monthly_expense:,}원")
+
+        monthly_balance = monthly_income - monthly_expense
+        print(f"💵 월 수지: {monthly_balance:,}원")
+
+        if monthly_balance > 0:
+            print("✅ 이번 달은 흑자네요! 🎉")
+        elif monthly_balance < 0:
+            print("⚠️ 이번 달은 적자입니다. 💪")
+        else:
+            print("💯 수지가 딱 맞네요!")
+
+    elif choice == "8":
+        # 예산 관리
+        print("\n💰 예산 관리")
+        print("1. 예산 설정  2. 예산 현황")
+        budget_choice = input("선택 (1-2): ")
+
+        if budget_choice == "1":
+            # 예산 설정
+            print("\n💡 카테고리별 월 예산 설정")
+            print("="*25)
+
+            for category in categories:
+                budget = int(input(f"{category} 월 예산: "))
+                budgets[category] = budget
+
+            print("✅ 예산이 설정되었습니다!")
+
+        elif budget_choice == "2":
+            # 예산 현황
+            if len(budgets) == 0:
+                print("❌ 먼저 예산을 설정해주세요!")
+            else:
+                # 현재 지출 계산
+                category_expenses = {}
+                for category in categories:
+                    category_expenses[category] = 0
+
+                for transaction in transactions:
+                    if transaction["type"] == "지출":
+                        category = transaction["category"]
+                        if category in category_expenses:
+                            category_expenses[category] += transaction["amount"]
+
+                # 예산 대비 지출 비교
+                print("\n📊 예산 대비 지출 현황")
+                print("="*25)
+
+                for category in categories:
+                    if category in budgets:
+                        budget = budgets[category]
+                        spent = category_expenses[category]
+                        remaining = budget - spent
+                        usage_rate = (spent * 100) // budget if budget > 0 else 0
+
+                        print(f"\n📂 {category}")
+                        print(f"   예산: {budget:,}원")
+                        print(f"   지출: {spent:,}원")
+                        print(f"   잔여: {remaining:,}원")
+                        print(f"   사용률: {usage_rate}%")
+
+                        if usage_rate >= 100:
+                            print("   ⚠️ 예산 초과! 🚨")
+                        elif usage_rate >= 80:
+                            print("   ⚠️ 예산 80% 사용 📊")
+                        else:
+                            print("   ✅ 양호 👍")
+
+    elif choice == "9":
+        print("\n👋 가계부를 종료합니다!")
+        break
+
+    else:
+        print("❌ 1~9 중에서 선택하세요!")
+
+print("🎉 프로그램을 종료합니다!")
+```

@@ -10,6 +10,9 @@ const projectsMeta: MetaRecord = {
   "level-3": {
     title: "레벨 3",
   },
+  "level-4": {
+    title: "레벨 4",
+  },
 };
 
 export default projectsMeta;
