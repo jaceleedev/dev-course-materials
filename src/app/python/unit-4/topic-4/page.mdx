@@ -1,0 +1,490 @@
+---
+title: "딕셔너리 - 키-값 쌍의 데이터 관리"
+description: "딕셔너리의 구조를 이해하고 키-값 쌍으로 데이터를 효율적으로 관리하는 방법을 학습합니다"
+---
+
+import InteractiveChecklist from "@/components/ui/interactive-checklist";
+
+# Topic 4: 딕셔너리 - 키-값 쌍의 데이터 관리 🗂️
+
+## 🎯 학습 목표
+
+딕셔너리의 구조와 특징을 이해하고, 키-값 쌍을 이용해 데이터를 효율적으로 저장, 조회, 관리하는 방법을 익힐 수 있습니다.
+
+## 🗂️ 딕셔너리란?
+
+### 일상생활의 사전
+
+실제 사전을 생각해보세요:
+
+- **단어(키)**: "사과"
+- **뜻(값)**: "장미과의 과일"
+
+프로그래밍의 **딕셔너리**도 마찬가지로 **키(Key)**와 **값(Value)**의 쌍으로 이루어져 있습니다.
+
+```python
+# 사전 같은 구조
+student = {
+    "이름": "김철수",
+    "나이": 20,
+    "전공": "컴퓨터공학"
+}
+```
+
+### 딕셔너리의 특징
+
+1. **키-값 쌍**: 각 데이터는 키와 값으로 구성
+2. **키의 유일성**: 같은 키는 하나만 존재
+3. **빠른 조회**: 키로 값을 즉시 찾을 수 있음
+4. **순서 보장**: Python 3.7+ 부터 입력 순서 유지
+
+## 🏗️ 딕셔너리 생성
+
+### 기본 생성 방법
+
+```python
+# 중괄호 사용
+student = {
+    "name": "김철수",
+    "age": 20,
+    "major": "컴퓨터공학"
+}
+
+# 빈 딕셔너리
+empty_dict = {}
+
+# dict() 함수 사용
+person = dict(name="이영희", age=25, job="개발자")
+```
+
+### 다양한 타입의 키와 값
+
+```python
+# 다양한 타입 혼합
+mixed_dict = {
+    "이름": "김철수",           # 문자열 키
+    1: "첫 번째",              # 숫자 키
+    (2, 3): "좌표",            # 튜플 키
+    "점수": [90, 85, 92]       # 리스트 값
+}
+```
+
+## 🔍 딕셔너리 접근과 수정
+
+### 값 조회
+
+```python
+student = {
+    "name": "김철수",
+    "age": 20,
+    "major": "컴퓨터공학"
+}
+
+# 대괄호로 접근
+print(student["name"])    # 김철수
+print(student["age"])     # 20
+
+# get() 메서드로 안전하게 접근
+print(student.get("name"))        # 김철수
+print(student.get("phone", "없음"))  # 없음 (기본값 반환)
+```
+
+### 값 수정과 추가
+
+```python
+student = {
+    "name": "김철수",
+    "age": 20
+}
+
+# 기존 값 수정
+student["age"] = 21
+
+# 새로운 키-값 추가
+student["major"] = "컴퓨터공학"
+student["phone"] = "010-1234-5678"
+
+print(student)
+# {'name': '김철수', 'age': 21, 'major': '컴퓨터공학', 'phone': '010-1234-5678'}
+```
+
+### 값 삭제
+
+```python
+student = {
+    "name": "김철수",
+    "age": 20,
+    "major": "컴퓨터공학"
+}
+
+# del 키워드로 삭제
+del student["major"]
+
+# pop() 메서드로 삭제 (값 반환)
+age = student.pop("age")
+print(f"삭제된 나이: {age}")  # 삭제된 나이: 20
+
+print(student)  # {'name': '김철수'}
+```
+
+## 🛠️ 딕셔너리 메서드
+
+### 주요 메서드들
+
+```python
+student = {
+    "name": "김철수",
+    "age": 20,
+    "major": "컴퓨터공학"
+}
+
+# 모든 키 조회
+print(student.keys())    # dict_keys(['name', 'age', 'major'])
+
+# 모든 값 조회
+print(student.values())  # dict_values(['김철수', 20, '컴퓨터공학'])
+
+# 모든 키-값 쌍 조회
+print(student.items())   # dict_items([('name', '김철수'), ('age', 20), ('major', '컴퓨터공학')])
+
+# 키 존재 여부 확인
+print("name" in student)     # True
+print("phone" in student)    # False
+```
+
+### 딕셔너리 업데이트
+
+```python
+student = {"name": "김철수", "age": 20}
+additional_info = {"major": "컴퓨터공학", "phone": "010-1234-5678"}
+
+# 다른 딕셔너리로 업데이트
+student.update(additional_info)
+print(student)
+# {'name': '김철수', 'age': 20, 'major': '컴퓨터공학', 'phone': '010-1234-5678'}
+```
+
+## 🔄 딕셔너리 순회
+
+### 키로 순회
+
+```python
+scores = {
+    "수학": 90,
+    "영어": 85,
+    "과학": 92
+}
+
+# 키만 순회
+for subject in scores:
+    print(f"{subject}: {scores[subject]}")
+
+# 명시적으로 keys() 사용
+for subject in scores.keys():
+    print(f"{subject}: {scores[subject]}")
+```
+
+### 값으로 순회
+
+```python
+scores = {
+    "수학": 90,
+    "영어": 85,
+    "과학": 92
+}
+
+# 값만 순회
+for score in scores.values():
+    print(f"점수: {score}")
+```
+
+### 키-값 쌍으로 순회
+
+```python
+scores = {
+    "수학": 90,
+    "영어": 85,
+    "과학": 92
+}
+
+# 키-값 쌍 순회
+for subject, score in scores.items():
+    print(f"{subject}: {score}점")
+```
+
+## 📊 실용적인 활용 예시
+
+### 예시 1: 학생 성적 관리
+
+```python
+# 학생별 성적 딕셔너리
+students_grades = {
+    "김철수": {"수학": 90, "영어": 85, "과학": 92},
+    "이영희": {"수학": 95, "영어": 88, "과학": 87},
+    "박민수": {"수학": 78, "영어": 92, "과학": 89}
+}
+
+# 학생별 평균 계산
+for name, grades in students_grades.items():
+    total = sum(grades.values())
+    average = total / len(grades)
+    print(f"{name}의 평균: {average:.1f}점")
+
+# 특정 과목 평균 계산
+math_scores = [grades["수학"] for grades in students_grades.values()]
+math_average = sum(math_scores) / len(math_scores)
+print(f"수학 과목 평균: {math_average:.1f}점")
+```
+
+### 예시 2: 단어 빈도 분석
+
+```python
+text = "python is great python is fun python is powerful"
+words = text.split()
+
+# 단어 빈도 계산
+word_count = {}
+for word in words:
+    if word in word_count:
+        word_count[word] += 1
+    else:
+        word_count[word] = 1
+
+# 또는 get() 메서드 사용
+word_count = {}
+for word in words:
+    word_count[word] = word_count.get(word, 0) + 1
+
+# 결과 출력
+print("📊 단어 빈도 분석:")
+for word, count in word_count.items():
+    print(f"{word}: {count}번")
+```
+
+### 예시 3: 메뉴 관리 시스템
+
+```python
+# 카페 메뉴 관리
+menu = {
+    "음료": {
+        "아메리카노": 4000,
+        "카페라떼": 4500,
+        "카푸치노": 5000
+    },
+    "디저트": {
+        "케이크": 6000,
+        "쿠키": 3000,
+        "마카롱": 2500
+    }
+}
+
+# 메뉴 출력
+print("☕ 카페 메뉴")
+for category, items in menu.items():
+    print(f"\n【{category}】")
+    for item, price in items.items():
+        print(f"  {item}: {price:,}원")
+
+# 가격 검색
+def find_price(item_name):
+    for category, items in menu.items():
+        if item_name in items:
+            return items[item_name]
+    return None
+
+price = find_price("아메리카노")
+if price:
+    print(f"\n아메리카노 가격: {price:,}원")
+```
+
+## 🔄 딕셔너리 컴프리헨션
+
+### 기본 문법
+
+```python
+# 기존 방법
+squares = {}
+for i in range(1, 6):
+    squares[i] = i**2
+
+# 딕셔너리 컴프리헨션
+squares = {i: i**2 for i in range(1, 6)}
+print(squares)  # {1: 1, 2: 4, 3: 9, 4: 16, 5: 25}
+```
+
+### 조건부 컴프리헨션
+
+```python
+# 짝수만 필터링
+even_squares = {i: i**2 for i in range(1, 11) if i % 2 == 0}
+print(even_squares)  # {2: 4, 4: 16, 6: 36, 8: 64, 10: 100}
+
+# 딕셔너리 변환
+original = {"a": 1, "b": 2, "c": 3, "d": 4}
+filtered = {k: v for k, v in original.items() if v > 2}
+print(filtered)  # {'c': 3, 'd': 4}
+```
+
+## 🎯 중첩 딕셔너리
+
+### 2차원 데이터 관리
+
+```python
+# 회사 조직도
+company = {
+    "개발팀": {
+        "팀장": "김철수",
+        "팀원": ["이영희", "박민수", "최지영"],
+        "프로젝트": ["웹사이트 개발", "앱 개발"]
+    },
+    "디자인팀": {
+        "팀장": "정수연",
+        "팀원": ["홍길동", "김영수"],
+        "프로젝트": ["UI 디자인", "브랜딩"]
+    }
+}
+
+# 중첩 딕셔너리 접근
+print(company["개발팀"]["팀장"])  # 김철수
+print(company["개발팀"]["팀원"][0])  # 이영희
+
+# 전체 조직도 출력
+for team, info in company.items():
+    print(f"\n🏢 {team}")
+    print(f"  팀장: {info['팀장']}")
+    print(f"  팀원: {', '.join(info['팀원'])}")
+    print(f"  프로젝트: {', '.join(info['프로젝트'])}")
+```
+
+## 🚨 자주 발생하는 오류
+
+### 오류 1: 존재하지 않는 키 접근
+
+```python
+# ❌ 틀린 예
+student = {"name": "김철수", "age": 20}
+print(student["phone"])  # KeyError: 'phone'
+
+# ✅ 올바른 예
+student = {"name": "김철수", "age": 20}
+phone = student.get("phone", "정보 없음")
+print(phone)  # 정보 없음
+
+# 또는 in 연산자로 확인
+if "phone" in student:
+    print(student["phone"])
+else:
+    print("전화번호 정보가 없습니다.")
+```
+
+### 오류 2: 불변 객체가 아닌 키 사용
+
+```python
+# ❌ 틀린 예
+# my_dict = {[1, 2]: "리스트"}  # TypeError: unhashable type: 'list'
+
+# ✅ 올바른 예
+my_dict = {(1, 2): "튜플"}  # 튜플은 불변 객체이므로 키로 사용 가능
+print(my_dict[(1, 2)])  # 튜플
+```
+
+## 💡 퀴즈: 딕셔너리 이해도 체크
+
+### Q1. 다음 코드의 출력 결과는?
+
+```python
+d = {"a": 1, "b": 2}
+d["c"] = 3
+d["a"] = 10
+print(len(d))
+```
+
+1. 2
+2. 3
+3. 4
+4. 오류 발생
+
+<details>
+<summary>💡 정답 확인</summary>
+
+**정답: 2번 (3)**
+
+딕셔너리 d는 키 "a", "b", "c"를 가지므로 길이는 3입니다.
+
+</details>
+
+### Q2. 딕셔너리에서 안전하게 값을 조회하는 방법은?
+
+1. dict[key]
+2. dict.get(key)
+3. dict.get(key, default)
+4. 2번과 3번 모두
+
+<details>
+<summary>💡 정답 확인</summary>
+
+**정답: 4번 (2번과 3번 모두)**
+
+get() 메서드는 키가 없을 때 KeyError를 발생시키지 않고, 기본값을 설정할 수도 있습니다.
+
+</details>
+
+### Q3. 딕셔너리의 모든 키-값 쌍을 순회하는 방법은?
+
+1. for k, v in dict.items():
+2. for k in dict.keys():
+3. for v in dict.values():
+4. for item in dict:
+
+<details>
+<summary>💡 정답 확인</summary>
+
+**정답: 1번 (for k, v in dict.items():)**
+
+items() 메서드를 사용하면 키-값 쌍을 함께 순회할 수 있습니다.
+
+</details>
+
+## ✅ 딕셔너리 마스터 체크리스트
+
+<InteractiveChecklist
+  storageKey="dictionary-checklist"
+  title="✅ 딕셔너리 마스터 체크리스트"
+  items={[
+    { id: "dict_concept", text: "딕셔너리의 키-값 쌍 구조를 이해했다" },
+    { id: "dict_creation", text: "다양한 방법으로 딕셔너리를 생성할 수 있다" },
+    { id: "dict_access", text: "안전하게 딕셔너리 값에 접근할 수 있다" },
+    { id: "dict_modification", text: "딕셔너리 값을 수정하고 추가할 수 있다" },
+    { id: "dict_methods", text: "주요 딕셔너리 메서드를 활용할 수 있다" },
+    { id: "dict_iteration", text: "딕셔너리를 다양한 방법으로 순회할 수 있다" },
+    { id: "dict_comprehension", text: "딕셔너리 컴프리헨션을 사용할 수 있다" },
+    { id: "nested_dict", text: "중첩 딕셔너리를 다룰 수 있다" },
+    {
+      id: "practical_usage",
+      text: "실제 프로그램에서 딕셔너리를 활용할 수 있다",
+    },
+  ]}
+  completionMessage="🎉 축하합니다! 딕셔너리를 완전히 마스터했습니다!"
+/>
+
+## 🎉 Unit 4 완주!
+
+딕셔너리까지 학습하면서 **자료구조**의 모든 기본기를 완성했습니다!
+
+### 🏆 Unit 4에서 배운 내용
+
+1. **리스트**: 순서가 있는 변경 가능한 데이터 모음
+2. **리스트 메서드**: 데이터 추가, 삭제, 정렬, 검색
+3. **튜플**: 순서가 있는 변경 불가능한 데이터 모음
+4. **딕셔너리**: 키-값 쌍으로 관리하는 데이터 모음
+
+### 🚀 이제 할 수 있는 것들
+
+- 다양한 형태의 데이터를 적절한 자료구조로 관리
+- 효율적인 데이터 저장과 조회
+- 복잡한 데이터 구조를 설계하고 활용
+- 실제 프로그램에서 자료구조를 적절히 선택하여 사용
+
+**축하합니다! 이제 파이썬의 핵심 자료구조를 모두 마스터했습니다!** 🎊
+
+이제 여러분은 다양한 데이터를 효율적으로 관리하고 조작할 수 있는 강력한 도구들을 갖추었습니다. 이 자료구조들을 조합하여 더 복잡하고 실용적인 프로그램을 만들어보세요!

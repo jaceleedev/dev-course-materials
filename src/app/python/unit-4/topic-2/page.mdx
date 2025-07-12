@@ -1,0 +1,472 @@
+---
+title: "리스트 메서드와 활용 - 리스트 조작의 달인"
+description: "리스트의 다양한 메서드를 활용하여 데이터를 추가, 삭제, 정렬하고 고급 기법을 익힙니다"
+---
+
+import InteractiveChecklist from "@/components/ui/interactive-checklist";
+
+# Topic 2: 리스트 메서드와 활용 - 리스트 조작의 달인 🛠️
+
+## 🎯 학습 목표
+
+리스트의 다양한 메서드를 활용하여 데이터를 추가, 삭제, 정렬하고 실제 문제 해결에 리스트를 효과적으로 활용할 수 있습니다.
+
+## 📋 메서드란?
+
+### 메서드의 개념
+
+**메서드**는 리스트가 가지고 있는 기능들입니다. 마치 스마트폰의 앱처럼, 리스트도 다양한 기능을 내장하고 있어요.
+
+```python
+# 메서드 사용 방법
+리스트.메서드명()
+```
+
+### 메서드 vs 함수
+
+```python
+# 함수 사용
+numbers = [3, 1, 4, 1, 5]
+length = len(numbers)  # 함수
+
+# 메서드 사용
+numbers.append(9)  # 메서드
+numbers.sort()     # 메서드
+```
+
+## ➕ 요소 추가 메서드
+
+### append() - 끝에 추가
+
+```python
+fruits = ["사과", "바나나"]
+fruits.append("오렌지")
+print(fruits)  # ["사과", "바나나", "오렌지"]
+
+# 숫자도 추가 가능
+numbers = [1, 2, 3]
+numbers.append(4)
+print(numbers)  # [1, 2, 3, 4]
+```
+
+### insert() - 특정 위치에 추가
+
+```python
+fruits = ["사과", "바나나", "오렌지"]
+fruits.insert(1, "딸기")  # 1번 위치에 삽입
+print(fruits)  # ["사과", "딸기", "바나나", "오렌지"]
+
+# 맨 앞에 추가
+fruits.insert(0, "포도")
+print(fruits)  # ["포도", "사과", "딸기", "바나나", "오렌지"]
+```
+
+### extend() - 여러 요소 추가
+
+```python
+numbers1 = [1, 2, 3]
+numbers2 = [4, 5, 6]
+
+numbers1.extend(numbers2)
+print(numbers1)  # [1, 2, 3, 4, 5, 6]
+
+# 문자열도 확장 가능
+letters = ["a", "b"]
+letters.extend("cd")
+print(letters)  # ["a", "b", "c", "d"]
+```
+
+## ➖ 요소 제거 메서드
+
+### remove() - 값으로 제거
+
+```python
+fruits = ["사과", "바나나", "오렌지", "바나나"]
+fruits.remove("바나나")  # 첫 번째 바나나만 제거
+print(fruits)  # ["사과", "오렌지", "바나나"]
+```
+
+### pop() - 위치로 제거
+
+```python
+fruits = ["사과", "바나나", "오렌지"]
+
+# 마지막 요소 제거하고 반환
+last_fruit = fruits.pop()
+print(last_fruit)  # "오렌지"
+print(fruits)      # ["사과", "바나나"]
+
+# 특정 위치 제거
+first_fruit = fruits.pop(0)
+print(first_fruit)  # "사과"
+print(fruits)       # ["바나나"]
+```
+
+### clear() - 모든 요소 제거
+
+```python
+numbers = [1, 2, 3, 4, 5]
+numbers.clear()
+print(numbers)  # []
+```
+
+## 🔍 요소 찾기 메서드
+
+### index() - 위치 찾기
+
+```python
+fruits = ["사과", "바나나", "오렌지", "바나나"]
+
+position = fruits.index("바나나")
+print(position)  # 1 (첫 번째 바나나의 위치)
+
+# 특정 범위에서 찾기
+position = fruits.index("바나나", 2)  # 2번째 위치부터 찾기
+print(position)  # 3
+```
+
+### count() - 개수 세기
+
+```python
+numbers = [1, 2, 3, 2, 4, 2, 5]
+count = numbers.count(2)
+print(count)  # 3
+
+fruits = ["사과", "바나나", "사과", "오렌지"]
+apple_count = fruits.count("사과")
+print(apple_count)  # 2
+```
+
+## 🔄 리스트 정렬과 순서
+
+### sort() - 정렬
+
+```python
+# 숫자 정렬
+numbers = [3, 1, 4, 1, 5, 9, 2, 6]
+numbers.sort()
+print(numbers)  # [1, 1, 2, 3, 4, 5, 6, 9]
+
+# 역순 정렬
+numbers.sort(reverse=True)
+print(numbers)  # [9, 6, 5, 4, 3, 2, 1, 1]
+
+# 문자열 정렬
+fruits = ["바나나", "사과", "오렌지"]
+fruits.sort()
+print(fruits)  # ["바나나", "사과", "오렌지"] (ㄱ, ㄴ, ㄷ 순)
+```
+
+### reverse() - 순서 뒤집기
+
+```python
+numbers = [1, 2, 3, 4, 5]
+numbers.reverse()
+print(numbers)  # [5, 4, 3, 2, 1]
+```
+
+## 📊 리스트 복사
+
+### copy() - 복사 생성
+
+```python
+original = [1, 2, 3, 4, 5]
+copied = original.copy()
+
+# 복사본 수정
+copied.append(6)
+print(original)  # [1, 2, 3, 4, 5] (원본 그대로)
+print(copied)    # [1, 2, 3, 4, 5, 6] (복사본만 변경)
+```
+
+### 얕은 복사 vs 깊은 복사
+
+```python
+# 참조 복사 (위험!)
+list1 = [1, 2, 3]
+list2 = list1  # 같은 리스트를 가리킴
+
+list2.append(4)
+print(list1)  # [1, 2, 3, 4] (원본도 변경됨!)
+
+# 올바른 복사
+list1 = [1, 2, 3]
+list2 = list1.copy()  # 새로운 리스트 생성
+
+list2.append(4)
+print(list1)  # [1, 2, 3] (원본 그대로)
+print(list2)  # [1, 2, 3, 4] (복사본만 변경)
+```
+
+## 🎯 실용적인 활용 예시
+
+### 예시 1: 학생 성적 관리 시스템
+
+```python
+students = []
+scores = []
+
+# 학생 정보 입력
+for i in range(3):
+    name = input(f"{i+1}번째 학생 이름: ")
+    score = int(input(f"{name}의 점수: "))
+
+    students.append(name)
+    scores.append(score)
+
+# 성적 통계
+print(f"\n📊 성적 통계")
+print(f"평균: {sum(scores)/len(scores):.1f}")
+print(f"최고점: {max(scores)}")
+print(f"최저점: {min(scores)}")
+
+# 점수 순으로 정렬
+sorted_scores = scores.copy()
+sorted_scores.sort(reverse=True)
+print(f"점수 순위: {sorted_scores}")
+```
+
+### 예시 2: 할 일 관리 앱
+
+```python
+todo_list = []
+
+while True:
+    print("\n📋 할 일 관리")
+    print("1. 추가  2. 삭제  3. 목록  4. 종료")
+
+    choice = input("선택: ")
+
+    if choice == "1":
+        task = input("할 일: ")
+        todo_list.append(task)
+        print(f"'{task}'가 추가되었습니다.")
+
+    elif choice == "2":
+        if todo_list:
+            print(f"현재 할 일: {todo_list}")
+            task = input("삭제할 일: ")
+            if task in todo_list:
+                todo_list.remove(task)
+                print(f"'{task}'가 삭제되었습니다.")
+            else:
+                print("해당 할 일이 없습니다.")
+        else:
+            print("할 일이 없습니다.")
+
+    elif choice == "3":
+        if todo_list:
+            print(f"📋 할 일 목록:")
+            for i, task in enumerate(todo_list, 1):
+                print(f"{i}. {task}")
+        else:
+            print("할 일이 없습니다.")
+
+    elif choice == "4":
+        print("프로그램을 종료합니다.")
+        break
+```
+
+### 예시 3: 단어 빈도 분석
+
+```python
+text = "python is great python is fun python is powerful"
+words = text.split()  # 공백으로 분리하여 리스트 생성
+
+# 중복 제거
+unique_words = []
+for word in words:
+    if word not in unique_words:
+        unique_words.append(word)
+
+# 빈도 분석
+print("📊 단어 빈도 분석:")
+for word in unique_words:
+    count = words.count(word)
+    print(f"{word}: {count}번")
+```
+
+## 🔄 리스트 컴프리헨션 맛보기
+
+### 기본 문법
+
+```python
+# 기존 방법
+numbers = []
+for i in range(5):
+    numbers.append(i * 2)
+print(numbers)  # [0, 2, 4, 6, 8]
+
+# 리스트 컴프리헨션
+numbers = [i * 2 for i in range(5)]
+print(numbers)  # [0, 2, 4, 6, 8]
+```
+
+### 조건 포함
+
+```python
+# 짝수만 필터링
+numbers = [i for i in range(10) if i % 2 == 0]
+print(numbers)  # [0, 2, 4, 6, 8]
+
+# 문자열 길이 필터링
+words = ["apple", "banana", "cat", "dog"]
+long_words = [word for word in words if len(word) > 3]
+print(long_words)  # ["apple", "banana"]
+```
+
+## 🚨 자주 발생하는 오류
+
+### 오류 1: 존재하지 않는 값 제거
+
+```python
+# ❌ 틀린 예
+fruits = ["사과", "바나나", "오렌지"]
+fruits.remove("포도")  # ValueError: list.remove(x): x not in list
+
+# ✅ 올바른 예
+fruits = ["사과", "바나나", "오렌지"]
+if "포도" in fruits:
+    fruits.remove("포도")
+else:
+    print("포도가 목록에 없습니다.")
+```
+
+### 오류 2: 반복 중 리스트 수정
+
+```python
+# ❌ 위험한 예
+numbers = [1, 2, 3, 4, 5]
+for num in numbers:
+    if num % 2 == 0:
+        numbers.remove(num)  # 반복 중 리스트 수정은 위험!
+
+# ✅ 안전한 방법
+numbers = [1, 2, 3, 4, 5]
+odd_numbers = [num for num in numbers if num % 2 == 1]
+print(odd_numbers)  # [1, 3, 5]
+```
+
+## 💡 퀴즈: 리스트 메서드 이해도 체크
+
+### Q1. 다음 코드의 실행 결과는?
+
+```python
+numbers = [1, 2, 3]
+numbers.append([4, 5])
+print(numbers)
+```
+
+1. [1, 2, 3, 4, 5]
+2. [1, 2, 3, [4, 5]]
+3. [1, 2, 3, 4, [5]]
+4. 오류 발생
+
+<details>
+<summary>💡 정답 확인</summary>
+
+**정답: 2번 ([1, 2, 3, [4, 5]])**
+
+append()는 인수를 하나의 요소로 추가합니다. 리스트 전체가 하나의 요소로 추가됩니다.
+
+</details>
+
+### Q2. extend()와 append()의 차이점은?
+
+```python
+list1 = [1, 2, 3]
+list2 = [1, 2, 3]
+
+list1.append([4, 5])
+list2.extend([4, 5])
+```
+
+1. list1: [1, 2, 3, [4, 5]], list2: [1, 2, 3, 4, 5]
+2. list1: [1, 2, 3, 4, 5], list2: [1, 2, 3, [4, 5]]
+3. 둘 다 [1, 2, 3, 4, 5]
+4. 둘 다 [1, 2, 3, [4, 5]]
+
+<details>
+<summary>💡 정답 확인</summary>
+
+**정답: 1번**
+
+- append(): 인수를 하나의 요소로 추가
+- extend(): 인수의 각 요소를 개별적으로 추가
+
+</details>
+
+### Q3. 리스트에서 값 '2'를 모두 제거하는 올바른 방법은?
+
+```python
+numbers = [1, 2, 3, 2, 4, 2, 5]
+```
+
+1. numbers.remove(2) 한 번 호출
+2. while 2 in numbers: numbers.remove(2)
+3. numbers.remove(2) 세 번 호출
+4. numbers.clear()
+
+<details>
+<summary>💡 정답 확인</summary>
+
+**정답: 2번**
+
+remove()는 첫 번째 일치하는 값만 제거하므로, 모든 2를 제거하려면 while 반복문을 사용해야 합니다.
+
+</details>
+
+## ✅ 리스트 메서드 마스터 체크리스트
+
+<InteractiveChecklist
+  storageKey="list-methods-checklist"
+  title="✅ 리스트 메서드 마스터 체크리스트"
+  items={[
+    {
+      id: "append_insert",
+      text: "append()와 insert()로 요소를 추가할 수 있다",
+    },
+    { id: "remove_pop", text: "remove()와 pop()으로 요소를 제거할 수 있다" },
+    {
+      id: "extend_method",
+      text: "extend()로 여러 요소를 한 번에 추가할 수 있다",
+    },
+    { id: "find_methods", text: "index()와 count()로 요소를 찾을 수 있다" },
+    {
+      id: "sort_reverse",
+      text: "sort()와 reverse()로 리스트를 정렬할 수 있다",
+    },
+    { id: "copy_method", text: "copy()로 리스트를 복사할 수 있다" },
+    {
+      id: "list_comprehension",
+      text: "기본적인 리스트 컴프리헨션을 사용할 수 있다",
+    },
+    {
+      id: "practical_usage",
+      text: "실제 프로그램에서 리스트 메서드를 활용할 수 있다",
+    },
+  ]}
+  completionMessage="🎉 축하합니다! 리스트 메서드를 완전히 마스터했습니다!"
+/>
+
+## 🎉 리스트 메서드 마스터 완성!
+
+리스트의 모든 주요 메서드를 학습하고 실제 활용까지 익혔습니다!
+
+### 🏆 이번 토픽에서 배운 내용
+
+1. **추가 메서드**: append, insert, extend
+2. **제거 메서드**: remove, pop, clear
+3. **찾기 메서드**: index, count
+4. **정렬 메서드**: sort, reverse
+5. **복사 메서드**: copy
+6. **리스트 컴프리헨션**: 간결한 리스트 생성
+
+### 🚀 이제 할 수 있는 것들
+
+- 리스트에 데이터를 자유자재로 추가/제거
+- 원하는 조건에 맞게 데이터 정렬
+- 데이터 검색과 빈도 분석
+- 실용적인 데이터 관리 프로그램 작성
+
+다음 토픽에서는 **튜플**을 배워서 변경할 수 없는 데이터 모음을 다루는 방법을 알아보겠습니다! 🚀

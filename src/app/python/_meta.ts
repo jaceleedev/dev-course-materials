@@ -10,6 +10,9 @@ const pythonMeta: MetaRecord = {
   "unit-3": {
     title: "Unit 3: 조건&반복의 마법",
   },
+  "unit-4": {
+    title: "Unit 4: 자료구조 마스터",
+  },
 };
 
 export default pythonMeta;

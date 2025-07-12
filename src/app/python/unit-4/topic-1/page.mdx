@@ -1,0 +1,368 @@
+---
+title: "리스트 기본 - 데이터 모음집"
+description: "리스트의 개념을 이해하고 생성, 접근, 수정하는 방법을 학습합니다"
+---
+
+import InteractiveChecklist from "@/components/ui/interactive-checklist";
+
+# Topic 1: 리스트 기본 - 데이터 모음집 📋
+
+## 🎯 학습 목표
+
+리스트의 개념을 이해하고 리스트를 생성, 접근, 수정하는 기본적인 방법을 익혀 여러 데이터를 효율적으로 관리할 수 있습니다.
+
+## 📋 리스트란?
+
+### 일상생활의 목록
+
+우리는 매일 다양한 목록을 만들고 사용합니다:
+
+- 장보기 목록: ["사과", "바나나", "우유", "빵"]
+- 할 일 목록: ["숙제하기", "운동하기", "독서하기"]
+- 점수 목록: [90, 85, 92, 78, 96]
+
+프로그래밍에서 **리스트**는 이런 목록을 표현하는 자료구조입니다.
+
+### 리스트의 필요성
+
+```python
+# 리스트 없이 학생 점수 관리한다면...
+student1_score = 90
+student2_score = 85
+student3_score = 92
+student4_score = 78
+student5_score = 96
+# 학생이 많아질수록 변수도 많아져요...
+```
+
+```python
+# 리스트를 사용하면...
+scores = [90, 85, 92, 78, 96]
+# 하나의 변수로 모든 점수를 관리!
+```
+
+## 🏗️ 리스트 생성
+
+### 기본 생성 방법
+
+```python
+# 빈 리스트 생성
+empty_list = []
+
+# 숫자 리스트
+numbers = [1, 2, 3, 4, 5]
+
+# 문자열 리스트
+fruits = ["사과", "바나나", "오렌지"]
+
+# 혼합 리스트
+mixed = [1, "안녕", 3.14, True]
+```
+
+### 다양한 생성 방법
+
+```python
+# 반복된 값으로 리스트 생성
+zeros = [0] * 5  # [0, 0, 0, 0, 0]
+hello = ["안녕"] * 3  # ["안녕", "안녕", "안녕"]
+
+# list() 함수 사용
+numbers = list(range(1, 6))  # [1, 2, 3, 4, 5]
+```
+
+## 🔍 리스트 접근 - 인덱싱
+
+### 인덱스의 개념
+
+```python
+fruits = ["사과", "바나나", "오렌지", "포도"]
+#          0      1       2       3    (인덱스)
+```
+
+**인덱스**는 리스트에서 각 요소의 위치를 나타내는 번호입니다.
+
+### 기본 인덱싱
+
+```python
+fruits = ["사과", "바나나", "오렌지", "포도"]
+
+print(fruits[0])  # 사과 (첫 번째 요소)
+print(fruits[1])  # 바나나 (두 번째 요소)
+print(fruits[3])  # 포도 (네 번째 요소)
+```
+
+### 음수 인덱싱
+
+```python
+fruits = ["사과", "바나나", "오렌지", "포도"]
+
+print(fruits[-1])  # 포도 (마지막 요소)
+print(fruits[-2])  # 오렌지 (뒤에서 두 번째)
+print(fruits[-4])  # 사과 (뒤에서 네 번째)
+```
+
+## ✂️ 리스트 슬라이싱
+
+### 슬라이싱 기본 문법
+
+```python
+리스트[시작:끝:간격]
+```
+
+### 기본 슬라이싱
+
+```python
+numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+print(numbers[2:5])    # [2, 3, 4]
+print(numbers[:3])     # [0, 1, 2] (처음부터 3번째까지)
+print(numbers[3:])     # [3, 4, 5, 6, 7, 8, 9] (3번째부터 끝까지)
+print(numbers[:])      # [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] (전체)
+```
+
+### 간격 지정 슬라이싱
+
+```python
+numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+print(numbers[::2])    # [0, 2, 4, 6, 8] (2씩 건너뛰기)
+print(numbers[1::2])   # [1, 3, 5, 7, 9] (1부터 2씩 건너뛰기)
+print(numbers[::-1])   # [9, 8, 7, 6, 5, 4, 3, 2, 1, 0] (역순)
+```
+
+## 🔄 리스트 수정
+
+### 개별 요소 수정
+
+```python
+fruits = ["사과", "바나나", "오렌지"]
+
+fruits[1] = "딸기"  # 바나나를 딸기로 변경
+print(fruits)  # ["사과", "딸기", "오렌지"]
+```
+
+### 슬라이싱으로 여러 요소 수정
+
+```python
+numbers = [1, 2, 3, 4, 5]
+
+numbers[1:3] = [10, 20]  # 2, 3을 10, 20으로 변경
+print(numbers)  # [1, 10, 20, 4, 5]
+```
+
+## 📏 리스트 길이와 정보
+
+### len() 함수
+
+```python
+fruits = ["사과", "바나나", "오렌지"]
+print(len(fruits))  # 3
+
+scores = [90, 85, 92, 78, 96]
+print(f"학생 수: {len(scores)}명")  # 학생 수: 5명
+```
+
+### in 연산자
+
+```python
+fruits = ["사과", "바나나", "오렌지"]
+
+print("사과" in fruits)     # True
+print("포도" in fruits)     # False
+print("키위" not in fruits) # True
+```
+
+## 🔢 리스트 기본 연산
+
+### 리스트 더하기
+
+```python
+fruits1 = ["사과", "바나나"]
+fruits2 = ["오렌지", "포도"]
+
+all_fruits = fruits1 + fruits2
+print(all_fruits)  # ["사과", "바나나", "오렌지", "포도"]
+```
+
+### 리스트 곱하기
+
+```python
+numbers = [1, 2, 3]
+repeated = numbers * 3
+print(repeated)  # [1, 2, 3, 1, 2, 3, 1, 2, 3]
+```
+
+## 📊 실용적인 예시들
+
+### 예시 1: 학생 점수 관리
+
+```python
+# 학생 점수 입력받기
+scores = []
+for i in range(3):
+    score = int(input(f"{i+1}번째 학생 점수: "))
+    scores.append(score)
+
+# 점수 분석
+total = sum(scores)
+average = total / len(scores)
+highest = max(scores)
+lowest = min(scores)
+
+print(f"전체 점수: {scores}")
+print(f"평균: {average:.1f}")
+print(f"최고점: {highest}")
+print(f"최저점: {lowest}")
+```
+
+### 예시 2: 쇼핑 목록 관리
+
+```python
+# 쇼핑 목록
+shopping_list = ["사과", "우유", "빵", "계란"]
+
+print("📋 쇼핑 목록:")
+for i, item in enumerate(shopping_list):
+    print(f"{i+1}. {item}")
+
+# 새 항목 추가
+shopping_list.append("바나나")
+print(f"\n추가 후: {shopping_list}")
+
+# 구매 완료 항목 제거
+shopping_list.remove("우유")
+print(f"우유 구매 완료: {shopping_list}")
+```
+
+## 🚨 자주 발생하는 오류
+
+### 오류 1: 인덱스 범위 초과
+
+```python
+# ❌ 틀린 예
+fruits = ["사과", "바나나", "오렌지"]
+print(fruits[5])  # IndexError: list index out of range
+
+# ✅ 올바른 예
+fruits = ["사과", "바나나", "오렌지"]
+if len(fruits) > 5:
+    print(fruits[5])
+else:
+    print("인덱스가 범위를 벗어났습니다")
+```
+
+### 오류 2: 리스트와 문자열 혼동
+
+```python
+# ❌ 헷갈리는 예
+text = "Hello"
+print(text[0])  # 'H' (문자열도 인덱싱 가능)
+
+# ✅ 명확한 구분
+text = "Hello"
+char_list = list(text)  # ['H', 'e', 'l', 'l', 'o']
+print(f"문자열: {text}")
+print(f"리스트: {char_list}")
+```
+
+## 💡 퀴즈: 리스트 기본 이해도 체크
+
+### Q1. 다음 코드의 출력 결과는?
+
+```python
+numbers = [10, 20, 30, 40, 50]
+print(numbers[-2])
+```
+
+1. 20
+2. 30
+3. 40
+4. 50
+
+<details>
+<summary>💡 정답 확인</summary>
+
+**정답: 3번 (40)**
+
+음수 인덱싱에서 -2는 뒤에서 두 번째 요소를 의미합니다.
+
+</details>
+
+### Q2. 다음 코드의 출력 결과는?
+
+```python
+fruits = ["사과", "바나나", "오렌지", "포도"]
+print(fruits[1:3])
+```
+
+1. ["바나나", "오렌지"]
+2. ["바나나", "오렌지", "포도"]
+3. ["사과", "바나나", "오렌지"]
+4. ["사과", "바나나"]
+
+<details>
+<summary>💡 정답 확인</summary>
+
+**정답: 1번 (["바나나", "오렌지"])**
+
+슬라이싱에서 [1:3]은 인덱스 1부터 3 미만까지를 의미합니다.
+
+</details>
+
+### Q3. 빈 리스트를 만드는 올바른 방법은?
+
+1. empty = []
+2. empty = list()
+3. empty = [None]
+4. 1번과 2번 모두
+
+<details>
+<summary>💡 정답 확인</summary>
+
+**정답: 4번 (1번과 2번 모두)**
+
+[] 와 list() 모두 빈 리스트를 생성하는 올바른 방법입니다.
+
+</details>
+
+## ✅ 리스트 기본 마스터 체크리스트
+
+<InteractiveChecklist
+  storageKey="list-basic-checklist"
+  title="✅ 리스트 기본 마스터 체크리스트"
+  items={[
+    { id: "list_concept", text: "리스트의 개념과 필요성을 이해했다" },
+    { id: "list_creation", text: "다양한 방법으로 리스트를 생성할 수 있다" },
+    { id: "indexing", text: "인덱싱으로 리스트 요소에 접근할 수 있다" },
+    { id: "negative_indexing", text: "음수 인덱싱을 활용할 수 있다" },
+    { id: "slicing", text: "슬라이싱으로 리스트 일부를 추출할 수 있다" },
+    { id: "list_modification", text: "리스트 요소를 수정할 수 있다" },
+    {
+      id: "list_operations",
+      text: "리스트 연산(+, *, len, in)을 사용할 수 있다",
+    },
+    { id: "practical_usage", text: "실제 문제에 리스트를 활용할 수 있다" },
+  ]}
+  completionMessage="🎉 축하합니다! 리스트 기본을 완전히 마스터했습니다!"
+/>
+
+## 🎉 리스트 기본 완성!
+
+리스트의 기본 개념부터 인덱싱, 슬라이싱, 기본 연산까지 모두 학습했습니다!
+
+### 🏆 이번 토픽에서 배운 내용
+
+1. **리스트 생성**: 다양한 방법으로 리스트 만들기
+2. **인덱싱**: 정확한 위치의 요소 접근하기
+3. **슬라이싱**: 필요한 부분만 추출하기
+4. **수정**: 리스트 요소 변경하기
+5. **기본 연산**: 길이, 포함 여부, 연결 등
+
+### 🚀 이제 할 수 있는 것들
+
+- 여러 데이터를 하나의 변수로 효율적으로 관리
+- 원하는 위치의 데이터에 정확하게 접근
+- 필요한 부분만 선택적으로 사용
+- 데이터 목록을 동적으로 관리
+
+다음 토픽에서는 **리스트 메서드와 활용**을 배워서 리스트를 더욱 자유자재로 다루는 방법을 알아보겠습니다! 🚀
