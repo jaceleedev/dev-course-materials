@@ -1,0 +1,1125 @@
+---
+title: "가상 생태계 시뮬레이터 (답안)"
+description: "가상 생태계 시뮬레이터 프로젝트의 완성된 답안입니다"
+---
+
+# 🌱 가상 생태계 시뮬레이터 (답안)
+
+## 🚀 1단계: 식물 관리 시스템 답안
+
+```python
+# 🌱 가상 생태계 시뮬레이터 - 1단계: 식물 관리
+import datetime
+
+print("🌱 가상 생태계 시뮬레이터에 오신 것을 환영합니다!")
+print("="*50)
+
+# 식물 정보를 저장할 리스트
+plants = []
+plant_counter = 1
+
+def get_positive_number(prompt):
+    """양수 입력받는 도우미 함수"""
+    while True:
+        user_input = input(prompt)
+        if user_input.isdigit():
+            number = int(user_input)
+            if number > 0:
+                return number
+            else:
+                print("0보다 큰 수를 입력해주세요.")
+        else:
+            print("숫자를 입력해주세요.")
+
+def plant_seed():
+    """새로운 식물 심기"""
+    global plant_counter
+    
+    print("\n=== 식물 심기 ===")
+    plant_name = input("식물 이름: ")
+    
+    # 식물 정보 생성
+    new_plant = {
+        "id": plant_counter,
+        "name": plant_name,
+        "health": 100,
+        "size": 20,  # cm
+        "water_level": 80,
+        "growth_stage": "새싹",
+        "growth_points": 0,
+        "planted_date": datetime.datetime.now().strftime("%Y-%m-%d")
+    }
+    
+    plants.append(new_plant)
+    plant_counter += 1
+    
+    print(f"🌱 {plant_name}가 심어졌습니다!")
+
+def water_plants():
+    """물주기"""
+    print("\n=== 물주기 ===")
+    
+    if not plants:
+        print("심어진 식물이 없습니다.")
+        return
+    
+    print("물을 줄 식물을 선택하세요:")
+    for i, plant in enumerate(plants):
+        print(f"{i+1}. {plant['name']} (물: {plant['water_level']}%)")
+    
+    while True:
+        choice_input = input("선택 (번호): ")
+        if choice_input.isdigit():
+            choice = int(choice_input)
+            if 1 <= choice <= len(plants):
+                selected_plant = plants[choice-1]
+                
+                # 물 레벨 증가 (최대 100%)
+                water_amount = 30
+                selected_plant["water_level"] = min(100, selected_plant["water_level"] + water_amount)
+                selected_plant["health"] = min(100, selected_plant["health"] + 5)
+                
+                print(f"💧 {selected_plant['name']}에게 물을 주었습니다!")
+                print(f"현재 물 레벨: {selected_plant['water_level']}%")
+                break
+            else:
+                print("올바른 번호를 선택하세요.")
+        else:
+            print("숫자를 입력하세요.")
+
+def add_nutrients():
+    """영양분 주기"""
+    print("\n=== 영양분 주기 ===")
+    
+    if not plants:
+        print("심어진 식물이 없습니다.")
+        return
+    
+    print("영양분을 줄 식물을 선택하세요:")
+    for i, plant in enumerate(plants):
+        print(f"{i+1}. {plant['name']} (건강도: {plant['health']}%)")
+    
+    while True:
+        choice_input = input("선택 (번호): ")
+        if choice_input.isdigit():
+            choice = int(choice_input)
+            if 1 <= choice <= len(plants):
+                selected_plant = plants[choice-1]
+                
+                # 성장 포인트 증가
+                selected_plant["growth_points"] += 20
+                selected_plant["health"] = min(100, selected_plant["health"] + 10)
+                
+                print(f"🌿 {selected_plant['name']}에게 영양분을 주었습니다!")
+                print(f"성장이 촉진되었습니다!")
+                break
+            else:
+                print("올바른 번호를 선택하세요.")
+        else:
+            print("숫자를 입력하세요.")
+
+def check_plant_status():
+    """식물 상태 확인"""
+    print("\n=== 식물 상태 ===")
+    
+    if not plants:
+        print("심어진 식물이 없습니다.")
+        return
+    
+    for plant in plants:
+        # 성장 단계 결정
+        if plant["growth_points"] < 50:
+            stage = "새싹 🌱"
+        elif plant["growth_points"] < 100:
+            stage = "청년 🌿"
+        else:
+            stage = "성인 🌸"
+        
+        plant["growth_stage"] = stage
+        
+        print(f"🌱 {plant['name']} - 건강도: {plant['health']}% | 크기: {plant['size']}cm | 물: {plant['water_level']}%")
+        print(f"   성장 단계: {stage}")
+        print(f"   심은 날짜: {plant['planted_date']}")
+        print("-" * 40)
+
+def time_passes():
+    """시간 경과"""
+    print("\n=== 시간 경과 ===")
+    
+    if not plants:
+        print("심어진 식물이 없습니다.")
+        return
+    
+    print("🕐 하루가 지나갑니다...")
+    
+    for plant in plants:
+        # 물 레벨 감소
+        plant["water_level"] = max(0, plant["water_level"] - 15)
+        
+        # 물이 부족하면 건강도 감소
+        if plant["water_level"] < 30:
+            plant["health"] = max(0, plant["health"] - 10)
+            print(f"⚠️ {plant['name']}이(가) 물이 부족합니다!")
+        else:
+            # 물이 충분하면 자연 성장
+            plant["growth_points"] += 5
+            plant["size"] += 2
+            
+            # 성장 단계 업데이트
+            if plant["growth_points"] >= 100 and plant["growth_stage"] != "성인 🌸":
+                print(f"🎉 {plant['name']}이(가) 성인으로 자랐습니다!")
+            elif plant["growth_points"] >= 50 and plant["growth_stage"] == "새싹 🌱":
+                print(f"🌿 {plant['name']}이(가) 청년으로 자랐습니다!")
+    
+    print("시간이 흘렀습니다.")
+
+# 메인 프로그램
+while True:
+    print("\n=== 나의 생태계 ===")
+    print("1. 식물 심기")
+    print("2. 물주기")
+    print("3. 영양분 주기")
+    print("4. 식물 상태 보기")
+    print("5. 시간 경과")
+    print("6. 종료")
+    
+    choice = input("선택: ")
+    
+    if choice == "1":
+        plant_seed()
+    elif choice == "2":
+        water_plants()
+    elif choice == "3":
+        add_nutrients()
+    elif choice == "4":
+        check_plant_status()
+    elif choice == "5":
+        time_passes()
+    elif choice == "6":
+        print("🌱 생태계 시뮬레이터를 종료합니다!")
+        break
+    else:
+        print("잘못된 선택입니다.")
+```
+
+## 🔥 2단계: 동물 친구들 답안
+
+```python
+# 🌱 가상 생태계 시뮬레이터 - 2단계: 동물 친구들
+import datetime
+
+print("🌱 가상 생태계 시뮬레이터에 오신 것을 환영합니다!")
+print("="*50)
+
+# 식물과 동물 정보를 저장할 리스트
+plants = []
+animals = []
+plant_counter = 1
+animal_counter = 1
+
+def get_positive_number(prompt):
+    """양수 입력받는 도우미 함수"""
+    while True:
+        user_input = input(prompt)
+        if user_input.isdigit():
+            number = int(user_input)
+            if number > 0:
+                return number
+            else:
+                print("0보다 큰 수를 입력해주세요.")
+        else:
+            print("숫자를 입력하세요.")
+
+def plant_seed():
+    """새로운 식물 심기"""
+    global plant_counter
+    
+    print("\n=== 식물 심기 ===")
+    plant_name = input("식물 이름: ")
+    
+    # 식물 정보 생성
+    new_plant = {
+        "id": plant_counter,
+        "name": plant_name,
+        "health": 100,
+        "size": 20,
+        "water_level": 80,
+        "growth_stage": "새싹",
+        "growth_points": 0,
+        "flowers": 0,
+        "seeds": 0,
+        "planted_date": datetime.datetime.now().strftime("%Y-%m-%d")
+    }
+    
+    plants.append(new_plant)
+    plant_counter += 1
+    
+    print(f"🌱 {plant_name}가 심어졌습니다!")
+
+def add_animal():
+    """동물 추가"""
+    global animal_counter
+    
+    print("\n=== 동물 추가 ===")
+    print("1. 토끼 🐰 (채식)")
+    print("2. 나비 🦋 (꽃가루)")
+    print("3. 새 🐦 (씨앗)")
+    
+    while True:
+        choice = input("동물 선택: ")
+        if choice == "1":
+            animal_type = "토끼"
+            emoji = "🐰"
+            food_type = "채식"
+            break
+        elif choice == "2":
+            animal_type = "나비"
+            emoji = "🦋"
+            food_type = "꽃가루"
+            break
+        elif choice == "3":
+            animal_type = "새"
+            emoji = "🐦"
+            food_type = "씨앗"
+            break
+        else:
+            print("1, 2, 3 중에서 선택하세요.")
+    
+    animal_name = input(f"{animal_type} 이름: ")
+    
+    # 동물 정보 생성
+    new_animal = {
+        "id": animal_counter,
+        "name": animal_name,
+        "type": animal_type,
+        "emoji": emoji,
+        "food_type": food_type,
+        "happiness": 90,
+        "hunger": 30,
+        "energy": 70,
+        "added_date": datetime.datetime.now().strftime("%Y-%m-%d")
+    }
+    
+    animals.append(new_animal)
+    animal_counter += 1
+    
+    print(f"{emoji} {animal_name}가 생태계에 추가되었습니다!")
+
+def water_plants():
+    """물주기"""
+    print("\n=== 물주기 ===")
+    
+    if not plants:
+        print("심어진 식물이 없습니다.")
+        return
+    
+    print("물을 줄 식물을 선택하세요:")
+    for i, plant in enumerate(plants):
+        print(f"{i+1}. {plant['name']} (물: {plant['water_level']}%)")
+    
+    while True:
+        choice_input = input("선택 (번호): ")
+        if choice_input.isdigit():
+            choice = int(choice_input)
+            if 1 <= choice <= len(plants):
+                selected_plant = plants[choice-1]
+                
+                water_amount = 30
+                selected_plant["water_level"] = min(100, selected_plant["water_level"] + water_amount)
+                selected_plant["health"] = min(100, selected_plant["health"] + 5)
+                
+                print(f"💧 {selected_plant['name']}에게 물을 주었습니다!")
+                print(f"현재 물 레벨: {selected_plant['water_level']}%")
+                break
+            else:
+                print("올바른 번호를 선택하세요.")
+        else:
+            print("숫자를 입력하세요.")
+
+def feed_animals():
+    """동물 먹이주기"""
+    print("\n=== 먹이주기 ===")
+    
+    if not animals:
+        print("추가된 동물이 없습니다.")
+        return
+    
+    print("먹이를 줄 동물을 선택하세요:")
+    for i, animal in enumerate(animals):
+        print(f"{i+1}. {animal['emoji']} {animal['name']} (배고픔: {animal['hunger']}%)")
+    
+    while True:
+        choice_input = input("선택 (번호): ")
+        if choice_input.isdigit():
+            choice = int(choice_input)
+            if 1 <= choice <= len(animals):
+                selected_animal = animals[choice-1]
+                
+                # 동물 종류에 따른 먹이 확인
+                food_available = False
+                if selected_animal["food_type"] == "채식":
+                    # 식물이 있으면 먹이 가능
+                    if plants:
+                        food_available = True
+                elif selected_animal["food_type"] == "꽃가루":
+                    # 꽃이 핀 식물이 있으면 먹이 가능
+                    for plant in plants:
+                        if plant["flowers"] > 0:
+                            food_available = True
+                            plant["flowers"] -= 1
+                            break
+                elif selected_animal["food_type"] == "씨앗":
+                    # 씨앗이 있는 식물이 있으면 먹이 가능
+                    for plant in plants:
+                        if plant["seeds"] > 0:
+                            food_available = True
+                            plant["seeds"] -= 1
+                            break
+                
+                if food_available:
+                    selected_animal["hunger"] = max(0, selected_animal["hunger"] - 40)
+                    selected_animal["happiness"] = min(100, selected_animal["happiness"] + 15)
+                    selected_animal["energy"] = min(100, selected_animal["energy"] + 20)
+                    
+                    print(f"🍽️ {selected_animal['name']}에게 {selected_animal['food_type']} 먹이를 주었습니다!")
+                    print(f"행복도가 {selected_animal['happiness']}%로 증가했습니다!")
+                else:
+                    print(f"❌ {selected_animal['food_type']} 먹이가 부족합니다!")
+                    if selected_animal["food_type"] == "꽃가루":
+                        print("식물이 더 자라서 꽃이 필 때까지 기다려주세요.")
+                    elif selected_animal["food_type"] == "씨앗":
+                        print("성인 식물이 씨앗을 만들 때까지 기다려주세요.")
+                break
+            else:
+                print("올바른 번호를 선택하세요.")
+        else:
+            print("숫자를 입력하세요.")
+
+def view_ecosystem():
+    """생태계 현황 보기"""
+    print("\n=== 나의 생태계 ===")
+    
+    if not plants and not animals:
+        print("아직 아무것도 없는 빈 생태계입니다.")
+        return
+    
+    # 식물 상태 표시
+    for plant in plants:
+        if plant["growth_points"] < 50:
+            stage = "새싹"
+            emoji = "🌱"
+        elif plant["growth_points"] < 100:
+            stage = "청년"
+            emoji = "🌿"
+        else:
+            stage = "성인"
+            emoji = "🌸"
+            
+        print(f"{emoji} {plant['name']} ({stage}) - 건강: {plant['health']}% | 크기: {plant['size']}cm | 물: {plant['water_level']}%")
+        if plant["flowers"] > 0:
+            print(f"   꽃: {plant['flowers']}개 🌺")
+        if plant["seeds"] > 0:
+            print(f"   씨앗: {plant['seeds']}개")
+    
+    # 동물 상태 표시
+    for animal in animals:
+        mood = "매우 행복" if animal["happiness"] > 80 else "행복" if animal["happiness"] > 60 else "보통"
+        print(f"{animal['emoji']} {animal['name']} - 행복도: {animal['happiness']}% | 배고픔: {animal['hunger']}% | 에너지: {animal['energy']}%")
+        print(f"   기분: {mood}")
+    
+    # 생태계 균형도 계산
+    if plants and animals:
+        plant_health_avg = sum(plant["health"] for plant in plants) / len(plants)
+        animal_happiness_avg = sum(animal["happiness"] for animal in animals) / len(animals)
+        balance = (plant_health_avg + animal_happiness_avg) / 2
+        
+        balance_emoji = "🌿" if balance > 80 else "🍃" if balance > 60 else "🍂"
+        print(f"\n생태계 균형도: {balance:.0f}% {balance_emoji}")
+
+def time_passes():
+    """시간 경과"""
+    print("\n=== 시간 경과 ===")
+    
+    if not plants and not animals:
+        print("생태계가 비어있습니다.")
+        return
+    
+    print("🕐 하루가 지나갑니다...")
+    
+    # 식물 변화
+    for plant in plants:
+        plant["water_level"] = max(0, plant["water_level"] - 15)
+        
+        if plant["water_level"] < 30:
+            plant["health"] = max(0, plant["health"] - 10)
+            print(f"⚠️ {plant['name']}이(가) 물이 부족합니다!")
+        else:
+            plant["growth_points"] += 5
+            plant["size"] += 2
+            
+            # 성인 식물은 꽃과 씨앗 생산
+            if plant["growth_points"] >= 100:
+                plant["flowers"] += 1
+                plant["seeds"] += 1
+                if plant["flowers"] == 1:
+                    print(f"🌺 {plant['name']}에서 꽃이 피었습니다!")
+    
+    # 동물 변화
+    for animal in animals:
+        animal["hunger"] = min(100, animal["hunger"] + 20)
+        animal["energy"] = max(0, animal["energy"] - 10)
+        
+        if animal["hunger"] > 70:
+            animal["happiness"] = max(0, animal["happiness"] - 15)
+            print(f"😢 {animal['name']}이(가) 배가 고픕니다!")
+        
+        if animal["energy"] < 30:
+            animal["happiness"] = max(0, animal["happiness"] - 10)
+            print(f"😴 {animal['name']}이(가) 피곤합니다!")
+    
+    print("시간이 흘렀습니다.")
+
+# 메인 프로그램
+while True:
+    print("\n=== 나의 생태계 ===")
+    print("1. 식물 심기     2. 동물 추가     3. 물주기")
+    print("4. 먹이주기      5. 생태계 보기    6. 시간 경과")
+    print("7. 종료")
+    
+    choice = input("선택: ")
+    
+    if choice == "1":
+        plant_seed()
+    elif choice == "2":
+        add_animal()
+    elif choice == "3":
+        water_plants()
+    elif choice == "4":
+        feed_animals()
+    elif choice == "5":
+        view_ecosystem()
+    elif choice == "6":
+        time_passes()
+    elif choice == "7":
+        print("🌱 생태계 시뮬레이터를 종료합니다!")
+        break
+    else:
+        print("잘못된 선택입니다.")
+```
+
+## 🎖️ 3단계: 생태계 균형 답안
+
+```python
+# 🌱 가상 생태계 시뮬레이터 - 3단계: 생태계 균형
+import datetime
+
+print("🌱 가상 생태계 시뮬레이터에 오신 것을 환영합니다!")
+print("="*50)
+
+# 게임 상태 관리
+plants = []
+animals = []
+plant_counter = 1
+animal_counter = 1
+game_day = 1
+current_weather = "맑음"
+current_season = "봄"
+achievements = []
+ecosystem_score = 0
+
+# 날씨와 계절 정보
+weather_types = ["☀️ 맑음", "🌧️ 비", "☁️ 흐림"]
+seasons = ["🌸 봄", "☀️ 여름", "🍂 가을", "❄️ 겨울"]
+
+def get_positive_number(prompt):
+    """양수 입력받는 도우미 함수"""
+    while True:
+        user_input = input(prompt)
+        if user_input.isdigit():
+            number = int(user_input)
+            if number > 0:
+                return number
+            else:
+                print("0보다 큰 수를 입력해주세요.")
+        else:
+            print("숫자를 입력하세요.")
+
+def plant_seed():
+    """새로운 식물 심기"""
+    global plant_counter
+    
+    print("\n=== 식물 심기 ===")
+    plant_name = input("식물 이름: ")
+    
+    new_plant = {
+        "id": plant_counter,
+        "name": plant_name,
+        "health": 100,
+        "size": 20,
+        "water_level": 80,
+        "growth_stage": "새싹",
+        "growth_points": 0,
+        "flowers": 0,
+        "seeds": 0,
+        "planted_date": datetime.datetime.now().strftime("%Y-%m-%d")
+    }
+    
+    plants.append(new_plant)
+    plant_counter += 1
+    
+    print(f"🌱 {plant_name}가 심어졌습니다!")
+    
+    # 첫 식물 심기 업적
+    if len(plants) == 1 and "첫 번째 식물 심기" not in achievements:
+        achievements.append("첫 번째 식물 심기")
+        print("🏆 업적 달성: 첫 번째 식물 심기!")
+
+def add_animal():
+    """동물 추가"""
+    global animal_counter
+    
+    print("\n=== 동물 추가 ===")
+    print("1. 토끼 🐰 (채식)")
+    print("2. 나비 🦋 (꽃가루)")
+    print("3. 새 🐦 (씨앗)")
+    
+    while True:
+        choice = input("동물 선택: ")
+        if choice == "1":
+            animal_type = "토끼"
+            emoji = "🐰"
+            food_type = "채식"
+            break
+        elif choice == "2":
+            animal_type = "나비"
+            emoji = "🦋"
+            food_type = "꽃가루"
+            break
+        elif choice == "3":
+            animal_type = "새"
+            emoji = "🐦"
+            food_type = "씨앗"
+            break
+        else:
+            print("1, 2, 3 중에서 선택하세요.")
+    
+    animal_name = input(f"{animal_type} 이름: ")
+    
+    new_animal = {
+        "id": animal_counter,
+        "name": animal_name,
+        "type": animal_type,
+        "emoji": emoji,
+        "food_type": food_type,
+        "happiness": 90,
+        "hunger": 30,
+        "energy": 70,
+        "added_date": datetime.datetime.now().strftime("%Y-%m-%d")
+    }
+    
+    animals.append(new_animal)
+    animal_counter += 1
+    
+    print(f"{emoji} {animal_name}가 생태계에 추가되었습니다!")
+    
+    # 첫 동물 추가 업적
+    if len(animals) == 1 and "첫 번째 동물 친구" not in achievements:
+        achievements.append("첫 번째 동물 친구")
+        print("🏆 업적 달성: 첫 번째 동물 친구!")
+
+def manage_plants():
+    """식물 관리 (물주기, 영양분)"""
+    print("\n=== 식물 관리 ===")
+    
+    if not plants:
+        print("심어진 식물이 없습니다.")
+        return
+    
+    print("1. 물주기")
+    print("2. 영양분 주기")
+    action = input("선택: ")
+    
+    print("\n관리할 식물을 선택하세요:")
+    for i, plant in enumerate(plants):
+        print(f"{i+1}. {plant['name']} (건강: {plant['health']}%, 물: {plant['water_level']}%)")
+    
+    while True:
+        choice_input = input("선택 (번호): ")
+        if choice_input.isdigit():
+            choice = int(choice_input)
+            if 1 <= choice <= len(plants):
+                selected_plant = plants[choice-1]
+                
+                if action == "1":
+                    # 물주기
+                    water_amount = 30
+                    if current_weather == "🌧️ 비":
+                        water_amount += 20
+                        print("비가 와서 물 효과가 증가했습니다!")
+                    
+                    selected_plant["water_level"] = min(100, selected_plant["water_level"] + water_amount)
+                    selected_plant["health"] = min(100, selected_plant["health"] + 5)
+                    
+                    print(f"💧 {selected_plant['name']}에게 물을 주었습니다!")
+                    
+                elif action == "2":
+                    # 영양분 주기
+                    nutrient_amount = 20
+                    if current_season == "🌸 봄":
+                        nutrient_amount += 10
+                        print("봄철이라 영양분 효과가 증가했습니다!")
+                    
+                    selected_plant["growth_points"] += nutrient_amount
+                    selected_plant["health"] = min(100, selected_plant["health"] + 10)
+                    
+                    print(f"🌿 {selected_plant['name']}에게 영양분을 주었습니다!")
+                
+                print(f"현재 상태 - 건강: {selected_plant['health']}%, 물: {selected_plant['water_level']}%")
+                break
+            else:
+                print("올바른 번호를 선택하세요.")
+        else:
+            print("숫자를 입력하세요.")
+
+def manage_animals():
+    """동물 관리 (먹이주기, 놀아주기)"""
+    print("\n=== 동물 관리 ===")
+    
+    if not animals:
+        print("추가된 동물이 없습니다.")
+        return
+    
+    print("1. 먹이주기")
+    print("2. 놀아주기")
+    action = input("선택: ")
+    
+    print("\n관리할 동물을 선택하세요:")
+    for i, animal in enumerate(animals):
+        print(f"{i+1}. {animal['emoji']} {animal['name']} (행복: {animal['happiness']}%, 배고픔: {animal['hunger']}%)")
+    
+    while True:
+        choice_input = input("선택 (번호): ")
+        if choice_input.isdigit():
+            choice = int(choice_input)
+            if 1 <= choice <= len(animals):
+                selected_animal = animals[choice-1]
+                
+                if action == "1":
+                    # 먹이주기
+                    food_available = False
+                    if selected_animal["food_type"] == "채식":
+                        if plants:
+                            food_available = True
+                    elif selected_animal["food_type"] == "꽃가루":
+                        for plant in plants:
+                            if plant["flowers"] > 0:
+                                food_available = True
+                                plant["flowers"] -= 1
+                                break
+                    elif selected_animal["food_type"] == "씨앗":
+                        for plant in plants:
+                            if plant["seeds"] > 0:
+                                food_available = True
+                                plant["seeds"] -= 1
+                                break
+                    
+                    if food_available:
+                        selected_animal["hunger"] = max(0, selected_animal["hunger"] - 40)
+                        selected_animal["happiness"] = min(100, selected_animal["happiness"] + 15)
+                        selected_animal["energy"] = min(100, selected_animal["energy"] + 20)
+                        
+                        print(f"🍽️ {selected_animal['name']}에게 먹이를 주었습니다!")
+                    else:
+                        print(f"❌ {selected_animal['food_type']} 먹이가 부족합니다!")
+                
+                elif action == "2":
+                    # 놀아주기
+                    if selected_animal["energy"] > 30:
+                        selected_animal["happiness"] = min(100, selected_animal["happiness"] + 20)
+                        selected_animal["energy"] = max(0, selected_animal["energy"] - 20)
+                        print(f"🎾 {selected_animal['name']}와 즐겁게 놀았습니다!")
+                    else:
+                        print(f"😴 {selected_animal['name']}이(가) 너무 피곤해서 놀 수 없습니다.")
+                
+                print(f"현재 상태 - 행복: {selected_animal['happiness']}%, 배고픔: {selected_animal['hunger']}%, 에너지: {selected_animal['energy']}%")
+                break
+            else:
+                print("올바른 번호를 선택하세요.")
+        else:
+            print("숫자를 입력하세요.")
+
+def view_ecosystem():
+    """생태계 현황 보기"""
+    global current_weather, current_season, ecosystem_score
+    
+    print(f"\n=== 🌿 생태계 현황 ===")
+    print(f"날씨: {current_weather} | 계절: {current_season} | 운영일: {game_day}일")
+    
+    if not plants and not animals:
+        print("아직 아무것도 없는 빈 생태계입니다.")
+        ecosystem_score = 0
+        return
+    
+    print("\n🌱 식물 현황:")
+    plant_diversity = 0
+    for plant in plants:
+        if plant["growth_points"] < 50:
+            stage = "새싹"
+            emoji = "🌱"
+        elif plant["growth_points"] < 100:
+            stage = "청년"
+            emoji = "🌿"
+            plant_diversity += 1
+        else:
+            stage = "성인"
+            emoji = "🌸"
+            plant_diversity += 2
+            
+        print(f"{emoji} {plant['name']} ({stage}) - 건강: {plant['health']}%")
+        if plant["flowers"] > 0:
+            print(f"   꽃: {plant['flowers']}개 🌺")
+        if plant["seeds"] > 0:
+            print(f"   씨앗: {plant['seeds']}개")
+    
+    print("\n🐾 동물 현황:")
+    animal_satisfaction = 0
+    for animal in animals:
+        mood = "매우 행복" if animal["happiness"] > 80 else "행복" if animal["happiness"] > 60 else "보통" if animal["happiness"] > 40 else "불만"
+        print(f"{animal['emoji']} {animal['name']} - 행복도: {animal['happiness']}% ({mood})")
+        if animal["happiness"] > 70:
+            animal_satisfaction += 1
+    
+    # 생태계 균형도 계산
+    balance = 0
+    if plants:
+        plant_health_avg = sum(plant["health"] for plant in plants) / len(plants)
+        balance += plant_health_avg * 0.4
+    
+    if animals:
+        animal_happiness_avg = sum(animal["happiness"] for animal in animals) / len(animals)
+        balance += animal_happiness_avg * 0.4
+    
+    # 다양성 보너스
+    diversity_bonus = min(20, len(plants) * 5 + len(animals) * 5)
+    balance += diversity_bonus
+    
+    balance = min(100, balance)
+    
+    balance_emoji = "🌿" if balance > 85 else "🍃" if balance > 70 else "🍂" if balance > 50 else "🥀"
+    print(f"\n생태계 균형도: {balance:.0f}% {balance_emoji}")
+    
+    # 평가 등급
+    if balance > 90:
+        grade_stars = "⭐⭐⭐"
+        grade_text = "완벽한 생태계"
+    elif balance > 75:
+        grade_stars = "⭐⭐⭐"
+        grade_text = "훌륭한 생태계"
+    elif balance > 60:
+        grade_stars = "⭐⭐"
+        grade_text = "안정적 생태계"
+    elif balance > 40:
+        grade_stars = "⭐"
+        grade_text = "성장하는 생태계"
+    else:
+        grade_stars = ""
+        grade_text = "관리가 필요한 생태계"
+    
+    print(f"- 식물 다양성: {'우수' if plant_diversity > 4 else '보통' if plant_diversity > 2 else '부족'} {grade_stars}")
+    print(f"- 동물 만족도: {'높음' if animal_satisfaction > len(animals)*0.7 else '보통' if animal_satisfaction > len(animals)*0.4 else '낮음'} {grade_stars}")
+    print(f"- 종합 평가: {grade_text}")
+    
+    ecosystem_score = int(balance * game_day)
+    
+    # 특별 이벤트 확인
+    check_special_events()
+
+def check_special_events():
+    """특별 이벤트 확인"""
+    events = []
+    
+    # 꽃 피기 이벤트
+    for plant in plants:
+        if plant["flowers"] > 0 and plant["growth_points"] >= 100:
+            if plant["flowers"] == 1:
+                events.append(f"🌺 {plant['name']}에서 아름다운 꽃이 피었습니다!")
+    
+    # 새끼 동물 이벤트 (매우 행복한 동물)
+    for animal in animals:
+        if animal["happiness"] > 95 and animal["hunger"] < 20:
+            events.append(f"💕 {animal['name']}이(가) 매우 행복해하며 새로운 친구를 부르고 있습니다!")
+    
+    # 계절별 특별 이벤트
+    if current_season == "🌸 봄" and len(plants) > 2:
+        events.append("🌸 봄의 따뜻한 햇살이 모든 식물의 성장을 촉진시킵니다!")
+    elif current_season == "☀️ 여름" and current_weather == "☀️ 맑음":
+        events.append("☀️ 화창한 여름날, 동물들이 활발하게 활동합니다!")
+    
+    if events:
+        print(f"\n🎉 특별 이벤트:")
+        for event in events:
+            print(f"   {event}")
+
+def show_statistics():
+    """생태계 통계 보기"""
+    print(f"\n=== 📊 생태계 통계 ===")
+    
+    if not plants and not animals:
+        print("통계를 표시할 데이터가 없습니다.")
+        return
+    
+    # 기본 통계
+    total_plants = len(plants)
+    total_animals = len(animals)
+    
+    print(f"운영 일수: {game_day}일")
+    print(f"현재 날씨: {current_weather}")
+    print(f"현재 계절: {current_season}")
+    print(f"총 식물: {total_plants}종")
+    print(f"총 동물: {total_animals}마리")
+    print(f"생태계 점수: {ecosystem_score}점")
+    
+    # 식물 통계
+    if plants:
+        healthy_plants = sum(1 for plant in plants if plant["health"] > 80)
+        mature_plants = sum(1 for plant in plants if plant["growth_points"] >= 100)
+        total_flowers = sum(plant["flowers"] for plant in plants)
+        total_seeds = sum(plant["seeds"] for plant in plants)
+        
+        print(f"\n🌱 식물 세부 통계:")
+        print(f"• 건강한 식물: {healthy_plants}/{total_plants}")
+        print(f"• 성인 식물: {mature_plants}/{total_plants}")
+        print(f"• 총 꽃 개수: {total_flowers}개")
+        print(f"• 총 씨앗 개수: {total_seeds}개")
+    
+    # 동물 통계
+    if animals:
+        happy_animals = sum(1 for animal in animals if animal["happiness"] > 80)
+        well_fed_animals = sum(1 for animal in animals if animal["hunger"] < 30)
+        energetic_animals = sum(1 for animal in animals if animal["energy"] > 70)
+        
+        print(f"\n🐾 동물 세부 통계:")
+        print(f"• 행복한 동물: {happy_animals}/{total_animals}")
+        print(f"• 배부른 동물: {well_fed_animals}/{total_animals}")
+        print(f"• 활발한 동물: {energetic_animals}/{total_animals}")
+    
+    # 업적 표시
+    if achievements:
+        print(f"\n🏆 달성한 업적:")
+        for achievement in achievements:
+            print(f"✅ {achievement}")
+    else:
+        print(f"\n🏆 달성한 업적: 없음")
+
+def time_passes():
+    """시간 경과 및 계절/날씨 변화"""
+    global game_day, current_weather, current_season
+    
+    print(f"\n=== 시간 경과 ===")
+    
+    if not plants and not animals:
+        print("생태계가 비어있습니다.")
+        game_day += 1
+        return
+    
+    game_day += 1
+    print(f"🕐 {game_day}일째가 시작됩니다...")
+    
+    # 날씨 변화 (20% 확률)
+    import random
+    if random.randint(1, 5) == 1:
+        old_weather = current_weather
+        current_weather = random.choice(weather_types)
+        if old_weather != current_weather:
+            print(f"🌤️ 날씨가 {current_weather}(으)로 바뀌었습니다!")
+    
+    # 계절 변화 (7일마다)
+    if game_day % 7 == 0:
+        season_index = (game_day // 7 - 1) % 4
+        new_season = seasons[season_index]
+        if new_season != current_season:
+            current_season = new_season
+            print(f"🗓️ 계절이 {current_season}(으)로 바뀌었습니다!")
+    
+    # 식물 변화
+    for plant in plants:
+        # 날씨 효과
+        water_loss = 15
+        growth_gain = 5
+        
+        if current_weather == "🌧️ 비":
+            water_loss = 5  # 비가 오면 물 손실 적음
+            plant["water_level"] = min(100, plant["water_level"] + 20)
+            print(f"🌧️ {plant['name']}이(가) 빗물을 받았습니다!")
+        elif current_weather == "☀️ 맑음":
+            growth_gain = 8  # 맑으면 성장 빠름
+        elif current_weather == "☁️ 흐림":
+            growth_gain = 3  # 흐리면 성장 느림
+        
+        # 계절 효과
+        if current_season == "🌸 봄":
+            growth_gain += 3
+        elif current_season == "☀️ 여름":
+            water_loss += 5
+        elif current_season == "🍂 가을":
+            if plant["growth_points"] >= 100:
+                plant["seeds"] += 2  # 가을에 씨앗 더 많이 생산
+        elif current_season == "❄️ 겨울":
+            growth_gain = 1
+            water_loss += 10
+        
+        plant["water_level"] = max(0, plant["water_level"] - water_loss)
+        
+        if plant["water_level"] < 30:
+            plant["health"] = max(0, plant["health"] - 10)
+            print(f"⚠️ {plant['name']}이(가) 물이 부족합니다!")
+        else:
+            plant["growth_points"] += growth_gain
+            plant["size"] += 2
+            
+            # 성장 단계 변화 알림
+            if plant["growth_points"] >= 100 and "flowers" not in plant or plant["flowers"] == 0:
+                plant["flowers"] += 1
+                print(f"🌸 {plant['name']}이(가) 성인으로 자라 꽃을 피웠습니다!")
+                
+                # 첫 꽃 피우기 업적
+                if "첫 번째 꽃 피우기" not in achievements:
+                    achievements.append("첫 번째 꽃 피우기")
+                    print("🏆 업적 달성: 첫 번째 꽃 피우기!")
+            
+            elif plant["growth_points"] >= 50 and plant["growth_points"] < 100:
+                if "청년" not in str(plant.get("last_stage", "")):
+                    print(f"🌿 {plant['name']}이(가) 청년으로 자랐습니다!")
+                    plant["last_stage"] = "청년"
+    
+    # 동물 변화
+    for animal in animals:
+        # 기본 변화
+        animal["hunger"] = min(100, animal["hunger"] + 20)
+        animal["energy"] = max(0, animal["energy"] - 10)
+        
+        # 계절별 효과
+        if current_season == "☀️ 여름":
+            animal["energy"] = max(0, animal["energy"] - 5)  # 여름에 더 피곤
+        elif current_season == "❄️ 겨울":
+            animal["hunger"] = min(100, animal["hunger"] + 10)  # 겨울에 더 배고픔
+        
+        # 상태에 따른 행복도 변화
+        if animal["hunger"] > 70:
+            animal["happiness"] = max(0, animal["happiness"] - 15)
+            print(f"😢 {animal['name']}이(가) 배가 고픕니다!")
+        
+        if animal["energy"] < 30:
+            animal["happiness"] = max(0, animal["happiness"] - 10)
+            print(f"😴 {animal['name']}이(가) 피곤합니다!")
+        
+        # 만족한 동물은 자연 회복
+        if animal["hunger"] < 50 and animal["energy"] > 50:
+            animal["happiness"] = min(100, animal["happiness"] + 5)
+    
+    # 균형도 체크 및 업적
+    if plants and animals:
+        plant_health_avg = sum(plant["health"] for plant in plants) / len(plants)
+        animal_happiness_avg = sum(animal["happiness"] for animal in animals) / len(animals)
+        balance = (plant_health_avg + animal_happiness_avg) / 2
+        
+        if balance >= 90 and "생태계 균형 90% 달성" not in achievements:
+            achievements.append("생태계 균형 90% 달성")
+            print("🏆 업적 달성: 생태계 균형 90% 달성!")
+    
+    print("시간이 흘렀습니다.")
+
+# 메인 프로그램
+while True:
+    print(f"\n=== 나의 생태계 ===")
+    print(f"날씨: {current_weather} | 계절: {current_season} | {game_day}일째")
+    
+    # 균형도 간단 표시
+    if plants or animals:
+        balance = 0
+        if plants:
+            plant_health_avg = sum(plant["health"] for plant in plants) / len(plants)
+            balance += plant_health_avg * 0.5
+        if animals:
+            animal_happiness_avg = sum(animal["happiness"] for animal in animals) / len(animals)
+            balance += animal_happiness_avg * 0.5
+        
+        balance_emoji = "🌿" if balance > 80 else "🍃" if balance > 60 else "🍂"
+        print(f"균형도: {balance:.0f}% {balance_emoji}")
+    
+    print("\n1. 식물 관리     2. 동물 관리     3. 생태계 보기")
+    print("4. 통계 보기     5. 시간 경과     6. 종료")
+    
+    choice = input("선택: ")
+    
+    if choice == "1":
+        print("\n1. 식물 심기")
+        print("2. 식물 돌보기 (물주기/영양분)")
+        sub_choice = input("선택: ")
+        
+        if sub_choice == "1":
+            plant_seed()
+        elif sub_choice == "2":
+            manage_plants()
+        else:
+            print("잘못된 선택입니다.")
+    
+    elif choice == "2":
+        print("\n1. 동물 추가")
+        print("2. 동물 돌보기 (먹이/놀아주기)")
+        sub_choice = input("선택: ")
+        
+        if sub_choice == "1":
+            add_animal()
+        elif sub_choice == "2":
+            manage_animals()
+        else:
+            print("잘못된 선택입니다.")
+    
+    elif choice == "3":
+        view_ecosystem()
+    elif choice == "4":
+        show_statistics()
+    elif choice == "5":
+        time_passes()
+    elif choice == "6":
+        print("🌱 생태계 시뮬레이터를 종료합니다!")
+        print(f"최종 점수: {ecosystem_score}점")
+        if achievements:
+            print("달성한 업적:")
+            for achievement in achievements:
+                print(f"🏆 {achievement}")
+        print("수고하셨습니다!")
+        break
+    else:
+        print("잘못된 선택입니다.")
+```
+
+## 💡 핵심 개념 설명
+
+### 1. 복합 데이터 구조
+- **중첩 딕셔너리**: 식물과 동물의 다양한 속성 관리
+- **리스트**: 여러 생물체를 순서대로 저장
+- **상태 관리**: 건강도, 행복도, 물 레벨 등 수치 관리
+
+### 2. 시뮬레이션 로직
+- **시간 시스템**: 날짜, 계절, 날씨 변화
+- **상호작용**: 동물과 식물 간의 먹이 관계
+- **자동 변화**: 시간 경과에 따른 자연스러운 변화
+
+### 3. 게임 요소
+- **업적 시스템**: 특정 조건 달성 시 보상
+- **점수 계산**: 균형도와 운영일수 기반 점수
+- **이벤트**: 특별한 상황에서 발생하는 이벤트
+
+### 4. 사용자 경험
+- **직관적 인터페이스**: 이모지와 상태 표시
+- **진행 상황 피드백**: 변화에 대한 즉각적인 알림
+- **다단계 메뉴**: 복잡한 기능을 체계적으로 구성
+
+### 5. 입력 검증과 예외 처리
+- **isdigit() 활용**: try-except 없이 숫자 입력 검증
+- **범위 검증**: 배열 인덱스 범위 확인
+- **상태 확인**: 먹이 부족, 에너지 부족 등 논리적 검증
+
+이 프로젝트를 통해 실제 시뮬레이션 게임의 핵심 메커니즘을 이해하고, 복잡한 상태 관리와 사용자 상호작용을 구현하는 방법을 배울 수 있습니다!

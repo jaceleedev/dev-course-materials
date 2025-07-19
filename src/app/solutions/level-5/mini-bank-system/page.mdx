@@ -1,0 +1,523 @@
+---
+title: "미니 은행 시스템 (답안)"
+description: "미니 은행 시스템 프로젝트의 완성된 답안입니다"
+---
+
+# 🏦 미니 은행 시스템 (답안)
+
+## 🚀 1단계: 기본 기능 답안
+
+```python
+# 🏦 미니 은행 시스템 - 1단계: 기본 기능
+print("🏦 미니 은행 시스템에 오신 것을 환영합니다!")
+print("="*40)
+
+# 계좌 정보를 저장할 딕셔너리
+accounts = {}
+account_counter = 1
+
+def create_account():
+    """계좌 개설 기능"""
+    global account_counter
+    
+    print("\n=== 계좌 개설 ===")
+    name = input("고객 이름: ")
+    
+    while True:
+        initial_deposit_input = input("초기 입금액: ")
+        if initial_deposit_input.isdigit():
+            initial_deposit = int(initial_deposit_input)
+            if initial_deposit >= 0:
+                break
+            else:
+                print("0원 이상 입력해주세요.")
+        else:
+            print("숫자를 입력해주세요.")
+    
+    # 계좌번호 생성
+    account_num = f"ACC{account_counter:03d}"
+    
+    # 계좌 정보 저장
+    accounts[account_num] = {
+        "name": name,
+        "balance": initial_deposit
+    }
+    
+    account_counter += 1
+    
+    print("계좌가 성공적으로 개설되었습니다!")
+    print(f"계좌번호: {account_num}")
+    print(f"고객명: {name}")
+    print(f"잔액: {initial_deposit:,}원")
+
+def check_balance():
+    """잔액 조회 기능"""
+    print("\n=== 잔액 조회 ===")
+    account_num = input("계좌번호: ")
+    
+    if account_num in accounts:
+        account = accounts[account_num]
+        print(f"고객명: {account['name']}")
+        print(f"현재 잔액: {account['balance']:,}원")
+    else:
+        print("존재하지 않는 계좌번호입니다.")
+
+# 메인 프로그램
+while True:
+    print("\n=== 미니 은행 시스템 ===")
+    print("1. 계좌 개설")
+    print("2. 잔액 조회")
+    print("3. 종료")
+    
+    choice = input("선택: ")
+    
+    if choice == "1":
+        create_account()
+    elif choice == "2":
+        check_balance()
+    elif choice == "3":
+        print("이용해 주셔서 감사합니다!")
+        break
+    else:
+        print("잘못된 선택입니다.")
+```
+
+## 🔥 2단계: 입출금 기능 답안
+
+```python
+# 🏦 미니 은행 시스템 - 2단계: 입출금 기능
+import datetime
+
+print("🏦 미니 은행 시스템에 오신 것을 환영합니다!")
+print("="*40)
+
+# 계좌 정보를 저장할 딕셔너리
+accounts = {}
+account_counter = 1
+
+def get_positive_number(prompt):
+    """양수 입력받는 도우미 함수"""
+    while True:
+        user_input = input(prompt)
+        if user_input.isdigit():
+            number = int(user_input)
+            if number > 0:
+                return number
+            else:
+                print("0보다 큰 수를 입력해주세요.")
+        else:
+            print("숫자를 입력해주세요.")
+
+def get_non_negative_number(prompt):
+    """0 이상 숫자 입력받는 도우미 함수"""
+    while True:
+        user_input = input(prompt)
+        if user_input.isdigit():
+            number = int(user_input)
+            if number >= 0:
+                return number
+            else:
+                print("0 이상의 수를 입력해주세요.")
+        else:
+            print("숫자를 입력해주세요.")
+
+def create_account():
+    """계좌 개설 기능"""
+    global account_counter
+    
+    print("\n=== 계좌 개설 ===")
+    name = input("고객 이름: ")
+    initial_deposit = get_non_negative_number("초기 입금액: ")
+    
+    # 계좌번호 생성
+    account_num = f"ACC{account_counter:03d}"
+    
+    # 계좌 정보 저장
+    accounts[account_num] = {
+        "name": name,
+        "balance": initial_deposit,
+        "created_date": datetime.datetime.now().strftime("%Y-%m-%d")
+    }
+    
+    account_counter += 1
+    
+    print("계좌가 성공적으로 개설되었습니다!")
+    print(f"계좌번호: {account_num}")
+    print(f"고객명: {name}")
+    print(f"잔액: {initial_deposit:,}원")
+
+def check_balance():
+    """잔액 조회 기능"""
+    print("\n=== 잔액 조회 ===")
+    account_num = input("계좌번호: ")
+    
+    if account_num in accounts:
+        account = accounts[account_num]
+        print(f"고객명: {account['name']}")
+        print(f"현재 잔액: {account['balance']:,}원")
+    else:
+        print("존재하지 않는 계좌번호입니다.")
+
+def deposit_money():
+    """입금 기능"""
+    print("\n=== 입금 ===")
+    account_num = input("계좌번호: ")
+    
+    if account_num not in accounts:
+        print("존재하지 않는 계좌번호입니다.")
+        return
+    
+    amount = get_positive_number("입금액: ")
+    accounts[account_num]["balance"] += amount
+    
+    print("입금이 완료되었습니다!")
+    print(f"현재 잔액: {accounts[account_num]['balance']:,}원")
+
+def withdraw_money():
+    """출금 기능"""
+    print("\n=== 출금 ===")
+    account_num = input("계좌번호: ")
+    
+    if account_num not in accounts:
+        print("존재하지 않는 계좌번호입니다.")
+        return
+    
+    amount = get_positive_number("출금액: ")
+    
+    if accounts[account_num]["balance"] < amount:
+        print("잔액이 부족합니다!")
+        print(f"현재 잔액: {accounts[account_num]['balance']:,}원")
+    else:
+        accounts[account_num]["balance"] -= amount
+        print("출금이 완료되었습니다!")
+        print(f"현재 잔액: {accounts[account_num]['balance']:,}원")
+
+def list_all_accounts():
+    """모든 계좌 조회"""
+    print("\n=== 모든 계좌 조회 ===")
+    
+    if not accounts:
+        print("개설된 계좌가 없습니다.")
+        return
+    
+    for account_num, info in accounts.items():
+        print(f"계좌번호: {account_num}")
+        print(f"고객명: {info['name']}")
+        print(f"잔액: {info['balance']:,}원")
+        print(f"개설일: {info['created_date']}")
+        print("-" * 30)
+
+# 메인 프로그램
+while True:
+    print("\n=== 미니 은행 시스템 ===")
+    print("1. 계좌 개설")
+    print("2. 잔액 조회")
+    print("3. 입금")
+    print("4. 출금")
+    print("5. 모든 계좌 조회")
+    print("6. 종료")
+    
+    choice = input("선택: ")
+    
+    if choice == "1":
+        create_account()
+    elif choice == "2":
+        check_balance()
+    elif choice == "3":
+        deposit_money()
+    elif choice == "4":
+        withdraw_money()
+    elif choice == "5":
+        list_all_accounts()
+    elif choice == "6":
+        print("이용해 주셔서 감사합니다!")
+        break
+    else:
+        print("잘못된 선택입니다.")
+```
+
+## 🎖️ 3단계: 고급 기능 답안
+
+```python
+# 🏦 미니 은행 시스템 - 3단계: 고급 기능
+import datetime
+
+print("🏦 미니 은행 시스템에 오신 것을 환영합니다!")
+print("="*40)
+
+# 계좌 정보를 저장할 딕셔너리
+accounts = {}
+# 거래 내역을 저장할 딕셔너리
+transaction_history = {}
+account_counter = 1
+
+def get_positive_number(prompt):
+    """양수 입력받는 도우미 함수"""
+    while True:
+        user_input = input(prompt)
+        if user_input.isdigit():
+            number = int(user_input)
+            if number > 0:
+                return number
+            else:
+                print("0보다 큰 수를 입력해주세요.")
+        else:
+            print("숫자를 입력해주세요.")
+
+def get_non_negative_number(prompt):
+    """0 이상 숫자 입력받는 도우미 함수"""
+    while True:
+        user_input = input(prompt)
+        if user_input.isdigit():
+            number = int(user_input)
+            if number >= 0:
+                return number
+            else:
+                print("0 이상의 수를 입력해주세요.")
+        else:
+            print("숫자를 입력해주세요.")
+
+def add_transaction(account_num, transaction_type, amount, balance_after):
+    """거래 내역 추가"""
+    if account_num not in transaction_history:
+        transaction_history[account_num] = []
+    
+    transaction = {
+        "date": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "type": transaction_type,
+        "amount": amount,
+        "balance": balance_after
+    }
+    
+    transaction_history[account_num].append(transaction)
+
+def create_account():
+    """계좌 개설 기능"""
+    global account_counter
+    
+    print("\n=== 계좌 개설 ===")
+    name = input("고객 이름: ")
+    initial_deposit = get_non_negative_number("초기 입금액: ")
+    
+    # 계좌번호 생성
+    account_num = f"ACC{account_counter:03d}"
+    
+    # 계좌 정보 저장
+    accounts[account_num] = {
+        "name": name,
+        "balance": initial_deposit,
+        "created_date": datetime.datetime.now().strftime("%Y-%m-%d")
+    }
+    
+    # 계좌개설 거래내역 추가
+    add_transaction(account_num, "계좌개설", initial_deposit, initial_deposit)
+    
+    account_counter += 1
+    
+    print("계좌가 성공적으로 개설되었습니다!")
+    print(f"계좌번호: {account_num}")
+    print(f"고객명: {name}")
+    print(f"잔액: {initial_deposit:,}원")
+
+def check_balance():
+    """잔액 조회 기능"""
+    print("\n=== 잔액 조회 ===")
+    account_num = input("계좌번호: ")
+    
+    if account_num in accounts:
+        account = accounts[account_num]
+        print(f"고객명: {account['name']}")
+        print(f"현재 잔액: {account['balance']:,}원")
+    else:
+        print("존재하지 않는 계좌번호입니다.")
+
+def deposit_money():
+    """입금 기능"""
+    print("\n=== 입금 ===")
+    account_num = input("계좌번호: ")
+    
+    if account_num not in accounts:
+        print("존재하지 않는 계좌번호입니다.")
+        return
+    
+    amount = get_positive_number("입금액: ")
+    accounts[account_num]["balance"] += amount
+    new_balance = accounts[account_num]["balance"]
+    
+    # 거래내역 추가
+    add_transaction(account_num, "입금", amount, new_balance)
+    
+    print("입금이 완료되었습니다!")
+    print(f"현재 잔액: {new_balance:,}원")
+
+def withdraw_money():
+    """출금 기능"""
+    print("\n=== 출금 ===")
+    account_num = input("계좌번호: ")
+    
+    if account_num not in accounts:
+        print("존재하지 않는 계좌번호입니다.")
+        return
+    
+    amount = get_positive_number("출금액: ")
+    
+    if accounts[account_num]["balance"] < amount:
+        print("잔액이 부족합니다!")
+        print(f"현재 잔액: {accounts[account_num]['balance']:,}원")
+    else:
+        accounts[account_num]["balance"] -= amount
+        new_balance = accounts[account_num]["balance"]
+        
+        # 거래내역 추가
+        add_transaction(account_num, "출금", -amount, new_balance)
+        
+        print("출금이 완료되었습니다!")
+        print(f"현재 잔액: {new_balance:,}원")
+
+def list_all_accounts():
+    """모든 계좌 조회"""
+    print("\n=== 모든 계좌 조회 ===")
+    
+    if not accounts:
+        print("개설된 계좌가 없습니다.")
+        return
+    
+    for account_num, info in accounts.items():
+        print(f"계좌번호: {account_num}")
+        print(f"고객명: {info['name']}")
+        print(f"잔액: {info['balance']:,}원")
+        print(f"개설일: {info['created_date']}")
+        print("-" * 30)
+
+def view_transaction_history():
+    """거래 내역 조회"""
+    print("\n=== 거래 내역 조회 ===")
+    account_num = input("계좌번호: ")
+    
+    if account_num not in accounts:
+        print("존재하지 않는 계좌번호입니다.")
+        return
+    
+    if account_num not in transaction_history:
+        print("거래 내역이 없습니다.")
+        return
+    
+    print(f"\n{accounts[account_num]['name']}님의 거래 내역:")
+    print("-" * 50)
+    
+    for transaction in transaction_history[account_num]:
+        sign = "+" if transaction["amount"] > 0 else ""
+        print(f"[{transaction['date']}] {transaction['type']}: {sign}{transaction['amount']:,}원 (잔액: {transaction['balance']:,}원)")
+
+def transfer_money():
+    """계좌 간 이체"""
+    print("\n=== 계좌 이체 ===")
+    
+    from_account = input("보내는 계좌: ")
+    if from_account not in accounts:
+        print("존재하지 않는 보내는 계좌번호입니다.")
+        return
+    
+    to_account = input("받는 계좌: ")
+    if to_account not in accounts:
+        print("존재하지 않는 받는 계좌번호입니다.")
+        return
+    
+    if from_account == to_account:
+        print("같은 계좌로는 이체할 수 없습니다.")
+        return
+    
+    amount = get_positive_number("이체 금액: ")
+    
+    if accounts[from_account]["balance"] < amount:
+        print("잔액이 부족합니다!")
+        print(f"현재 잔액: {accounts[from_account]['balance']:,}원")
+        return
+    
+    # 이체 처리
+    accounts[from_account]["balance"] -= amount
+    accounts[to_account]["balance"] += amount
+    
+    # 거래내역 추가
+    add_transaction(from_account, f"이체출금({to_account})", -amount, accounts[from_account]["balance"])
+    add_transaction(to_account, f"이체입금({from_account})", amount, accounts[to_account]["balance"])
+    
+    print("이체가 완료되었습니다!")
+    print(f"{from_account} 잔액: {accounts[from_account]['balance']:,}원")
+    print(f"{to_account} 잔액: {accounts[to_account]['balance']:,}원")
+
+def bank_statistics():
+    """은행 통계"""
+    print("\n=== 은행 통계 ===")
+    
+    if not accounts:
+        print("등록된 계좌가 없습니다.")
+        return
+    
+    total_customers = len(accounts)
+    total_balance = sum(account["balance"] for account in accounts.values())
+    average_balance = total_balance / total_customers if total_customers > 0 else 0
+    
+    print(f"총 고객 수: {total_customers}명")
+    print(f"총 예치금액: {total_balance:,}원")
+    print(f"평균 계좌 잔액: {average_balance:,.0f}원")
+
+# 메인 프로그램
+while True:
+    print("\n=== 미니 은행 시스템 ===")
+    print("1. 계좌 개설    2. 잔액 조회    3. 입금")
+    print("4. 출금        5. 모든 계좌 조회  6. 거래 내역")
+    print("7. 계좌 이체    8. 은행 통계     9. 종료")
+    
+    choice = input("선택: ")
+    
+    if choice == "1":
+        create_account()
+    elif choice == "2":
+        check_balance()
+    elif choice == "3":
+        deposit_money()
+    elif choice == "4":
+        withdraw_money()
+    elif choice == "5":
+        list_all_accounts()
+    elif choice == "6":
+        view_transaction_history()
+    elif choice == "7":
+        transfer_money()
+    elif choice == "8":
+        bank_statistics()
+    elif choice == "9":
+        print("이용해 주셔서 감사합니다!")
+        break
+    else:
+        print("잘못된 선택입니다.")
+```
+
+## 💡 핵심 개념 설명
+
+### 1. 입력 검증 함수
+- **get_positive_number()**: 양수만 입력받는 도우미 함수
+- **get_non_negative_number()**: 0 이상 숫자만 입력받는 함수
+- **isdigit()**: 문자열이 숫자인지 확인하는 메서드
+
+### 2. 함수 활용
+- **모듈화**: 각 기능을 독립적인 함수로 구현
+- **재사용성**: 거래내역 추가, 입력 검증 함수 등 공통 기능 함수화
+- **가독성**: 메인 프로그램의 간결성
+
+### 3. 데이터 구조
+- **딕셔너리**: 계좌 정보를 키-값 쌍으로 관리
+- **중첩 구조**: 계좌 안에 여러 정보 저장
+- **리스트**: 거래 내역을 순서대로 저장
+
+### 4. 예외 처리 (try-except 대신)
+- **isdigit() 활용**: 숫자 입력 검증
+- **논리적 검증**: 잔액 부족, 존재하지 않는 계좌 등
+- **반복문 활용**: 올바른 입력이 나올 때까지 반복
+
+### 5. 시간 관리
+- **datetime 모듈**: 현재 시간 기록
+- **문자열 포맷팅**: 읽기 쉬운 날짜 형식
+
+이 프로젝트를 통해 실제 은행 시스템의 핵심 로직을 이해하고, 함수형 프로그래밍의 장점을 체험할 수 있습니다!
