@@ -1,0 +1,607 @@
+---
+title: "매개변수와 인수 - 함수에 정보 전달하기"
+description: "매개변수와 인수의 개념을 이해하고 다양한 방법으로 함수에 데이터를 전달하는 방법을 학습합니다"
+---
+
+import InteractiveChecklist from "@/components/ui/interactive-checklist";
+
+# Topic 2: 매개변수와 인수 - 함수에 정보 전달하기 📬
+
+## 🎯 학습 목표
+
+매개변수와 인수의 개념을 이해하고, 함수에 다양한 방법으로 데이터를 전달하여 더욱 유연하고 강력한 함수를 만들 수 있습니다.
+
+## 🤔 매개변수와 인수란?
+
+### 일상 속 매개변수와 인수
+
+**배달 음식 주문**을 생각해보세요:
+
+```
+배달_주문하기(음식="치킨", 개수=2, 주소="서울시 강남구"):
+    1. 음식 종류 확인: 치킨
+    2. 개수 확인: 2개
+    3. 주소 확인: 서울시 강남구
+    4. 주문 완료!
+```
+
+- **매개변수(Parameter)**: 음식, 개수, 주소 (함수가 받을 정보의 이름)
+- **인수(Argument)**: "치킨", 2, "서울시 강남구" (실제로 전달하는 값)
+
+### 프로그래밍에서의 매개변수와 인수
+
+```python
+def greet(name):  # name: 매개변수
+    print(f"안녕하세요, {name}님!")
+
+greet("민지")  # "민지": 인수
+```
+
+**매개변수와 인수의 차이점:**
+
+- **매개변수**: 함수 정의할 때 괄호 안에 쓰는 변수 이름
+- **인수**: 함수 호출할 때 실제로 전달하는 값
+
+## 📚 실생활 예제: 개인화된 학급 관리
+
+### 예제 1: 개인화된 학생 인사
+
+**문제 상황**: 각 학생마다 다른 이름으로 인사해야 합니다.
+
+**매개변수 없는 함수 (한계):**
+
+```python
+def greet_minji():
+    print("안녕하세요, 김민지님!")
+    print("오늘도 좋은 하루 되세요!")
+
+def greet_junho():
+    print("안녕하세요, 이준호님!")
+    print("오늘도 좋은 하루 되세요!")
+
+# 학생마다 함수를 따로 만들어야 함...
+```
+
+**매개변수를 사용한 개선:**
+
+```python
+def greet_student(name):
+    """학생에게 개인화된 인사를 하는 함수"""
+    print(f"안녕하세요, {name}님!")
+    print("오늘도 좋은 하루 되세요!")
+    print()
+
+# 하나의 함수로 모든 학생에게 인사
+greet_student("김민지")
+greet_student("이준호")
+greet_student("박하은")
+greet_student("정도윤")
+```
+
+### 예제 2: 개인 성적 계산기
+
+**문제 상황**: 학생마다 다른 점수로 성적을 계산해야 합니다.
+
+```python
+def calculate_grade(name, korean, english, math):
+    """개별 학생의 성적을 계산하는 함수"""
+    print(f"=== {name} 학생 성적표 ===")
+
+    # 평균 계산
+    average = (korean + english + math) / 3
+
+    # 성적 출력
+    print(f"국어: {korean}점")
+    print(f"영어: {english}점")
+    print(f"수학: {math}점")
+    print(f"평균: {average:.1f}점")
+
+    # 등급 판정
+    if average >= 90:
+        grade = "A"
+    elif average >= 80:
+        grade = "B"
+    elif average >= 70:
+        grade = "C"
+    else:
+        grade = "F"
+
+    print(f"등급: {grade}")
+    print()
+
+# 여러 학생의 성적 계산
+calculate_grade("김민지", 85, 92, 88)
+calculate_grade("이준호", 90, 88, 95)
+calculate_grade("박하은", 76, 84, 89)
+```
+
+## 🔢 여러 개의 매개변수
+
+### 순서가 중요한 매개변수
+
+```python
+def print_student_info(name, grade, class_num, number):
+    """학생의 상세 정보를 출력하는 함수"""
+    print("📋 === 학생 정보 === 📋")
+    print(f"이름: {name}")
+    print(f"학년: {grade}학년")
+    print(f"반: {class_num}반")
+    print(f"번호: {number}번")
+    print()
+
+# 순서대로 전달해야 함
+print_student_info("김민지", 2, 3, 15)
+print_student_info("이준호", 2, 3, 8)
+```
+
+### 계산기 함수들
+
+```python
+def add(num1, num2):
+    """두 수를 더하는 함수"""
+    result = num1 + num2
+    print(f"{num1} + {num2} = {result}")
+    return result
+
+def subtract(num1, num2):
+    """두 수를 빼는 함수"""
+    result = num1 - num2
+    print(f"{num1} - {num2} = {result}")
+    return result
+
+def multiply(num1, num2):
+    """두 수를 곱하는 함수"""
+    result = num1 * num2
+    print(f"{num1} × {num2} = {result}")
+    return result
+
+def divide(num1, num2):
+    """두 수를 나누는 함수"""
+    if num2 != 0:
+        result = num1 / num2
+        print(f"{num1} ÷ {num2} = {result:.2f}")
+        return result
+    else:
+        print("0으로 나눌 수 없습니다!")
+        return None
+
+# 계산기 사용
+add(10, 5)       # 10 + 5 = 15
+subtract(10, 3)  # 10 - 3 = 7
+multiply(4, 6)   # 4 × 6 = 24
+divide(15, 3)    # 15 ÷ 3 = 5.00
+```
+
+## ⚡ 기본값 매개변수 (Default Parameters)
+
+### 기본값이 있는 함수
+
+```python
+def order_school_meal(menu, quantity=1, spiciness="보통"):
+    """급식을 주문하는 함수 (개수와 맵기는 기본값 있음)"""
+    print(f"📋 === 급식 주문 === 📋")
+    print(f"메뉴: {menu}")
+    print(f"개수: {quantity}개")
+    print(f"맵기: {spiciness}")
+    print("주문이 완료되었습니다!")
+    print()
+
+# 다양한 호출 방법
+order_school_meal("김치찌개")                    # quantity=1, spiciness="보통"
+order_school_meal("떡볶이", 2)                   # quantity=2, spiciness="보통"
+order_school_meal("라면", 1, "매움")             # 모든 값 지정
+```
+
+### 실용적인 기본값 예제
+
+```python
+def analyze_exam_result(subject, score, total_score=100):
+    """시험 결과를 분석하는 함수"""
+    print(f"=== {subject} 시험 결과 ===")
+
+    # 백분율 계산
+    percentage = (score / total_score) * 100
+
+    print(f"점수: {score}점 / {total_score}점")
+    print(f"백분율: {percentage:.1f}%")
+
+    # 성취도 판정
+    if percentage >= 90:
+        achievement = "매우 우수"
+    elif percentage >= 80:
+        achievement = "우수"
+    elif percentage >= 70:
+        achievement = "보통"
+    else:
+        achievement = "노력 필요"
+
+    print(f"성취도: {achievement}")
+    print()
+
+# 다양한 시험 분석
+analyze_exam_result("수학", 85)        # 만점 100점
+analyze_exam_result("영어", 45, 50)    # 만점 50점
+analyze_exam_result("과학", 180, 200)  # 만점 200점
+```
+
+## 🔖 키워드 인수 (Keyword Arguments)
+
+### 이름으로 인수 전달하기
+
+```python
+def library_book_loan(title, author, loan_days=7, extendable=True):
+    """도서관에서 책을 대출하는 함수"""
+    print(f"📚 === 책 대출 정보 === 📚")
+    print(f"제목: {title}")
+    print(f"저자: {author}")
+    print(f"대출 기간: {loan_days}일")
+    print(f"연장 가능: {'예' if extendable else '아니오'}")
+    print()
+
+# 순서대로 전달
+library_book_loan("해리포터", "J.K. 롤링")
+
+# 키워드로 전달 (순서 바뀌어도 됨)
+library_book_loan(author="토니 로빈스", title="부의 대화", loan_days=14)
+
+# 일부는 순서대로, 일부는 키워드로
+library_book_loan("데미안", "헤르만 헤세", extendable=False)
+```
+
+### 학급 이벤트 관리 예제
+
+```python
+def plan_class_event(event_name, date, location="교실", fee=0, items="없음"):
+    """학급 이벤트를 계획하는 함수"""
+    print(f"🎉 === {event_name} 계획 === 🎉")
+    print(f"날짜: {date}")
+    print(f"장소: {location}")
+    print(f"참가비: {fee:,}원")
+    print(f"준비물: {items}")
+    print("-" * 30)
+
+# 다양한 이벤트 계획
+plan_class_event("반 모임", "2024년 3월 15일")
+
+plan_class_event(
+    event_name="체육대회 응원",
+    date="2024년 4월 20일",
+    location="운동장",
+    items="응원도구, 모자"
+)
+
+plan_class_event(
+    "영화 관람",
+    "2024년 5월 10일",
+    location="CGV 강남점",
+    fee=12000,
+    items="학생증"
+)
+```
+
+## 📊 데이터 처리 예제: 학생 정보 관리 시스템
+
+### 학생 정보 등록 함수
+
+```python
+def register_student(name, student_id, grade=1, phone="미등록", address="미등록"):
+    """새로운 학생을 등록하는 함수"""
+    print(f"📝 === 학생 등록 완료 === 📝")
+    print(f"이름: {name}")
+    print(f"학번: {student_id}")
+    print(f"학년: {grade}학년")
+    print(f"전화번호: {phone}")
+    print(f"주소: {address}")
+    print("등록이 완료되었습니다!")
+    print()
+
+# 다양한 방법으로 학생 등록
+register_student("김민지", "2024001")
+
+register_student("이준호", "2024002", grade=2, phone="010-1234-5678")
+
+register_student(
+    name="박하은",
+    student_id="2024003",
+    grade=3,
+    phone="010-9876-5432",
+    address="서울시 강남구"
+)
+```
+
+### 성적 처리 함수
+
+```python
+def input_and_analyze_grades(name, **subject_scores):
+    """학생의 여러 과목 성적을 입력받아 분석하는 함수"""
+    print(f"📊 === {name} 학생 성적 분석 === 📊")
+
+    score_list = list(subject_scores.values())
+    subject_count = len(score_list)
+
+    if subject_count == 0:
+        print("입력된 성적이 없습니다.")
+        return
+
+    # 과목별 점수 출력
+    print("📋 과목별 점수:")
+    for subject, score in subject_scores.items():
+        print(f"  {subject}: {score}점")
+
+    # 통계 계산
+    total = sum(score_list)
+    average = total / subject_count
+    highest = max(score_list)
+    lowest = min(score_list)
+
+    print(f"\n📈 성적 통계:")
+    print(f"  총점: {total}점")
+    print(f"  평균: {average:.1f}점")
+    print(f"  최고점: {highest}점")
+    print(f"  최저점: {lowest}점")
+
+    # 등급 판정
+    if average >= 90:
+        grade = "A"
+    elif average >= 80:
+        grade = "B"
+    elif average >= 70:
+        grade = "C"
+    else:
+        grade = "F"
+
+    print(f"  등급: {grade}")
+    print()
+
+# 다양한 과목 성적 입력
+input_and_analyze_grades("김민지", 국어=85, 영어=92, 수학=88)
+
+input_and_analyze_grades(
+    "이준호",
+    국어=90,
+    영어=88,
+    수학=95,
+    과학=87,
+    사회=91
+)
+
+input_and_analyze_grades("박하은", 국어=76, 영어=84)
+```
+
+## 🛍️ 실용 예제: 온라인 쇼핑몰 시스템
+
+### 상품 주문 함수
+
+```python
+def order_product(product_name, quantity, price, shipping_fee=3000, discount_rate=0):
+    """온라인 쇼핑몰에서 상품을 주문하는 함수"""
+    print(f"🛒 === 주문 확인서 === 🛒")
+    print(f"상품명: {product_name}")
+    print(f"수량: {quantity}개")
+    print(f"단가: {price:,}원")
+
+    # 가격 계산
+    product_amount = price * quantity
+    discount_amount = int(product_amount * discount_rate)
+    shipping_cost = shipping_fee if product_amount < 50000 else 0  # 5만원 이상 무료배송
+    total_amount = product_amount - discount_amount + shipping_cost
+
+    print(f"\n💰 결제 정보:")
+    print(f"  상품 금액: {product_amount:,}원")
+    if discount_amount > 0:
+        print(f"  할인 금액: -{discount_amount:,}원")
+    print(f"  배송비: {shipping_cost:,}원")
+    print(f"  총 결제 금액: {total_amount:,}원")
+
+    if shipping_cost == 0 and product_amount >= 50000:
+        print("🎉 무료배송 혜택이 적용되었습니다!")
+
+    print()
+
+# 다양한 주문 처리
+order_product("노트북", 1, 800000)
+
+order_product("무선마우스", 2, 25000, discount_rate=0.1)
+
+order_product(
+    product_name="책상",
+    quantity=1,
+    price=120000,
+    shipping_fee=5000,
+    discount_rate=0.15
+)
+```
+
+### 회원 정보 관리 함수
+
+```python
+def sign_up(user_id, password, name, age=None, email=None, phone=None):
+    """회원가입을 처리하는 함수"""
+    print(f"👤 === 회원가입 완료 === 👤")
+    print(f"아이디: {user_id}")
+    print(f"이름: {name}")
+
+    if age:
+        print(f"나이: {age}세")
+    if email:
+        print(f"이메일: {email}")
+    if phone:
+        print(f"전화번호: {phone}")
+
+    print("회원가입이 성공적으로 완료되었습니다!")
+    print("환영합니다! 🎉")
+    print()
+
+# 다양한 회원가입 방식
+sign_up("user123", "password123", "김민지")
+
+sign_up(
+    user_id="student456",
+    password="mypassword",
+    name="이준호",
+    age=17,
+    email="junho@email.com"
+)
+
+sign_up(
+    "haeun789",
+    "secretpwd",
+    "박하은",
+    phone="010-1234-5678",
+    email="haeun@email.com",
+    age=16
+)
+```
+
+## 🚨 자주 발생하는 오류와 해결법
+
+### 오류 1: 필수 매개변수 누락
+
+```python
+# ❌ 틀린 예시
+def introduce_student(name, grade, class_num):
+    print(f"{name}: {grade}학년 {class_num}반")
+
+introduce_student("김민지", 2)  # 반 매개변수 누락
+# TypeError: 학생_소개() missing 1 required positional argument: '반'
+```
+
+**해결**: 모든 필수 매개변수 전달
+
+```python
+# ✅ 올바른 예시
+introduce_student("김민지", 2, 3)  # 모든 매개변수 전달
+```
+
+### 오류 2: 매개변수 순서 혼동
+
+```python
+def print_grades(name, korean, english, math):
+    print(f"{name}: 국어 {korean}, 영어 {english}, 수학 {math}")
+
+# ❌ 틀린 예시 - 순서 잘못
+print_grades(85, "김민지", 90, 78)  # 이름과 점수 순서 바뀜
+
+# ✅ 올바른 예시
+print_grades("김민지", 85, 90, 78)  # 올바른 순서
+# 또는 키워드 인수 사용
+print_grades(name="김민지", korean=85, english=90, math=78)
+```
+
+### 오류 3: 기본값 매개변수 위치 오류
+
+```python
+# ❌ 틀린 예시 - 기본값이 있는 매개변수가 앞에 옴
+def wrong_function(name="익명", age):  # SyntaxError
+    print(f"{name}: {age}세")
+
+# ✅ 올바른 예시 - 기본값이 있는 매개변수가 뒤에 옴
+def correct_function(age, name="익명"):
+    print(f"{name}: {age}세")
+```
+
+## 💡 간단한 연습 예제
+
+### 예제 1: 개인화된 인사 함수
+
+```python
+def greet_with_time(name, time="오전"):
+    """시간대에 따른 개인화된 인사"""
+    print(f"{time}에 만나는 {name}님, 안녕하세요!")
+    if time == "오전":
+        print("좋은 하루 시작하세요!")
+    elif time == "오후":
+        print("점심은 드셨나요?")
+    else:
+        print("편안한 저녁 되세요!")
+
+# 다양한 사용법
+greet_with_time("김민지")              # 기본값 "오전" 사용
+greet_with_time("이준호", "오후")       # 시간 지정
+greet_with_time("박하은", "저녁")       # 저녁 인사
+```
+
+### 예제 2: 간단한 계산기
+
+```python
+def simple_calculator(operation, a, b):
+    """간단한 계산기 함수"""
+    if operation == "add":
+        result = a + b
+        print(f"{a} + {b} = {result}")
+    elif operation == "subtract":
+        result = a - b
+        print(f"{a} - {b} = {result}")
+    elif operation == "multiply":
+        result = a * b
+        print(f"{a} × {b} = {result}")
+    else:
+        print("지원하지 않는 연산입니다")
+        result = None
+
+    return result
+
+# 계산기 사용
+simple_calculator("add", 10, 5)       # 10 + 5 = 15
+simple_calculator("multiply", 3, 4)   # 3 × 4 = 12
+```
+
+## 💡 매개변수와 인수 활용 팁
+
+### 1. 함수 설계 원칙
+
+- **필수 정보**는 매개변수로, **선택 정보**는 기본값 매개변수로
+- **자주 사용하는 값**을 기본값으로 설정
+- **의미가 명확한 이름** 사용
+
+### 2. 가독성 향상
+
+- 인수가 많을 때는 **키워드 인수** 사용
+- **함수 이름**과 **매개변수 이름**을 명확하게 작성
+- **docstring**으로 매개변수 설명 추가
+
+### 3. 유연성 확보
+
+- **기본값 매개변수**로 함수 호출을 간단하게
+- **키워드 인수**로 순서에 상관없이 호출
+- **가변 인수**(\*args, \*\*kwargs)로 확장 가능한 함수 작성
+
+## ✅ 매개변수와 인수 완성 체크리스트
+
+<InteractiveChecklist
+  storageKey="python-parameters-arguments-checklist"
+  title="✅ 매개변수와 인수 완성 체크리스트"
+  items={[
+    { id: "concept", text: "매개변수와 인수의 차이를 이해했다" },
+    { id: "basic_params", text: "기본 매개변수를 사용한 함수를 만들 수 있다" },
+    { id: "multiple_params", text: "여러 개의 매개변수를 사용할 수 있다" },
+    { id: "default_params", text: "기본값 매개변수를 활용할 수 있다" },
+    { id: "keyword_args", text: "키워드 인수로 함수를 호출할 수 있다" },
+    { id: "parameter_order", text: "매개변수 순서 규칙을 이해했다" },
+    { id: "practical_examples", text: "실용적인 예제들을 실습해봤다" },
+    { id: "error_handling", text: "자주 발생하는 오류들을 해결할 수 있다" },
+    { id: "practice_complete", text: "간단한 연습 예제를 실습해봤다" },
+  ]}
+  completionMessage="🎉 축하합니다! 매개변수와 인수를 완벽하게 마스터했습니다!"
+/>
+
+## 🌟 다음 단계 미리보기
+
+다음 토픽에서는 **반환값(return)**을 배워봅니다:
+
+- 함수가 **결과를 돌려주는** 방법
+- **계산 결과를 저장**하고 활용하기
+- **더욱 강력한 함수** 만들기
+
+예를 들어:
+
+```python
+def add(a, b):
+    result = a + b
+    return result  # 결과를 돌려줌
+
+total = add(10, 20)  # 30이 저장됨
+print(f"10 + 20 = {total}")  # 결과 활용
+```
+
+**함수가 진정한 계산 도구가 됩니다!** 🚀

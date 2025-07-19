@@ -13,6 +13,9 @@ const pythonMeta: MetaRecord = {
   "unit-4": {
     title: "Unit 4: 자료구조 마스터",
   },
+  "unit-5": {
+    title: "Unit 5: 코드 재활용의 기술: 함수",
+  },
 };
 
 export default pythonMeta;

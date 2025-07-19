@@ -1,0 +1,404 @@
+---
+title: "반환값과 스코프 - 함수의 결과와 변수 범위"
+description: "함수의 반환값과 변수 스코프의 기본 개념을 이해하고 실습합니다"
+---
+
+import InteractiveChecklist from "@/components/ui/interactive-checklist";
+
+# Topic 3: 반환값과 스코프 - 함수의 결과와 변수 범위 🔄
+
+## 🎯 학습 목표
+
+함수의 반환값과 변수 스코프의 기본 개념을 이해하여 효율적인 함수를 작성할 수 있습니다.
+
+## 📤 반환값(Return) 기본
+
+### 함수의 결과 돌려주기
+
+함수는 작업을 완료한 후 결과를 돌려줄 수 있습니다:
+
+```python
+def add(a, b):
+    result = a + b
+    return result  # 결과를 돌려줌
+
+# 함수 호출하고 결과 받기
+answer = add(10, 20)
+print(f"답: {answer}")  # 답: 30
+```
+
+### return의 특징
+
+**return을 만나면 함수가 즉시 끝납니다:**
+
+```python
+def greet(name):
+    if name:
+        return f"안녕하세요, {name}님!"
+    return "이름을 입력해주세요."
+    print("이 코드는 실행되지 않습니다")  # 도달하지 않음
+
+print(greet("철수"))  # 안녕하세요, 철수님!
+print(greet(""))      # 이름을 입력해주세요.
+```
+
+## 📤 vs 🖨️ return vs print 차이점
+
+### print는 화면에 출력만
+
+```python
+def calculate_and_print(a, b):
+    result = a + b
+    print(f"결과: {result}")  # 화면에만 출력
+    # return이 없으면 None을 돌려줌
+
+answer = calculate_and_print(5, 3)  # 화면에 "결과: 8" 출력
+print(f"받은 값: {answer}")    # 받은 값: None
+```
+
+### return은 값을 돌려줌
+
+```python
+def calculate_and_return(a, b):
+    result = a + b
+    return result  # 값을 돌려줌
+
+answer = calculate_and_return(5, 3)
+print(f"받은 값: {answer}")  # 받은 값: 8
+
+# 받은 값으로 다른 계산도 가능
+new_answer = answer * 2
+print(f"두 배: {new_answer}")  # 두 배: 16
+```
+
+### 실생활 비유
+
+```python
+# print는 방송국 같음 - 모든 사람이 들음
+def broadcast(message):
+    print(f"📢 방송: {message}")
+
+# return은 택배 같음 - 특정 사람에게 전달
+def send_package(item):
+    return f"📦 {item}"
+
+broadcast("안녕하세요!")  # 모든 사람이 들음
+received_package = send_package("선물")  # 나만 받음
+print(f"받은 것: {received_package}")
+```
+
+## 🔢 여러 값 돌려주기
+
+### 두 개 이상의 값 돌려주기
+
+```python
+def get_name_and_age():
+    name = "김철수"
+    age = 15
+    return name, age  # 두 개 값을 돌려줌
+
+# 두 개 값 받기
+student_name, student_age = get_name_and_age()
+print(f"이름: {student_name}")  # 이름: 김철수
+print(f"나이: {student_age}")  # 나이: 15
+```
+
+### 계산 결과 여러 개 돌려주기
+
+```python
+def analyze_scores(scores):
+    total = sum(scores)
+    average = total / len(scores)
+    highest = max(scores)
+    
+    return total, average, highest
+
+# 세 개 값 받기
+scores = [85, 92, 78, 96]
+total_score, avg_score, highest_score = analyze_scores(scores)
+
+print(f"총점: {total_score}")
+print(f"평균: {avg_score:.1f}")
+print(f"최고점: {highest_score}")
+```
+
+## 🌐 변수 스코프 - 변수가 사용되는 범위
+
+### 지역 변수 vs 전역 변수
+
+```python
+# 전역 변수 - 어디서나 사용 가능
+global_message = "모든 곳에서 사용 가능"
+
+def inside_function():
+    # 지역 변수 - 이 함수 안에서만 사용 가능
+    local_message = "함수 안에서만 사용 가능"
+    print(f"함수 안: {global_message}")    # 가능
+    print(f"함수 안: {local_message}")    # 가능
+
+inside_function()
+print(f"함수 밖: {global_message}")      # 가능
+# print(f"함수 밖: {local_message}")     # 오류! 접근 불가
+```
+
+### 같은 이름 변수 사용 시
+
+```python
+name = "전역의 철수"
+
+def test_name():
+    name = "지역의 영희"  # 새로운 지역 변수
+    print(f"함수 안: {name}")
+
+test_name()        # 함수 안: 지역의 영희
+print(f"함수 밖: {name}")  # 함수 밖: 전역의 철수
+```
+
+### 매개변수도 지역 변수
+
+```python
+def calculate(num1, num2):
+    # num1, num2는 지역 변수
+    result = num1 + num2
+    return result
+
+answer = calculate(10, 20)
+print(f"계산 결과: {answer}")
+# print(num1)  # 오류! 매개변수는 함수 밖에서 접근 불가
+```
+
+## 🔑 global 키워드 - 전역 변수 수정하기
+
+### 전역 변수 바꾸기
+
+```python
+score = 0  # 전역 변수
+
+def increase_score():
+    global score  # 전역 변수 사용 선언
+    score += 10
+    print(f"점수가 {score}점이 되었습니다")
+
+increase_score()  # 점수가 10점이 되었습니다
+increase_score()  # 점수가 20점이 되었습니다
+print(f"최종 점수: {score}")  # 최종 점수: 20
+```
+
+### global 없이 시도하면?
+
+```python
+count = 0
+
+def wrong_increment():
+    # global count  # 이 줄이 없으면 오류
+    count += 1     # 오류 발생!
+
+# wrong_increment()  # UnboundLocalError 발생
+```
+
+## 💡 간단한 실습 예제
+
+### 예제 1: 계산기 함수
+
+```python
+def simple_calculator(num1, num2, operation):
+    if operation == "+":
+        return num1 + num2
+    elif operation == "-":
+        return num1 - num2
+    elif operation == "*":
+        return num1 * num2
+    else:
+        return "지원하지 않는 연산입니다"
+
+# 계산기 사용하기
+result1 = simple_calculator(10, 5, "+")
+result2 = simple_calculator(10, 5, "*")
+
+print(f"10 + 5 = {result1}")  # 10 + 5 = 15
+print(f"10 × 5 = {result2}")  # 10 × 5 = 50
+```
+
+### 예제 2: 학점 계산기
+
+```python
+def calculate_grade(score):
+    if score >= 90:
+        return "A"
+    elif score >= 80:
+        return "B"
+    elif score >= 70:
+        return "C"
+    else:
+        return "F"
+
+# 여러 학생의 학점 계산
+students = [95, 87, 72, 65]
+
+for i, score in enumerate(students, 1):
+    grade = calculate_grade(score)
+    print(f"{i}번 학생: {score}점 → {grade}학점")
+```
+
+### 예제 3: 게임 점수 관리
+
+```python
+# 전역 변수로 게임 상태 관리
+player_score = 0
+high_score = 0
+
+def add_score(score):
+    global player_score, high_score
+    
+    player_score += score
+    
+    if player_score > high_score:
+        high_score = player_score
+        return True  # 신기록
+    
+    return False  # 기존 기록
+
+def get_current_status():
+    return player_score, high_score
+
+# 게임 플레이
+new_record = add_score(1500)
+if new_record:
+    print("🎉 신기록 달성!")
+
+current, highest = get_current_status()
+print(f"현재: {current}점, 최고: {highest}점")
+```
+
+## 🚨 자주 하는 실수들
+
+### 실수 1: 반환값 받지 않기
+
+```python
+def calculate_tax(price):
+    return price * 0.1
+
+# ❌ 결과를 받지 않음
+calculate_tax(10000)  # 계산은 되지만 결과가 사라짐
+
+# ✅ 결과를 변수에 저장
+tax = calculate_tax(10000)
+print(f"세금: {tax}원")
+```
+
+### 실수 2: 지역 변수를 밖에서 사용
+
+```python
+def calculate():
+    temp_value = 100
+    return temp_value * 2
+
+result = calculate()
+# print(temp_value)  # 오류! 지역 변수는 함수 밖에서 사용 불가
+print(f"결과: {result}")  # 결과만 사용 가능
+```
+
+### 실수 3: global 키워드 빼먹기
+
+```python
+total = 0
+
+# ❌ global 없이 전역 변수 수정 시도
+def add_wrong(value):
+    total += value  # 오류 발생!
+
+# ✅ global 키워드 사용
+def add_correct(value):
+    global total
+    total += value
+    return total
+
+result = add_correct(50)
+print(f"총합: {result}")
+```
+
+## 🎮 간단한 연습 문제
+
+### 연습 1: 온도 변환기
+
+```python
+def celsius_to_fahrenheit(celsius):
+    # 화씨 = 섭씨 * 9/5 + 32
+    # 여기에 코드를 작성하세요
+    pass
+
+# 테스트
+fahrenheit = celsius_to_fahrenheit(0)
+print(f"0°C = {fahrenheit}°F")  # 32°F가 나와야 함
+```
+
+### 연습 2: 나이 계산기
+
+```python
+def calculate_age(birth_year):
+    # 현재 년도를 2024로 가정
+    # 나이를 계산해서 돌려주세요
+    pass
+
+# 테스트
+my_age = calculate_age(2010)
+print(f"2010년생의 나이: {my_age}세")
+```
+
+### 연습 3: 쇼핑몰 할인 계산
+
+```python
+total_purchase_amount = 0  # 전역 변수
+
+def purchase(item_price):
+    global total_purchase_amount
+    # 구매 금액을 총합에 더하고
+    # 할인된 가격을 계산해서 돌려주세요
+    # (10만원 이상 구매 시 10% 할인)
+    pass
+
+# 테스트
+discounted_price = purchase(50000)
+print(f"할인 가격: {discounted_price}원")
+```
+
+## ✅ 반환값과 스코프 이해 체크리스트
+
+<InteractiveChecklist
+  storageKey="python-return-scope-basic-checklist"
+  title="✅ 반환값과 스코프 이해 체크리스트"
+  items={[
+    { id: "return_basic", text: "return으로 값을 돌려주는 방법을 안다" },
+    { id: "return_vs_print", text: "return과 print의 차이를 구분할 수 있다" },
+    { id: "multiple_return", text: "여러 개 값을 돌려주고 받을 수 있다" },
+    { id: "local_variable", text: "지역 변수의 개념을 이해했다" },
+    { id: "global_variable", text: "전역 변수의 개념을 이해했다" },
+    { id: "global_keyword", text: "global 키워드를 사용할 수 있다" },
+    { id: "scope_rules", text: "변수 범위 규칙을 알고 있다" },
+    { id: "practice", text: "간단한 연습 문제를 해결했다" },
+  ]}
+  completionMessage="🎉 축하합니다! 반환값과 스코프의 기본을 마스터했습니다!"
+/>
+
+## 🌟 다음 단계 미리보기
+
+다음 토픽에서는 **람다 함수**를 배워봅니다:
+
+- **한 줄**로 만드는 간단한 함수
+- **더 간결하고 깔끔한** 코드 작성
+- **고급 함수 기법** 맛보기
+
+예를 들어:
+```python
+# 일반 함수
+def square(x):
+    return x * x
+
+# 람다 함수 (한 줄로!)
+square_lambda = lambda x: x * x
+
+print(square(5))      # 25
+print(square_lambda(5))  # 25 (같은 결과!)
+```
+
+**함수가 더욱 간결해집니다!** 🚀
